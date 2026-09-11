@@ -7,7 +7,8 @@ Use sequential identifiers `WI-NNN`. Multiple Work Items may exist under one Pri
 - Status: `TODO`
 - Owner Role: `TODO`
 - Related Goal: `TODO`
-- Base Commit (full hash): `TODO`
+- Comparison Base Commit (full hash; state before task-specific issuance/execution changes): `TODO`
+- Execution Start Commit (full hash supplied by Technical Lead after the committed WI is present): `TODO in assignment and completion report`
 - Assigned Worktree: `TODO`
 - Assigned Branch: `TODO`
 - Local Commit Permission and Allowed Paths: `TODO`

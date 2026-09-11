@@ -30,8 +30,8 @@ Maintain work/, local EXP specifications, technical TR records, STATUS.md, and N
 
 ## Git Handoff Responsibilities
 
-- Before assignment, prepare or synchronize the named branch/worktree to the WI's full Base Commit and confirm it is clean.
-- Put the worktree, branch, Base Commit, authorized paths and tests, local-commit permission, and intended remote publication in the WI.
+- Before assignment, prepare or synchronize the named branch/worktree to the full Execution Start Commit and confirm it is clean; verify the WI Comparison Base Commit is its ancestor.
+- Put the worktree, branch, Comparison Base Commit, authorized paths and tests, local-commit permission, and intended remote publication in the WI; supply the full Execution Start Commit after the committed WI is present.
 - Receive mismatch and scope reports; ordinary task roles do not repair Git state on their own.
 - Review a fixed commit or explicit uncommitted diff, validate cited commit objects, and compare actual paths to WI scope.
 - Own WI status transitions and coordinate applicable review, correction, and integration gates.

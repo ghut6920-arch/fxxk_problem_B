@@ -30,7 +30,7 @@ Write audits/redteam/RT records and authorized isolated reproduction artifacts. 
 
 ## Git Handoff Responsibilities
 
-- Before review, report the absolute worktree, review branch, full HEAD, and status; stop and report any mismatch or unexplained change.
+- Before review, report the absolute worktree, review branch, full HEAD, and status; stop if HEAD differs from the Technical Lead-supplied Execution Start Commit, the WI Comparison Base Commit is not its ancestor, the WI is absent at HEAD, or any change is unexplained.
 - Review only fixed, resolvable target commits and the exact evidence named by the assignment. Do not repair, rebase, or rewrite the target branch.
 - Modify and stage only authorized Red Team records and isolated reproduction paths. Commit them only when the WI explicitly permits a local commit.
 - Return target hashes, finding severities, reproduction evidence, changed paths, full result commit, remaining issues, and remote push status.

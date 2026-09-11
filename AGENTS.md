@@ -84,17 +84,19 @@ This section is the authoritative Git handoff protocol for ordinary Work Item ex
 
 Before execution, every WI must identify:
 
-- the full 40-character Base Commit;
+- the full 40-character Comparison Base Commit used for provenance and diff/review comparison;
 - the assigned worktree path and branch;
 - authorized write paths and required tests;
 - whether the assigned role may create a local commit and which paths it may contain;
 - the required completion report and review recipient.
 
+Because a Git commit cannot contain its own hash, the Technical Lead supplies the full Execution Start Commit after the final WI is committed and the assigned branch/worktree is prepared. The Comparison Base Commit must be an ancestor of the Execution Start Commit, and the Execution Start Commit must contain the assigned WI. Record both hashes in the task assignment and completion report; do not attempt to embed the containing commit's hash into that same commit.
+
 A WI may record that remote publication is intended, but it does not grant remote-write authority. Every push still requires explicit user authorization for the specific remote, branch, and payload. Omission means no commit and no push.
 
 ### Pre-task Check
 
-The assigned role reads `AGENTS.md`, its role file, and the WI, then reports the absolute worktree path, current branch, full HEAD, and `git status --short --branch`. HEAD must equal the WI Base Commit and the worktree must contain no unexplained change.
+The assigned role reads `AGENTS.md`, its role file, and the WI, then reports the absolute worktree path, current branch, full HEAD, and `git status --short --branch`. HEAD must equal the full Execution Start Commit supplied by the Technical Lead; the WI Comparison Base Commit must be its ancestor; the WI must be present at HEAD; and the worktree must contain no unexplained change.
 
 On any path, branch, base, ownership, or worktree-state mismatch, stop the affected task and report to the Technical Lead. Ordinary task roles inspect but do not repair the mismatch: no self-directed pull, merge, rebase, reset, branch switch, worktree change, or history rewrite. Only a WI explicitly scoped to repository repair may authorize those actions.
 
@@ -110,7 +112,7 @@ On any path, branch, base, ownership, or worktree-state mismatch, stop the affec
 
 Run the WI-required checks and `git diff --check` against content that actually includes every changed path. A completion report must include:
 
-- worktree path, branch, Base Commit, and full result commit when one is authorized;
+- worktree path, branch, Comparison Base Commit, Execution Start Commit, and full result commit when one is authorized;
 - actual changed and staged paths;
 - commands, environment/shell when relevant, actual results, failures, and remaining issues;
 - local commit status and remote push status.
