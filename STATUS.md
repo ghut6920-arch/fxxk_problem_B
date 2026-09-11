@@ -28,7 +28,8 @@ None. `MODEL_SPEC.md` is intentionally absent.
 
 - `WI-001 / SMOKE-001` is `FIX_REQUIRED`; `TR-001` preserves the original review and a current-lineage recheck.
 - The historical Executor and Red Team smoke branches are not prepared bases for new work. Future tasks require a Technical Lead-declared Execution Start Commit under the Task Git Protocol.
-- The Red Team worktree contains an uncommitted, stale `RT-001.md` draft. It is not an accepted review record and must be handled by an independently assigned Red Team task.
+- `WI-005` independently versioned the historical Red Team recheck at `e980a021447497c48d6d95a978573c44b5a55fc3`; `WI-006` integrated its exact blob into local `main`, and `TR-005` passed that bounded evidence-delivery and integration scope.
+- `RT-001` leaves F1–F3 open at `MAJOR` and narrows but leaves F4 open at `MINOR`; it does not pass `SMOKE-001` or close `WI-001`.
 - No active collaboration issue authorizes history rewriting, branch deletion, object pruning, or remote publication.
 
 ## Blockers
