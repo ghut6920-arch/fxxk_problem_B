@@ -1,6 +1,6 @@
 # Work Items
 
-Use sequential identifiers `WI-NNN`. Multiple Work Items may exist under one Primary Integration Goal, but overlapping ownership of a core module requires coordination. The next identifier is `WI-006`.
+Use sequential identifiers `WI-NNN`. Multiple Work Items may exist under one Primary Integration Goal, but overlapping ownership of a core module requires coordination. The next identifier is `WI-007`.
 
 ## Minimal Template
 
