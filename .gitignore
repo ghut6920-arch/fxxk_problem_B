@@ -1,0 +1,42 @@
+# Python caches and environments
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+
+# IDE and operating-system files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Local secrets and environment overrides
+.env
+.env.*
+!.env.example
+
+# Generated transient files (experiment logs are evidence and stay trackable)
+*.tmp
+*.bak
+
+# Local simulator runtime state (do not treat runs as formal evidence)
+Jammers-simulator-win64/Jammers-simulator/JammersSimulatorData/behavior-logs/
+Jammers-simulator-win64/Jammers-simulator/JammersSimulatorData/behavior-runs/
+Jammers-simulator-win64/Jammers-simulator/JammersSimulatorData/*.sqlite3*
+Jammers-simulator-win64/Jammers-simulator/JammersSimulatorData/startup.log
+
+# Large local distributions and executables
+*.7z
+*.exe
+
+
+
+# Verified official binaries are deliberate repository artifacts.
+# Add them under problem/official/ and register them in MANIFEST.md.
+!problem/official/**/*.7z
+!problem/official/**/*.exe
