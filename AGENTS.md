@@ -76,6 +76,54 @@ Create `MODEL_SPEC.md` only after rule and data audits, problem decomposition, e
 
 Candidate experiments use their EXP SPEC and remain separate from formal implementation. Formal results follow the approval, verification, write, and closure requirements in Review Boundaries and Closure. Reference these gates from roles rather than duplicating them.
 
+## Task Git Protocol
+
+This section is the authoritative Git handoff protocol for ordinary Work Item execution. Role files assign responsibilities but do not duplicate or override this protocol.
+
+### Work Item Git Contract
+
+Before execution, every WI must identify:
+
+- the full 40-character Base Commit;
+- the assigned worktree path and branch;
+- authorized write paths and required tests;
+- whether the assigned role may create a local commit and which paths it may contain;
+- the required completion report and review recipient.
+
+A WI may record that remote publication is intended, but it does not grant remote-write authority. Every push still requires explicit user authorization for the specific remote, branch, and payload. Omission means no commit and no push.
+
+### Pre-task Check
+
+The assigned role reads `AGENTS.md`, its role file, and the WI, then reports the absolute worktree path, current branch, full HEAD, and `git status --short --branch`. HEAD must equal the WI Base Commit and the worktree must contain no unexplained change.
+
+On any path, branch, base, ownership, or worktree-state mismatch, stop the affected task and report to the Technical Lead. Ordinary task roles inspect but do not repair the mismatch: no self-directed pull, merge, rebase, reset, branch switch, worktree change, or history rewrite. Only a WI explicitly scoped to repository repair may authorize those actions.
+
+### Execution and Local Commit
+
+- Modify only WI-authorized paths and preserve unrelated or pre-existing changes.
+- Do not write directly to `main` unless the WI assigns that exact integration or maintenance work to an authorized maintainer.
+- Do not stage unrelated paths. Before committing, compare the staged path list to the WI and check for unintended large files.
+- Create a local commit only when the WI explicitly permits it. A commit records an output; it is not approval, selection, review closure, integration authority, or permission to push.
+- While any review cites a commit, do not amend, rebase, filter, force-update, prune, or otherwise make the cited history unavailable. A required history change stops affected review work and is escalated first.
+
+### Completion Handoff
+
+Run the WI-required checks and `git diff --check` against content that actually includes every changed path. A completion report must include:
+
+- worktree path, branch, Base Commit, and full result commit when one is authorized;
+- actual changed and staged paths;
+- commands, environment/shell when relevant, actual results, failures, and remaining issues;
+- local commit status and remote push status.
+
+Before review, the reviewer validates every cited commit with `git cat-file -e "<full-hash>^{commit}"` and reviews a fixed commit or explicit uncommitted diff, never an unspecified moving branch tip. A missing commit or changed target stops the affected review and returns to the Technical Lead.
+
+### Remote Publication and Integration
+
+- Push only after explicit user authorization identifies the remote, branch, and payload. First publication of a role branch sets its upstream; later pushes remain subject to explicit authorization.
+- Executor and Red Team publish only their assigned branches and never push or merge directly to `main` unless a separate WI and explicit user authorization assign that exact action.
+- Technical Lead coordinates applicable reviews, updates WI status, and integrates only the reviewed version. Before the next task, Technical Lead prepares or synchronizes its assigned branch/worktree to the new declared Base Commit.
+- Worktrees are expected to diverge during assigned work; they are required to share the declared base at task start, not to remain continuously identical.
+
 ## Branches and Coordinated Writes
 
 - `main`: reviewed, internally consistent integration state.

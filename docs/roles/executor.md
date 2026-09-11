@@ -27,3 +27,13 @@ Follow AGENTS.md, Escalation Routing, for triggers and recipients, and Review Bo
 ## Outputs
 
 Deliver WI-required code, derived data, configuration, tests, logs, metrics, figures, and execution report. Include actual commands, checks, failures, and remaining blockers. Do not independently rewrite shared project state or strategic decisions. Write approved formal artifacts only under the checked WI specified in AGENTS.md, Review Boundaries and Closure.
+
+## Git Handoff Responsibilities
+
+- Before work, report the absolute worktree, branch, full HEAD, and status; stop and report any mismatch with the WI Base Commit or unexplained change.
+- Do not self-direct pull, merge, rebase, reset, branch switching, worktree repair, or history rewriting.
+- Modify and stage only WI-authorized paths. Commit only when the WI explicitly permits a local commit and return the full result hash.
+- Report actual changed paths, tests, shell/environment when relevant, failures, remaining issues, local commit status, and remote push status.
+- Push only after explicit user authorization for the named remote, branch, and payload. Never push or merge directly to `main` without separately assigned authority.
+
+Follow `AGENTS.md`, Task Git Protocol; this section assigns responsibility and does not replace that protocol.

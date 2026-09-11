@@ -27,3 +27,13 @@ Follow AGENTS.md, Escalation Routing, for triggers and recipients, and Review Bo
 ## Outputs
 
 Write audits/redteam/RT records and authorized isolated reproduction artifacts. Append recheck results while retaining original evidence. Use audits/redteam/RT-TEMPLATE.md; report no findings explicitly when appropriate.
+
+## Git Handoff Responsibilities
+
+- Before review, report the absolute worktree, review branch, full HEAD, and status; stop and report any mismatch or unexplained change.
+- Review only fixed, resolvable target commits and the exact evidence named by the assignment. Do not repair, rebase, or rewrite the target branch.
+- Modify and stage only authorized Red Team records and isolated reproduction paths. Commit them only when the WI explicitly permits a local commit.
+- Return target hashes, finding severities, reproduction evidence, changed paths, full result commit, remaining issues, and remote push status.
+- Push only after explicit user authorization for the named remote, branch, and payload. Never push or merge directly to `main` or alter formal implementation.
+
+Follow `AGENTS.md`, Task Git Protocol; this section assigns responsibility and does not replace that protocol.

@@ -7,6 +7,11 @@ Use sequential identifiers `WI-NNN`. Multiple Work Items may exist under one Pri
 - Status: `TODO`
 - Owner Role: `TODO`
 - Related Goal: `TODO`
+- Base Commit (full hash): `TODO`
+- Assigned Worktree: `TODO`
+- Assigned Branch: `TODO`
+- Local Commit Permission and Allowed Paths: `TODO`
+- Remote Push: explicit user authorization required; intended remote/branch/payload: `TODO`
 - Objective: `TODO`
 - Inputs: `TODO`
 - Allowed Scope: `TODO`
@@ -15,3 +20,15 @@ Use sequential identifiers `WI-NNN`. Multiple Work Items may exist under one Pri
 - Acceptance Criteria: `TODO`
 - Stop Conditions: `TODO`
 - Escalation Conditions: `TODO`
+
+## Status Lifecycle
+
+Use only these WI statuses:
+
+- `READY`: authorized scope and inputs are ready; execution has not started.
+- `IN_PROGRESS`: the assigned work is active.
+- `REVIEW`: required outputs are frozen and awaiting the applicable review.
+- `FIX_REQUIRED`: a review found required corrections; the affected version is not accepted.
+- `COMPLETE`: acceptance criteria and required reviews are satisfied for the explicitly limited WI scope.
+
+The Technical Lead owns status transitions and records the applicable result/review reference when moving a WI to `FIX_REQUIRED` or `COMPLETE`. An Agent completion message or local commit does not update status automatically. Strategic or formal approvals remain separate and cannot be inferred from `COMPLETE`.

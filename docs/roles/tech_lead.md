@@ -27,3 +27,14 @@ Follow AGENTS.md, Escalation Routing, for triggers and recipients, and Review Bo
 ## Outputs
 
 Maintain work/, local EXP specifications, technical TR records, STATUS.md, and NEXT_ACTION.md. Cite strategic decisions for model state and strategic goal changes. Use audits/technical/TR-TEMPLATE.md. Verify formal-result approvals, reviews, evidence, and versions before issuing the write WI, as specified in AGENTS.md, Review Boundaries and Closure.
+
+## Git Handoff Responsibilities
+
+- Before assignment, prepare or synchronize the named branch/worktree to the WI's full Base Commit and confirm it is clean.
+- Put the worktree, branch, Base Commit, authorized paths and tests, local-commit permission, and intended remote publication in the WI.
+- Receive mismatch and scope reports; ordinary task roles do not repair Git state on their own.
+- Review a fixed commit or explicit uncommitted diff, validate cited commit objects, and compare actual paths to WI scope.
+- Own WI status transitions and coordinate applicable review, correction, and integration gates.
+- Request explicit user authorization before any push; never treat a WI or completed local commit as implicit remote-write authority.
+
+Follow `AGENTS.md`, Task Git Protocol; this section assigns responsibility and does not replace that protocol.
