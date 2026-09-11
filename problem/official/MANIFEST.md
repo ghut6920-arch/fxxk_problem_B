@@ -30,7 +30,7 @@ The following pre-existing paths are not authoritative until verified and regist
 - `附件/附件1.docx`
 - `附件/附件2.docx`
 - `先读下载说明.pdf`
-- `模拟器操作演示.mp4`
+- `模拟器操作演示.mp4` — all working-tree copies were deleted on 2026-09-11 by explicit user authorization. The file was never verified or committed and is unavailable for use as evidence unless separately re-intaken and verified. A transient unreachable Git object created by prior staging may remain until normal garbage collection; it is not part of repository history.
 - `Jammers-simulator-full-win64.7z`
 - `Jammers-simulator-win64.7z`
 - `Jammers-simulator-win64/`
