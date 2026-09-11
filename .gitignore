@@ -40,3 +40,4 @@ Jammers-simulator-win64/Jammers-simulator/JammersSimulatorData/startup.log
 # Add them under problem/official/ and register them in MANIFEST.md.
 !problem/official/**/*.7z
 !problem/official/**/*.exe
+*.mp4
