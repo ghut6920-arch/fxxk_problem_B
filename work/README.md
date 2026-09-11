@@ -1,6 +1,6 @@
 # Work Items
 
-Use sequential identifiers `WI-NNN`. Multiple Work Items may exist under one Primary Integration Goal, but overlapping ownership of a core module requires coordination. The next identifier is `TODO`.
+Use sequential identifiers `WI-NNN`. Multiple Work Items may exist under one Primary Integration Goal, but overlapping ownership of a core module requires coordination. The next identifier is `WI-002`.
 
 ## Minimal Template
 
@@ -15,4 +15,3 @@ Use sequential identifiers `WI-NNN`. Multiple Work Items may exist under one Pri
 - Acceptance Criteria: `TODO`
 - Stop Conditions: `TODO`
 - Escalation Conditions: `TODO`
-
