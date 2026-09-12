@@ -60,6 +60,22 @@ Affected Stages: local `main` now carries the WI-014 evaluator; WI-015 may write
 
 Reopen Conditions: Evidence that C0 P1-A implementation requires changing plan mathematics, mixing evaluator and candidate authors, or expanding into C1/C2/P1-B. A later user instruction may still withhold push.
 
+### D-004 User accepts same-model WI-015 Executor
+
+Date: 2026-09-12
+
+Question: May WI-015 be executed by `deepseek-flash` in a new session, despite that model having authored `src/evaluator/`?
+
+Decision: Yes, under user instruction. Same-model new session is allowed for this WI only. It does **not** establish §4.5 author isolation. Candidate must not copy or import the evaluator. This residual blocks treating later evaluation as independent until a different challenge owner exists; it does not reopen C0 mathematics.
+
+Evidence: User 2026-09-12: “还是用回deepseek-flash”.
+
+Rejected Alternatives: Claiming a new `deepseek-flash` chat is a different author; stopping WI-015 until another product is available.
+
+Scope: `configuration` (independence waiver). Not model-family, not selection.
+
+Reopen Conditions: Formal promotion or `P1A_PROPERTIES_*` acceptance that asserts isolated authorship.
+
 ## Decision Template
 
 ### D-TODO

@@ -41,10 +41,10 @@ None. `MODEL_SPEC.md` is intentionally absent.
 - `WI-012` is `COMPLETE`; `TR-011` passed Executor result `beb2651cd0289df7b22f8fc8b643c30c794a328d` with conclusion `P0_PREMISES_CLEAR`. The P0 record is on `main` as `evidence/experiments/EXP-001/P0_STATIC_REVIEW.md` (byte-identical to that result). That PASS authorized drafting a P1-A SPEC, not implementation.
 - `WI-013` is `COMPLETE` by user authorization D-001 (SPEC usable); not an independent TR-012 PASS. `experiments/EXP-002/SPEC.md` remains the P1-A freeze.
 - `WI-014` is `COMPLETE` for evaluator/fixtures at `1ae791b8055690fd9d1239d0e864819865b58f6b`, locally merged onto `main` as `61465c5513c5bdc3d593d3fd389f6866d8339721`. Author conclusion remains `EVALUATOR_FIXTURES_OPEN`. Evaluator author remains barred from `src/candidate/`.
-- `WI-015` is `READY` / issued: C0 P1-A candidate implementation by a **different** author. Not started in this Technical Lead session. Not a property-run WI.
+- `WI-015` is `READY` / issued. User D-004 allows `deepseek-flash` in a new session to write the candidate; §4.5 isolation is **not** claimed. Not a property-run WI.
 
 - No active collaboration issue authorizes history rewriting, branch deletion, object pruning, or remote publication.
 
 ## Blockers
 
-- WI-015 waits for a different Executor. Push, P1-A property-run WI, P1-B, selection, and `RT-002` closure remain unauthorized. RT-003 F6 remains a standing isolation caveat until independent candidate authorship and later challenge exist.
+- WI-015 waits for the D-004 `deepseek-flash` session. Push, P1-A property-run WI, P1-B, selection, and `RT-002` closure remain unauthorized. Same-model candidate is a recorded isolation residual, not independent authorship.
