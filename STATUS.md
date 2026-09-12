@@ -2,7 +2,7 @@
 
 ## Competition Stage
 
-Official inputs and prior plan/design remain as recorded below. WI-014 evaluator/fixtures are on local `main`. WI-015 C0 candidate is technically accepted at `e4ee8febfc8ff89e927eba436e81e2ae7759af1c` (TR-014 PASS; RT-004 at `f06fd5915c9ec325eca55011c848718da7cc01e5`). SR-002 / D-005 bind C0-default claims and failure grades. D-004 isolation residual remains (RT4-F1). Not merged, not pushed, not a P1-A property run, not selection.
+Official inputs and prior plan/design remain as recorded below. WI-014 evaluator/fixtures are on local `main`. WI-015 C0 candidate is technically accepted at `e4ee8febfc8ff89e927eba436e81e2ae7759af1c` (TR-014 PASS; RT-004; TR-015). SR-002 / D-005 bind C0-default claims. WI-016 (full C0 P1-A property run) is issued, not executed. D-004 isolation residual remains. Not merged, not pushed, not selection.
 
 ## Verified Facts
 
@@ -41,10 +41,11 @@ None. `MODEL_SPEC.md` is intentionally absent.
 - `WI-012` is `COMPLETE`; `TR-011` passed Executor result `beb2651cd0289df7b22f8fc8b643c30c794a328d` with conclusion `P0_PREMISES_CLEAR`. The P0 record is on `main` as `evidence/experiments/EXP-001/P0_STATIC_REVIEW.md` (byte-identical to that result). That PASS authorized drafting a P1-A SPEC, not implementation.
 - `WI-013` is `COMPLETE` by user authorization D-001 (SPEC usable); not an independent TR-012 PASS. `experiments/EXP-002/SPEC.md` remains the P1-A freeze.
 - `WI-014` is `COMPLETE` for evaluator/fixtures at `1ae791b8055690fd9d1239d0e864819865b58f6b`, locally merged onto `main` as `61465c5513c5bdc3d593d3fd389f6866d8339721`. Author conclusion remains `EVALUATOR_FIXTURES_OPEN`. Evaluator author remains barred from `src/candidate/`.
-- `WI-015` is `COMPLETE` for implementation at `e4ee8febfc8ff89e927eba436e81e2ae7759af1c` (TR-014 PASS). Author conclusion `CANDIDATE_IMPL_READY` is implementation-only. §4.5 isolation is **not** claimed (D-004). Unmerged, unpushed. Not a property-run WI.
+- `WI-015` is `COMPLETE` for implementation at `e4ee8febfc8ff89e927eba436e81e2ae7759af1c` (TR-014 PASS; RT-004; TR-015). Isolation is **not** claimed (D-004 / RT4-F1). Unmerged, unpushed.
+- `WI-016` is `READY` / issued: full C0 P1-A property run. MINOR RT4-F2/F3 not repaired first. Not started in this Technical Lead session.
 
 - No active collaboration issue authorizes history rewriting, branch deletion, object pruning, or remote publication.
 
 ## Blockers
 
-- RT-004 is recorded. Remaining: optional MINOR repair of RT4-F2/F3; user authorization of a **full** C0 P1-A run WI. SR-002 / D-005 bind wording (including forbidden independent-evaluation phrases), failure grades, budget-0 experiments, and the full formal-slot gate list. Deadline use of a formal slot requires explicit user risk acceptance and still does not close `RT-002`. Do not start P1-A, open C1/C2/P4/P5, push, or claim formal qualification from this status.
+- WI-016 waits for Executor. SR-002 / D-005 still bind wording, failure grades, budget-0 experiments, and formal-slot gates. Do not open C1/C2/P4/P5, consume a formal slot, close `RT-002`, or treat a later P1-A conclusion as independent evaluation.
