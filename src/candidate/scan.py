@@ -10,7 +10,9 @@ Plan mapping (``modeling/COMPLETE_MODEL_PLAN.md``):
   ``S + (10 + 20i) t + (-20 + 20j) t_perp``; cell-to-centre distance
   ``<= 10*sqrt(2) < 20``; a submitted centre may deviate from the mathematical
   centre by at most ``1 m`` in Euclidean norm; adjacent submitted centres are
-  at most ``22 m`` apart.
+  at most ``22 m`` apart.  The centres are visited in a snake taken in the
+  **local** core indices ``(i, j)`` *before* the rotation (WI-018), so every
+  consecutive emitted step is one 20 m cell side or one 20 m row wrap.
 """
 
 from __future__ import annotations
@@ -81,17 +83,42 @@ def q4_scan_sequence():
 # --- 225-point clear rectangle (plan section 5.2) ---------------------------
 
 
+def local_core_snake(rows=ROWS, cols=COLS):
+    """The 225 local core indices ``(i, j)`` in row-major snake order.
+
+    Row ``j`` (``j = 0, 1, 2``) is traversed with ``i`` increasing for even ``j``
+    and decreasing for odd ``j``, so the order is fixed **before** any rotation.
+    Consecutive cores are then either one cell side (20 m) apart along the local
+    ``x`` axis or one 20 m row wrap apart along the local ``y`` axis (plan
+    section 5.2).
+    """
+    order = []
+    for j in range(rows):
+        indices = range(cols) if j % 2 == 0 else range(cols - 1, -1, -1)
+        for i in indices:
+            order.append((i, j))
+    return order
+
+
 def clear_rectangle_centres(s, theta):
-    """The 225 side-20 cell centres of ``G(S, theta)`` in snake order."""
+    """The 225 side-20 cell centres of ``G(S, theta)`` in snake order.
+
+    The snake is taken in the **local** core indices and only then rotated and
+    translated by ``S + x t + y t_perp``.  Snaking *after* the rotation (ordering
+    by global ``y``) interleaves different local rows whenever ``theta`` is not a
+    multiple of 90 degrees: at ``theta = 45 deg`` consecutive submitted centres
+    then reach ``sqrt(40^2 + 60^2) ~ 72.1 m``, breaking the ``(225 - 1) * 22 m``
+    connect-path bound of plan section 5.3 (see ``v_source_bound``).  The 225-point
+    *set* is identical either way; only the emitted order changes.
+    """
     t = (math.cos(theta), math.sin(theta))
     n = perp(t)
     pts = []
-    for j in range(ROWS):
-        for i in range(COLS):
-            x = 10.0 + 20.0 * i
-            y = -20.0 + 20.0 * j
-            pts.append((s[0] + x * t[0] + y * n[0], s[1] + x * t[1] + y * n[1]))
-    return snake_order(pts)
+    for i, j in local_core_snake():
+        x = 10.0 + 20.0 * i
+        y = -20.0 + 20.0 * j
+        pts.append((s[0] + x * t[0] + y * n[0], s[1] + x * t[1] + y * n[1]))
+    return pts
 
 
 def clear_plan(s, theta, first_observation):

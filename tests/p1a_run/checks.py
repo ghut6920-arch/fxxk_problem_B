@@ -600,7 +600,31 @@ def g16(fx, _ev):
     checks.append(("adjacent nominal 20 m and the 22 m bound with two 1 m errors",
                    approx(ev.dist(a, b), exp["adjacent_nominal"]) and scan.adjacent_submitted_bound()
                    == exp["adjacent_bound_with_1m_errors"] == 22.0, f"{scan.adjacent_submitted_bound()}"))
-    return checks, ["clear results are evaluated with the submitted centre against the true (evaluator-side) source"], _flags()
+    # WI-018: the *emitted* order must satisfy the bound, not just the nominal pair above.
+    # G16's fixture heading is 0 deg, where the pre-repair global-y snake coincided with the
+    # local core snake, so this fixture alone could not see the long-step defect: at 45 deg
+    # 150 of 224 steps reached sqrt(40^2+60^2) ~ 72.11 m.  Rotated rectangles are generated
+    # here from the same S (the fixture is not edited).
+    bound = scan.adjacent_submitted_bound()
+    for theta_deg in (45.0, 90.0, 123.456):
+        rotated = scan.clear_rectangle_centres(s, math.radians(theta_deg))
+        step_lengths = [math.hypot(rotated[k][0] - rotated[k - 1][0], rotated[k][1] - rotated[k - 1][1])
+                        for k in range(1, len(rotated))]
+        worst_step = max(step_lengths) if step_lengths else 0.0
+        total = sum(step_lengths)
+        checks.append((f"all {len(step_lengths)} consecutive clear centres at theta={theta_deg:g} deg "
+                       f"are within the {bound:g} m submitted bound",
+                       len(rotated) == 225 and len(step_lengths) == 224 and worst_step <= bound + 1e-9,
+                       f"max step {worst_step:.6f} m"))
+        checks.append((f"theta={theta_deg:g} deg clear connect path stays within (225-1)*22 m",
+                       total <= (len(rotated) - 1) * bound,
+                       f"{total:.3f} m <= {(len(rotated) - 1) * bound:.1f} m"))
+        over = sum(1 for step in step_lengths if step > bound + 1e-9)
+        checks.append((f"no over-long step survives at theta={theta_deg:g} deg",
+                       over == 0, f"{over} of {len(step_lengths)} steps over {bound:g} m"))
+    return checks, ["clear results are evaluated with the submitted centre against the true (evaluator-side) source",
+                    "the emitted 225-centre order is snaked in local core indices before rotation "
+                    "(WI-018 repair); rotated headings are generated from the same S without editing the fixture"], _flags()
 
 
 # ---------------------------------------------------------------- T01-T10
