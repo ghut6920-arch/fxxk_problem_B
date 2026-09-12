@@ -1,14 +1,13 @@
 # Primary Integration Goal
 
-Execute WI-016: full C0 P1-A property run of frozen candidate `e4ee8febfc8ff89e927eba436e81e2ae7759af1c` against the frozen evaluator.
+Execute WI-017: P1-B protocol adapter and at most one Q3 plus one Q4 **practice** C0 run. User starts the local simulator in practice mode.
 
 ## Acceptance Criteria
 
-- Every G01–G16 and T01–T10 item is attempted; 10 s / 4 min 20 s caps recorded.
-- Conclusion is exactly one of `P1A_PROPERTIES_PASS` / `FAIL` / `UNRESOLVED`.
-- D-004/SR-002 wording: same-model internal check, not independent evaluation.
-- No edits to `src/candidate/`, `src/evaluator/`, or fixtures. No C1, P1-B, formal slot, merge, or push.
+- T11–T12 mock pass or the report is honestly not PASS.
+- Live runs are practice only; abort if formal. Origin waiver (D-006) is disclosed, not claimed as verification.
+- No C1, no formal slot, no `RT-002` closure, no independent-evaluation wording, no push.
 
-Status: IN_PROGRESS — WI-016 issued; waiting for Executor.
+Status: IN_PROGRESS — WI-017 issued; waiting for Executor after the user starts practice-mode simulator.
 
-Owner: Implementation Engineer; Technical Lead reviews the fixed run report.
+Owner: User (start practice simulator); Implementation Engineer (WI-017); Technical Lead (review).

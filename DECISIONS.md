@@ -90,6 +90,22 @@ Affected stages: no C1/C2/P4/P5 WIs from this note; any later P1-A run WI must b
 
 Reopen: official-rule change; reviewed theoretical counterexample; a named model-variant still violating its core mechanism after two substantive repairs; or the SR-002 real-time qualifications. A single self-test failure does not fail C0 analytic geometry or the whole candidate family.
 
+### D-006 User authorizes P1-B + C0 practice; waives simulator-origin audit for this WI
+
+Date: 2026-09-13
+
+Question: May Technical Lead skip independent simulator-origin hashing and open a P1-B adapter plus C0 **practice** WI, with the user starting the local simulator?
+
+Decision: Yes. Origin audit is **waived for this WI only** on the user's guarantee. This does **not** satisfy SR-002's formal-slot gate “simulator origin verified” as independent evidence. Practice mode only. No formal slot. No C1. Existing `JammersSimulatorData/behavior-logs/` are not C0 evidence.
+
+Evidence: User 2026-09-13: “按这个开，模拟器我可以保证没问题你不用检查了，你准备好了我就启动模拟器”.
+
+Rejected: treating the waiver as origin verification; consuming a formal test; enabling C1 from one practice look; reading simulator internal logs as policy input.
+
+Scope: `configuration` (process waiver) plus P1-B/P3-practice implementation authorization. Not selection, not RT-002 closure.
+
+Reopen: user retracts the guarantee; a practice run shows unknown accepts or unexplained deadline failure; request to treat this as formal qualification.
+
 ## Decision Template
 
 ### D-TODO

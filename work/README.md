@@ -1,6 +1,6 @@
 # Work Items
 
-Use sequential identifiers `WI-NNN`. Multiple Work Items may exist under one Primary Integration Goal, but overlapping ownership of a core module requires coordination. The next identifier is `WI-017`. `WI-014` is the evaluator/fixture WI. `WI-015` is the C0 candidate implementation. `WI-016` is the C0 P1-A property-run WI; it must not edit evaluator, fixtures, or candidate source.
+Use sequential identifiers `WI-NNN`. Multiple Work Items may exist under one Primary Integration Goal, but overlapping ownership of a core module requires coordination. The next identifier is `WI-018`. `WI-017` is P1-B adapter plus C0 practice (not formal, not C1).
 
 Long-lived worktrees: Technical Lead `B题` (`main`), Executor `B题-executor`, Red Team `B题-redteam`. There is no in-repo Strategist worktree.
 

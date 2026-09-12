@@ -2,7 +2,7 @@
 
 ## Competition Stage
 
-Official inputs and prior plan/design remain as recorded below. WI-014 evaluator/fixtures are on local `main`. WI-015 C0 candidate is technically accepted at `e4ee8febfc8ff89e927eba436e81e2ae7759af1c` (TR-014 PASS; RT-004; TR-015). SR-002 / D-005 bind C0-default claims. WI-016 (full C0 P1-A property run) is issued, not executed. D-004 isolation residual remains. Not merged, not pushed, not selection.
+Official inputs and prior plan/design remain as recorded below. WI-016 P1-A finite-fixture PASS stands. User D-006 opened WI-017 (P1-B + C0 practice) and waived simulator-origin audit for that WI only; this is not formal qualification. C1 and formal slots remain closed.
 
 ## Verified Facts
 
@@ -42,10 +42,11 @@ None. `MODEL_SPEC.md` is intentionally absent.
 - `WI-013` is `COMPLETE` by user authorization D-001 (SPEC usable); not an independent TR-012 PASS. `experiments/EXP-002/SPEC.md` remains the P1-A freeze.
 - `WI-014` is `COMPLETE` for evaluator/fixtures at `1ae791b8055690fd9d1239d0e864819865b58f6b`, locally merged onto `main` as `61465c5513c5bdc3d593d3fd389f6866d8339721`. Author conclusion remains `EVALUATOR_FIXTURES_OPEN`. Evaluator author remains barred from `src/candidate/`.
 - `WI-015` is `COMPLETE` for implementation at `e4ee8febfc8ff89e927eba436e81e2ae7759af1c` (TR-014 PASS; RT-004; TR-015). Isolation is **not** claimed (D-004 / RT4-F1). Unmerged, unpushed.
-- `WI-016` is `READY` / issued: full C0 P1-A property run. MINOR RT4-F2/F3 not repaired first. Not started in this Technical Lead session.
+- `WI-016` is `COMPLETE` at `761c0f7788ed773d2a132b92caaa9e1378b22c88` (TR-016 PASS). Author and independent rerun: `P1A_PROPERTIES_PASS` (26/26). Wording: same-model internal fixture agreement, not independent evaluation. Independent challenge of this run commit is recorded absent. Unmerged, unpushed.
+- `WI-017` is `READY` / issued: P1-B adapter + C0 practice (D-006). Not started in this Technical Lead session.
 
 - No active collaboration issue authorizes history rewriting, branch deletion, object pruning, or remote publication.
 
 ## Blockers
 
-- WI-016 waits for Executor. SR-002 / D-005 still bind wording, failure grades, budget-0 experiments, and formal-slot gates. Do not open C1/C2/P4/P5, consume a formal slot, close `RT-002`, or treat a later P1-A conclusion as independent evaluation.
+- WI-017 is issued. Simulator origin is user-guaranteed (D-006), not independently hashed. Do not open C1, consume a formal slot, or close `RT-002`. Independent challenge of run `761c0f7` remains absent.
