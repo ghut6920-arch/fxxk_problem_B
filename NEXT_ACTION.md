@@ -1,13 +1,13 @@
 # Primary Integration Goal
 
-Hold C0 after a same-model P1-A finite-fixture PASS at `761c0f7788ed773d2a132b92caaa9e1378b22c88`. Do not open C1 or a formal slot.
+Execute WI-017: P1-B protocol adapter and at most one Q3 plus one Q4 **practice** C0 run. User starts the local simulator in practice mode.
 
 ## Acceptance Criteria
 
-- Paper/status wording stays inside SR-002: fixture agreement, not independent evaluation.
-- `RT-002` stays open. Independent challenge of run `761c0f7` is recorded as absent unless a later Red Team targets that commit.
-- No C1/C2/P4/P5, no figure-only reruns, no merge/push without a new named authorization.
+- T11–T12 mock pass or the report is honestly not PASS.
+- Live runs are practice only; abort if formal. Origin waiver (D-006) is disclosed, not claimed as verification.
+- No C1, no formal slot, no `RT-002` closure, no independent-evaluation wording, no push.
 
-Status: WAITING_FOR_USER_AUTHORIZATION — WI-016 COMPLETE; P1-B and formal gates unmet.
+Status: IN_PROGRESS — WI-017 issued; waiting for Executor after the user starts practice-mode simulator.
 
-Owner: User (retrieve report / optional MINOR repair / later P1-B); Technical Lead issues the named WI only after that.
+Owner: User (start practice simulator); Implementation Engineer (WI-017); Technical Lead (review).
