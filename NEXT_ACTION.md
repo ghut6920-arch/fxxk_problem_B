@@ -10,6 +10,6 @@ Goal: Design the smallest staged validation program for C0/C1/C2, with fair comp
 - Protect formal opportunities from debugging or tuning and gate C2 behind evidence of material value.
 - Do not create an EXP specification, run a simulator/experiment, implement code, make a final selection, or create `MODEL_SPEC.md`.
 
-Status: IN_PROGRESS — WI-010 experiment-design work started at `bdeb26bd1247a85df479b91b9fdae5e6293e2d2a`; execution remains forbidden
+Status: FIX_REQUIRED — `TR-009`/`RT-002` require bounded experiment-roadmap corrections at fixed result `e3db435226eb5b2454b4d2a728c57464e8649e53`; experiment execution remains forbidden
 
 Owner Role: Strategist
