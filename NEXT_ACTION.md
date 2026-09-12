@@ -10,6 +10,6 @@ Goal: Produce a complete mathematical plan and implementation-ready pseudocode f
 - Specify C1's finite outer state, response updates, fair fallback queue, and remaining-cost certificate; retain C2 only as an unselected candidate.
 - Do not write an EXP specification, run a simulator/experiment, implement code, make a final selection, or create `MODEL_SPEC.md`.
 
-Status: FIX_REQUIRED — `TR-008` requires two bounded documentation corrections to result `1b42abf8cf4ad07355c386089443871b4e7b65b2`; no mathematical-strategy change is requested
+Status: TECHNICALLY REVIEWED — `TR-008` recheck passed corrected fixed result `44bf45ab43fbba6d14461b13c485890db437dd30`; subsequent experiment design or execution requires separate scope
 
 Owner Role: Strategist
