@@ -47,4 +47,4 @@ None. `MODEL_SPEC.md` is intentionally absent.
 
 ## Blockers
 
-- RT-004 is recorded. Remaining: optional MINOR repair of RT4-F2/F3; user authorization of a **full** C0 P1-A run WI. SR-002 / D-005 bind wording and failure grades. Do not start P1-A, close `RT-002`, or open C1 from this status. Push, P1-B, selection, and independent-evaluation claims remain unauthorized.
+- RT-004 is recorded. Remaining: optional MINOR repair of RT4-F2/F3; user authorization of a **full** C0 P1-A run WI. SR-002 / D-005 bind wording, failure grades, budget-0 optional experiments, and “do not consume formal slots yet.” Do not start P1-A, close `RT-002`, or open C1/C2/P4/P5 from this status. Push, P1-B, selection, independent-evaluation claims, and formal-test qualification claims remain unauthorized.
