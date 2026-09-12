@@ -7,11 +7,12 @@
 
 ## Fields and Semantics
 
-- Latent case fields for Problem 3: total source count, per-source channel, position, and effective receive radius. Problem 4 additionally has source type/directional direction; omnidirectional sources have no directional direction. Sources: OFFICIAL-001 Appendices 3–4.
+- Latent case fields for Problem 3: total source count, per-source channel, position, and effective receive radius. Problem 4 additionally has source type/directional direction; omnidirectional sources have no directional direction, and OFFICIAL-001 p.2 confirms that every Problem 4 case contains both source types. Sources: OFFICIAL-001 p.2 and Appendices 3–4.
 - Directly observable action inputs: `position`, `channel`, `request_id`, plus `arena_id="default"` and the logged-in team identifier as `robot_id`. Source: OFFICIAL-003 §§5–9.
 - Directly observable accepted-response fields include real timestamp and virtual time; `/measure` adds `measure_result` and conditionally `svd_deg`; `/clear` adds `clear_result`; `/enter` adds configured and remaining time fields. Source: OFFICIAL-003 Tables 2, 5, 7, and 9.
-- `svd_deg` is a noisy bearing rounded/displayed to two decimal places, not distance or position. `no_signal` is censored/ambiguous evidence, not a direct absence label. Source: `problem/RULES.md` and OFFICIAL-003 §§2.2–2.3.
+- `svd_deg` is the returned noisy bearing retained to two decimal places, not distance or position. OFFICIAL-003 §2.3 places the `[-1°,1°]` error bound directly between returned `svd_deg` and the true bearing, so two-decimal display does not independently enlarge that contractual bound. `no_signal` is censored/ambiguous evidence, not a direct absence label. Source: `problem/RULES.md` and OFFICIAL-003 §§2.2–2.3.
 - Rehearsal completion reveals total, omnidirectional, and directional counts through the UI. Formal-test interfaces and completion displays do not reveal case truth. Source: OFFICIAL-002 §4.6; OFFICIAL-001 Appendices 3–4.
+- The configured virtual-world duration is directly observable through `/enter`; the documented default is 360000 seconds (100 hours). The returned run configuration, rather than an assumed default, is the usable limit for budget checks. Source: OFFICIAL-002 §2.5; OFFICIAL-003 §§4.5, 6.1.
 
 ## Quality, Missingness, and Anomalies
 

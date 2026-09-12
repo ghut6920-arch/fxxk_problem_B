@@ -1,14 +1,15 @@
 # Primary Integration Goal
 
-Goal: Develop 2–3 candidate mathematical-model routes, including one simple baseline, without experiment design or execution.
+Goal: Produce a complete mathematical plan and implementation-ready pseudocode for Questions 1–4, including deterministic coverage, conservative state updates, fair fallback scheduling, and auditable cost bounds, without experiment execution or implementation.
 
 ## Acceptance Criteria
 
-- Define variables, parameters, observability, objectives, constraints, and boundary conditions with links to verified rules and explicit assumptions.
-- Describe 2–3 reasonable candidate routes, including a simple baseline, with applicability, advantages, risks, and solution outline.
-- Compare candidates using one common conceptual standard and recommend which route should be validated first, while leaving final selection open.
-- Do not write an EXP specification, run a simulator/experiment, formally implement a strategy, or create `MODEL_SPEC.md`.
+- Correct the Question 4 mixed-type domain and the returned-bearing/virtual-limit interpretations from verified official sources.
+- Complete computable procedures and pseudocode for Questions 1–2, with conservative numerical handling.
+- Specify separate deterministic coverage backbones for Questions 3–4, including finite clearing, completeness proofs, and auditable virtual-cost bounds.
+- Specify C1's finite outer state, response updates, fair fallback queue, and remaining-cost certificate; retain C2 only as an unselected candidate.
+- Do not write an EXP specification, run a simulator/experiment, implement code, make a final selection, or create `MODEL_SPEC.md`.
 
-Status: TECHNICALLY REVIEWED — `WI-008` is complete and `TR-007` recheck passed fixed commit `f8c5145e46e42cca803da37ed4ddca2ba5a83b52`; any integration or subsequent validation work requires separate authorization and scope
+Status: READY — execution requires WI-009 and a Technical Lead-supplied full Execution Start Commit
 
 Owner Role: Strategist

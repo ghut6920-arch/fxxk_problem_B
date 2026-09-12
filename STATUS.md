@@ -2,7 +2,7 @@
 
 ## Competition Stage
 
-Verified-input preparation and bounded candidate-model design are complete; the reviewed design result awaits any separately authorized integration.
+Verified-input preparation is complete. Candidate design exposed gaps and an official-evidence correction; a bounded complete mathematical-plan WI is being prepared without experiments or implementation.
 
 ## Verified Facts
 
@@ -11,7 +11,7 @@ Verified-input preparation and bounded candidate-model design are complete; the 
 - User-authorized removal of the unverified video intake is reconciled by `WI-002` and `TR-002`; it is not official evidence.
 - OFFICIAL-001 through OFFICIAL-003 register the 2026 B-problem statement and two attachments as byte-verified official local copies.
 - `problem/RULES.md` and `problem/DATA_AUDIT.md` record the verified rule and data-availability facts needed for candidate design.
-- WI-008 produced three unselected candidate routes. `TR-007` rechecked the corrected fixed commit `f8c5145e46e42cca803da37ed4ddca2ba5a83b52` as `PASS`; this technical decision does not select a model or authorize an experiment. No experiment, formal result, or formal claim has been approved or produced.
+- WI-008 produced three unselected candidate routes. A later direct reread of OFFICIAL-001 p.2 superseded `TR-007`'s recheck `PASS`: Problem 4 requires both source types, so the exact domain is $1\le N_{\rm dir}\le N-1$. WI-009 carries that correction and the remaining mathematical-completeness work. No experiment, formal result, or formal claim has been approved or produced.
 
 ## Formal Version
 
@@ -34,9 +34,10 @@ None. `MODEL_SPEC.md` is intentionally absent.
 - `WI-005` independently versioned the historical Red Team recheck at `e980a021447497c48d6d95a978573c44b5a55fc3`; `WI-006` integrated its exact blob into local `main`, and `TR-005` passed that bounded evidence-delivery and integration scope.
 - `RT-001` leaves F1–F3 open at `MAJOR` and narrows but leaves F4 open at `MINOR`; it does not pass `SMOKE-001` or close `WI-001`.
 - `WI-007` verified and audited the official B-problem input set; `题目拆解与分析.md` is preserved as derived reading input, not official or reviewed model evidence.
-- `WI-008` is `COMPLETE`; `TR-007` closed its original Question 4 type-domain finding on corrected commit `f8c5145e46e42cca803da37ed4ddca2ba5a83b52`. The reviewed result remains on the design branch and is not integrated or pushed; no model has been selected.
+- `WI-008` is `COMPLETE_WITH_SUPERSEDING_FIX`; the official-evidence correction addendum in `TR-007` restores the mixed-type requirement and records why the earlier recheck was wrong. Its design result remains unintegrated and unpushed; no model has been selected.
+- `WI-009` authorizes only a complete mathematical plan, deterministic bounds, and pseudocode. It does not authorize experiments, implementation, final selection, `MODEL_SPEC.md`, or a push.
 - No active collaboration issue authorizes history rewriting, branch deletion, object pruning, or remote publication.
 
 ## Blockers
 
-- No blocker remains for WI-008. Existing open interpretation and proof obligations must remain explicit and be resolved before any affected experiment, selection, or formal promotion; they do not authorize invented official answers.
+- The corrected type domain and identified derivation/completeness gaps must be resolved under WI-009 before any affected experiment, selection, or formal promotion. Real-time feasibility remains unverified and cannot be inferred from a finite virtual-cost bound.

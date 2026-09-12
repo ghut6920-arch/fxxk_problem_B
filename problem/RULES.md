@@ -18,7 +18,7 @@
 
 ### Measurement and clearing
 
-- Bearing is measured from positive `x` counterclockwise in `[0°,360°)` and points from the detection point toward the source. Its error from the true maximum-field direction is within `[-1°,1°]`; repeated measurement at the same place does not change the local environmental error. Source: OFFICIAL-001 Appendix 2(1); OFFICIAL-003 §§1.2, 2.3.
+- Bearing is measured from positive `x` counterclockwise in `[0°,360°)` and points from the detection point toward the source. OFFICIAL-003 §2.3 states directly that the returned `svd_deg` differs from the true maximum-field bearing by a value in `[-1°,1°]` and is retained to two decimal places; the contractual uncertainty around the returned value is therefore ±1°, with no additional 0.005° added merely for display precision. Repeated measurement at the same place does not change the local environmental error. Sources: OFFICIAL-001 Appendix 2(1); OFFICIAL-003 §§1.2, 2.3 and Table 6.
 - `/measure` returns `direction` with `svd_deg`, `near` without a bearing when distance is at most 5 m and the point is covered, or `no_signal`. `no_signal` can mean no uncleared source on the channel, excessive distance, or directional-coverage exclusion. Source: OFFICIAL-002 §2.2; OFFICIAL-003 §§2.2, 7.3.
 - A clear succeeds when the requested position is within 20 m of the uncleared source on the specified channel. Success depends only on distance, not directional coverage. A source can be cleared once. `/clear` does not change the receiver channel. Source: OFFICIAL-001 Appendix 2(8)–(9); OFFICIAL-002 §2.3; OFFICIAL-003 §8.2.
 
@@ -31,9 +31,9 @@
 ### Required tasks and testing
 
 - Problem 1 requires an algorithm for the diameter of the polygonal intersection-location region and an answer to whether a circle having that diameter as its diameter covers the region. Problem 2 requires a second-point strategy and candidate region after one bearing to an omnidirectional source. Source: OFFICIAL-001 p.1.
-- Problems 3 and 4 require strategies and algorithms that ensure all sources are cleared while reducing total completion time; problem 4 adds unknown directional-source count and directions. Source: OFFICIAL-001 pp.1–2.
+- Problems 3 and 4 require strategies and algorithms that ensure all sources are cleared while reducing total completion time. Problem 4 states that the target region contains both omnidirectional and directional sources; their total is still 10–16, while the exact total, directional-source count, and directional headings are unknown. Thus, if $N_{\rm dir}$ is the directional count and $N$ the total, the exact rule domain includes $1\le N_{\rm dir}\le N-1$. Source: OFFICIAL-001 p.2.
 - Rehearsal tests are unlimited and reveal source counts after completion. Each of problems 3 and 4 has three formal-test opportunities; formal tests do not reveal case truth, and exported formal logs must be included in supporting material. Source: OFFICIAL-001 Appendices 3–4; OFFICIAL-002 §§4.3, 4.6.
-- A test has a 25-minute outer window and at most 20 minutes after successful `/enter`, using the earlier deadline; `/enter` returns actual remaining real time. New tests cannot start after 2026-09-13 17:30 Beijing time. Source: OFFICIAL-001 Appendix 3; OFFICIAL-002 §§2.5, 4.2; OFFICIAL-003 §4.5.
+- A test has a 25-minute outer window and at most 20 minutes after successful `/enter`, using the earlier deadline; `/enter` returns actual remaining real time. The virtual-world activity limit is 100 hours, represented by the default `max_virtual_duration_s=360000`; the entered configuration/response field is authoritative for a run. New tests cannot start after 2026-09-13 17:30 Beijing time. Sources: OFFICIAL-001 Appendix 3; OFFICIAL-002 §§2.5, 4.2; OFFICIAL-003 §§4.5, 6.1.
 - Commands must be sequential. Each new action uses a new `request_id`; retry of the identical action reuses the exact request and ID. Programs must check both HTTP status and `accepted`. Source: OFFICIAL-002 §4.4; OFFICIAL-003 §§1.4, 5.3.
 
 ## Operational Interpretation
