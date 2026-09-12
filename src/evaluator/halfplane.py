@@ -9,17 +9,20 @@ Arithmetic is exact with :class:`fractions.Fraction` for the state labels, the v
 diameter (squared distance is exact; the square root is the only float), and the covering-circle
 radius.
 
-TR-012 F3 (OPEN — under review, not resolved here). The near-collinear rule below currently
-declines to certify a finite vertex set when two non-parallel boundary normals are closer than
-``RESOLUTION_DEG`` and returns ``NUMERICAL_UNCERTAIN``. The earlier justification of that rule (that
-the design §4.3 360 x 1-degree *feedback partitioning* is a geometric precision limit) is disputed by
-TR-012 F3, which supplies an unboundedness witness for the frozen G07b pair (``q=(2000,0)`` with the
-ray ``q + t(1,0)``, ``t >= 0``). That justification is therefore **withdrawn as an unsupported
-claim**; the classification behaviour is retained *unchanged* only because the frozen G07 expectation
-must not be silently overwritten, and no replacement precision threshold is invented. The item stays
-OPEN pending a recorded clarification from the external advisor / user (``audits/technical/TR-012.md``
-F3; ``prompts/EXECUTOR_WI-014_FIX.md`` item 4). No threshold, comparison condition or acceptance scope
-is changed by this repair.
+SR-001 / D-002 repair. The former near-collinear rule treated the design §4.3 360 x 1-degree
+*feedback partitioning* as a geometric precision limit and returned ``NUMERICAL_UNCERTAIN`` for the
+frozen G07b pair. SR-001 (recorded by the Technical Lead in ``audits/strategic/SR-001.md``) rejects
+that reading: the frozen pure wedge intersection is genuinely unbounded, certified by ``q=(2000,0)``
+and the direction ``d=(1,0)`` (``q + t d`` stays inside both wedges for every ``t >= 0``). The
+feedback-bin gate is therefore **removed** and classification follows the plan §3 order explicitly:
+
+1. feasibility (``CONFLICT`` when the intersection is empty),
+2. nonzero recession ray (``UNBOUNDED``),
+3. finite vertex construction only for a certified nonempty bounded set.
+
+``NUMERICAL_UNCERTAIN`` survives only as an honest abstention when the supplied half-plane
+coefficients are not finite, i.e. when classification genuinely cannot be certified. Failure to
+certify finite vertices is never by itself evidence of uncertainty for an unbounded set.
 """
 
 from __future__ import annotations
@@ -36,10 +39,6 @@ from .predicates import (
     farthest_pair,
     min_enclosing_circle,
 )
-
-# Retained numeric constant of the current (OPEN, TR-012 F3) near-collinear rule. Its interpretation
-# as a geometric precision limit is withdrawn; see the module docstring.
-RESOLUTION_DEG = 1.0
 
 
 def _frac(value) -> F:
@@ -122,25 +121,12 @@ def _recession_nontrivial(half_planes) -> bool:
     return False
 
 
-def _has_near_parallel_pair(half_planes) -> bool:
-    """True iff two non-parallel boundaries are closer than the frozen 1 degree resolution."""
-    for i in range(len(half_planes)):
-        for j in range(i + 1, len(half_planes)):
-            h1 = half_planes[i]
-            h2 = half_planes[j]
-            if h1[0] * h2[1] - h2[0] * h1[1] == 0:
-                continue  # exactly parallel/antiparallel: no candidate vertex, no ambiguity
-            n1 = (float(h1[0]), float(h1[1]))
-            n2 = (float(h2[0]), float(h2[1]))
-            norm1 = math.hypot(*n1)
-            norm2 = math.hypot(*n2)
-            if norm1 == 0.0 or norm2 == 0.0:
-                continue
-            cosang = max(-1.0, min(1.0, (n1[0] * n2[0] + n1[1] * n2[1]) / (norm1 * norm2)))
-            ang = math.degrees(math.acos(cosang))
-            if min(ang, 180.0 - ang) < RESOLUTION_DEG:
-                return True
-    return False
+def _all_finite(half_planes) -> bool:
+    for a, b, c in half_planes:
+        for value in (a, b, c):
+            if not math.isfinite(float(value)):
+                return False
+    return True
 
 
 def halfplane_vertices(half_planes):
@@ -155,11 +141,18 @@ def halfplane_vertices(half_planes):
 
 
 def halfplane_state(half_planes):
-    """``CONFLICT`` / ``UNBOUNDED`` / ``BOUNDED`` / ``NUMERICAL_UNCERTAIN`` (plan §3 steps 1-2)."""
+    """``CONFLICT`` / ``UNBOUNDED`` / ``BOUNDED`` / ``NUMERICAL_UNCERTAIN`` (plan §3 steps 1-2).
+
+    Classification order is fixed by SR-001: feasibility first, then a nonzero recession ray, and
+    finite vertices only for a certified nonempty bounded set. ``NUMERICAL_UNCERTAIN`` is returned
+    solely when the supplied coefficients are not finite (classification genuinely uncertifiable);
+    it is never returned because two boundary directions are close, since feedback-bin width is not
+    a geometric precision limit.
+    """
+    if not _all_finite(half_planes):
+        return NUMERICAL_UNCERTAIN
     if not _feasible(half_planes):
         return CONFLICT
-    if _has_near_parallel_pair(half_planes):
-        return NUMERICAL_UNCERTAIN
     if _recession_nontrivial(half_planes):
         return UNBOUNDED
     return BOUNDED
@@ -204,23 +197,76 @@ def wedge_boundary_angles_deg(theta_hat_deg, delta_deg):
     return (theta_hat_deg - delta_deg, theta_hat_deg + delta_deg)
 
 
+def wedge_halfplanes(S, theta_hat_deg, delta_deg):
+    """Exact half-planes ``a x + b y + c >= 0`` of one plan §3 forward wedge.
+
+    ``W = {g : [t(theta_hat - delta), g - S] >= 0 and [t(theta_hat + delta), g - S] <= 0}`` with the
+    two-dimensional cross product ``[u, v] = u_x v_y - u_y v_x``. The two rows are returned as exact
+    :class:`~fractions.Fraction` triples built from the float boundary directions (the float values
+    are themselves exact rationals, so all later feasibility, recession and vertex arithmetic is
+    exact *for the represented directions*). No disk or receive-radius cap is applied here: this is
+    the pure wedge ``P`` (SR-001).
+    """
+    sx = _frac(S[0])
+    sy = _frac(S[1])
+    rows = []
+    for sign, keep_positive in ((-1.0, True), (1.0, False)):
+        angle = math.radians(theta_hat_deg + sign * delta_deg)
+        tx, ty = math.cos(angle), math.sin(angle)
+        # [t, g - S] = tx (gy - sy) - ty (gx - sx) = (-ty) gx + (tx) gy + (ty sx - tx sy)
+        a, b, c = -ty, tx, ty * sx - tx * sy
+        if not keep_positive:
+            a, b, c = -a, -b, -c          # [t(theta_hat + delta), g - S] <= 0
+        rows.append((_frac(a), _frac(b), _frac(c)))
+    return tuple(rows)
+
+
+def wedge_pair_halfplanes(spec):
+    """Both wedges of a two-observation spec, concatenated in order (pure wedge ``P``)."""
+    first = wedge_halfplanes(spec["S1"], spec["theta_hat_1_deg"], spec["delta_deg"])
+    second = wedge_halfplanes(spec["S2"], spec["theta_hat_2_deg"], spec["delta_deg"])
+    return first + second
+
+
 def near_collinear_wedges_state(spec):
-    """Label for the G07b near-collinear pair of wedges.
+    """Label for the G07b near-collinear pair of wedges (SR-001 / D-002).
 
     ``spec`` keys: ``S1``, ``theta_hat_1_deg``, ``S2``, ``theta_hat_2_deg``, ``delta_deg``.
 
-    Behaviour: returns ``NUMERICAL_UNCERTAIN`` when two boundary directions from different
-    observations differ by less than ``RESOLUTION_DEG``, else ``BOUNDED``.
-
-    TR-012 F3 status: **OPEN**. This behaviour is retained exactly as frozen only so the frozen G07
-    expectation is not silently overwritten; the precision-limit justification is withdrawn (see the
-    module docstring) and TR-012 supplies an unboundedness witness for this frozen pair. This
-    function is not a certified classifier and its result must be reported as OPEN, not as readiness.
+    SR-001 decision: the frozen pair is a pure wedge intersection whose classification must follow
+    the plan §3 order — feasibility, then a nonzero recession ray, then finite vertices only for a
+    certified nonempty bounded set. For the frozen instance the ray ``q + t d`` with
+    ``q=(2000,0)``, ``d=(1,0)`` stays feasible for every ``t >= 0``, so the label is ``UNBOUNDED``.
+    Feedback-bin width is not used as a precision limit anywhere in this classification, and
+    ``NUMERICAL_UNCERTAIN`` is not an acceptable answer for this instance (it is an unresolved
+    abstention, not a pass).
     """
-    angles1 = wedge_boundary_angles_deg(spec["theta_hat_1_deg"], spec["delta_deg"])
-    angles2 = wedge_boundary_angles_deg(spec["theta_hat_2_deg"], spec["delta_deg"])
-    for a in angles1:
-        for b in angles2:
-            if abs(math.fmod(a - b + 180.0, 360.0) - 180.0) < RESOLUTION_DEG:
-                return NUMERICAL_UNCERTAIN
-    return BOUNDED
+    return halfplane_state(wedge_pair_halfplanes(spec))
+
+
+def ray_certificate(half_planes, q, d):
+    """Certify that ``q + t d`` satisfies every half-plane for all ``t >= 0``.
+
+    Standard polyhedron fact: it suffices that ``q`` is feasible and that ``d`` satisfies the
+    homogeneous recession inequalities ``a d_x + b d_y >= 0`` of every row. Evaluated exactly over
+    :class:`~fractions.Fraction`, so the certificate is a proof for the represented rows rather than
+    a sample test. Returns ``(ok, witnesses)`` where ``witnesses`` records the per-row values.
+    """
+    qx, qy = _frac(q[0]), _frac(q[1])
+    dx, dy = _frac(d[0]), _frac(d[1])
+    witnesses = []
+    ok = True
+    for a, b, c in half_planes:
+        feasible_value = a * qx + b * qy + c
+        recession_value = a * dx + b * dy
+        witnesses.append(
+            {
+                "feasible_value": feasible_value,
+                "recession_value": recession_value,
+                "feasible_ok": feasible_value >= 0,
+                "recession_ok": recession_value >= 0,
+            }
+        )
+        if feasible_value < 0 or recession_value < 0:
+            ok = False
+    return ok, witnesses

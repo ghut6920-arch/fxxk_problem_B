@@ -815,3 +815,184 @@ historical `EVALUATOR_FIXTURES_READY` (§10) remains superseded and not accepted
   preserved (`--amend`, `rebase`, `reset`, force-update not used), so `530734a`, `a49cc64` and `e9b94a2`
   remain available for review.
 - Remote push status: **`NOT PUSHED`**.
+
+## 13. SR-001 / D-002 repair of G07 and G15 (2026-09-12)
+
+### 13.1 Identification and scope authority
+
+- Role: Implementation Engineer (Executor) — same WI-014 evaluator author (independence bind unchanged:
+  this author must never author `src/candidate/`).
+- Worktree: `E:/pycharm/projects/pythonProject18/题目/B题-executor`; branch `feat/WI-014-p1a-evaluator`.
+- Comparison Base Commit: `f69f2c670827fc807a124945bef280fb0907775d` (unchanged)
+- **Execution Start Commit for this repair: `556abb3a79fbab26caf2dce6ff79dff14a86c478`** (the Technical
+  Lead's documentation preparation commit; verified equal to Executor `HEAD` before any edit)
+- Retained earlier starts: `e9b94a298c220421ca4fab3d70d5e607f71f7983` (WI-014),
+  `a49cc64827cc398c44a41d4094776edddb41f79f` (TR-012 repair), `530734ab450e597b178a4a5156329ec5b587348f`
+  (RT-003 RT3-F2 residual repair)
+- Scope authority: `work/WI-014.md` "D-002 / SR-001 repair amendment" plus the Technical Lead's
+  preparation commit `556abb3`, which carries `audits/strategic/SR-001.md`, `DECISIONS.md` D-002, and the
+  revised `experiments/EXP-002/SPEC.md` / `FIXTURE_CATALOG.md`. That amendment supersedes the earlier
+  F3/F4 HOLD. The Lead changed only those five paths; the Executor was not permitted to edit SPEC or
+  catalog, and did not.
+- Allowed writes: `src/evaluator/`, `tests/p1a/`, this report only. No branch switch, merge, rebase,
+  reset, fetch, or history rewrite was performed (none was needed; `HEAD` already equalled the supplied
+  Execution Start).
+
+### 13.2 Precheck (before any edit)
+
+| Check | Command | Result |
+|---|---|---|
+| Worktree | `git rev-parse --show-toplevel` | assigned path — PASS |
+| Branch | `git branch --show-current` | `feat/WI-014-p1a-evaluator` — PASS |
+| HEAD == supplied Execution Start | `git rev-parse HEAD` | `556abb3a79fbab26caf2dce6ff79dff14a86c478` — PASS |
+| Comparison Base is ancestor | `git merge-base --is-ancestor f69f2c67… HEAD` | exit `0` — PASS |
+| Artifacts present at HEAD | `work/WI-014.md`, revised SPEC/catalog, `audits/strategic/SR-001.md` | present — PASS |
+| Clean worktree | `git status --short --branch` | only the branch line — PASS |
+
+### 13.3 G07b — certified `UNBOUNDED` (was `NUMERICAL_UNCERTAIN`)
+
+Before: `halfplane_state` returned `NUMERICAL_UNCERTAIN` whenever two non-parallel boundary normals were
+closer than `RESOLUTION_DEG = 1.0` (the design §4.3 feedback-bin width), and
+`near_collinear_wedges_state` compared boundary angles only, ignoring `S1`/`S2`. Both were the
+feedback-bin-as-precision reading that SR-001 rejects.
+
+Repair (`src/evaluator/halfplane.py`):
+
+- `wedge_halfplanes(S, theta_hat_deg, delta_deg)` builds the two exact half-plane rows of a plan §3
+  forward wedge from the cross-product definition, and `wedge_pair_halfplanes(spec)` concatenates both
+  observations — the **pure wedge `P`**, with no disk or receive-radius cap.
+- `near_collinear_wedges_state(spec)` now classifies in the fixed SR-001 order: feasibility, then a
+  nonzero recession ray, then finite vertices only for a certified nonempty bounded set.
+- `ray_certificate(half_planes, q, d)` proves `q + t d` is feasible for all `t >= 0` exactly (feasible
+  `q` plus `a d_x + b d_y >= 0` on every row), returning per-row witnesses.
+- The feedback-bin gate is **deleted**: `RESOLUTION_DEG` and `_has_near_parallel_pair` no longer exist,
+  and `NUMERICAL_UNCERTAIN` is now returned only when supplied coefficients are not finite.
+
+Frozen G07b result (exact rows, `q=(2000,0)`, `d=(1,0)`):
+
+```
+state                : UNBOUNDED        (SR-001 expects UNBOUNDED)
+feasible             : True
+recession nontrivial : True
+ray certificate      : True
+row witnesses        : feasible 34.90481287456702 / 34.90481287456702 / 17.27789982936457 / 17.626912513571757
+                       recession  0.01745240643728351 / 0.01745240643728351 / 0.01727789982936457 / 0.017626912513571756
+sample ray t in {0,1,1e3,1e6,1e9,1e12}: inside both wedges for every sample
+negative control theta_hat_2=90 deg: state BOUNDED, certificate False
+```
+
+G07a (parallel strip) remains `UNBOUNDED`; G01–G06 states are unchanged.
+
+### 13.4 G15 — frozen heading triple with `epsilon_phi` (was a position perturbation)
+
+Before: all three directional worlds held `phi_deg = 90` and varied `g_y` by `±epsilon_d`, i.e. the
+position substitution SR-001 rejects, and `tr012_f4` recorded it as an OPEN dimensional ambiguity.
+
+Repair (revised `G15.json` + `selfcheck.run_evaluator_now`):
+
+- `epsilon_phi = atan(epsilon_d / 700 m)` = `1.4285714285714286e-09` rad =
+  `8.18511135901176e-08` deg, stored next to the unchanged metre `epsilon_d` and kept distinct from it.
+- Frozen heading triple for `g=(700,700)`, `R_c=1500`, `p_R=(1400,700)`:
+  `phi_deg = [89.99999991814889, 90.0, 90.00000008185111]` → `[direction, direction, no_signal]`.
+- Mirror closed boundary: `p_L=(0,700)` at `90.0` → `direction` (recorded together with the full
+  analytically derived mirror triple `[no_signal, direction, direction]`).
+- Off-axis visibility: `p=(700,1400)` → `direction` for all three headings.
+- Complete `P_4` visible set nonempty for all three headings (6 / 8 / 6 points).
+- JSON distinction: the triple is serialised and read back; both perturbations survive the round trip,
+  stay distinct from `90.0`, and stay distinct from each other.
+- The position perturbation is now separately named `position_perturbation_eps_d` with
+  `g=(700+epsilon_d,700)` and no heading, never used as the heading test.
+- Coincidence O-03 unchanged: `O03_OPEN`, still not coverage evidence.
+
+### 13.5 Commands and results (this repair)
+
+| Command | Exit | Result |
+|---|---|---|
+| Precheck (§13.2, 6 checks) | `0` | PASS |
+| `PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -m evaluator` | `0` | `26` fixtures PASS; manifest `26` checked / `0` mismatched |
+| `PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -m unittest discover -s tests/p1a -v` | `0` | **Ran 50 tests … OK** (35 previous + 15 new `Sr001G07G15Test`) |
+| Manifest vs index blobs and vs checkout-filtered bytes, all 26 | — | 0 mismatches (see §13.7) |
+| `git diff --check` / `git diff --cached --check` | `0` | no output |
+| Authorized-path check on staged/committed list | no off-path rows | only `src/evaluator/`, `tests/p1a/`, this report |
+| `git ls-files src/candidate` | `0` | empty — no candidate tree |
+
+### 13.6 Changed files and updated fixture hashes
+
+Changed: `src/evaluator/halfplane.py`, `src/evaluator/selfcheck.py`,
+`tests/p1a/test_evaluator_fixtures.py`, `tests/p1a/fixtures/G07.json`,
+`tests/p1a/fixtures/G15.json`, `tests/p1a/fixtures/manifest.json`, this report. All other fixture bytes
+are unchanged (G01 `9991428d…`, T04 `6e8a0c2b…`, T08 `844f4181…` re-verified identical).
+
+| File | Previous SHA-256 | Post-repair SHA-256 |
+|---|---|---|
+| `tests/p1a/fixtures/G07.json` | `b457b76992d7d767df99d8bc6bd6247701ba7daee55625444dd5c54da450d14a` | `ea773b0b0af9530483dc8c933510eae07512da0ab93bfa3832d17a5121581d54` |
+| `tests/p1a/fixtures/G15.json` | `efe0353b02f9c819d090d0169f2835ff0bf7db54cd3737f85e3bc2dd4d3b423d` | `245de86b021b92f7f7fa78198c53c068466251b39e6d8b05402e0ac3bb4bdc31` |
+| `tests/p1a/fixtures/manifest.json` | `3c46e3313e51c80362bf0302688a95939d602a2ce195bf78f90cd39fa90bdf89` | `84d594eb4fe719d8cce36a8ece7cce7b40243bf4fffbfd43e6bcdd4b2e428377` |
+
+`SPEC.md` and `FIXTURE_CATALOG.md` were revised by the Technical Lead in `556abb3` (not by this
+Executor); this report records the Executor-side instantiation of that revision.
+
+### 13.7 Verification of the revision's required checks
+
+- **G07 verifies `q`, `d` and excludes finite-diameter claims** — feasibility, nonzero recession, the
+  exact ray certificate with per-row witnesses, sample points along the ray, a BOUNDED/finite-diameter
+  negative assertion, and a negative control proving the certificate can fail.
+- **G15 verifies all revised catalog checks** — triple, mirror, off-axis, complete `P_4` nonemptiness,
+  JSON distinction, `epsilon_phi` recomputed independently from `atan(epsilon_d/700)`, and the
+  separately named position perturbation (§13.4).
+- **Existing WI checks and prior regressions** — the WI-014 unittest command and the evaluator
+  self-check CLI both pass; the TR-012 and RT-003 RT3-F2 regression classes still pass unchanged.
+- **Committed and filtered fixture bytes match the manifest** — verified for all 26 files against both
+  the index blobs and the checkout-filtered bytes, with no CRLF.
+
+### 13.8 Current conclusion (closed set from `work/WI-014.md`)
+
+### `EVALUATOR_FIXTURES_OPEN`
+
+The **assigned G07/G15 obligations resolve**: G07b is certified `UNBOUNDED` with a verified recession
+ray and no feedback-bin precision logic, and G15 instantiates the frozen heading triple, mirror, JSON
+distinction, complete `P_4` visibility and the separately named position perturbation, with all 50
+tests and all 26 hash checks passing. `READY` is nevertheless **not** reported, because:
+
+1. `audits/redteam/RT-003.md` finding **RT3-F6** (evaluator and fixtures share authorship, so a
+   self-check cannot by itself establish oracle isolation) is not something the evaluator author can
+   resolve; it needs the independent Technical Lead / Red Team recheck that the amendment itself
+   requires ("no automatic readiness").
+2. Two non-assigned RT-003 observations remain open and were deliberately not touched by this
+   bounded task: the `clear_succeeds` API surface does not take `u_c` (it derives it from
+   `exists`/`cleared`; MINOR API hole, unused by current call sites), and T07's
+   `initial_N_counts_cleared_source` is a narrow `validate_world(Q3, 10, 0)` re-check rather than an
+   independent exercise.
+3. The frozen G07/G15 expectations were **changed** by this repair; a changed expectation must be
+   rechecked rather than accepted on the author's word.
+
+The historical `EVALUATOR_FIXTURES_READY` (§10) remains superseded and not accepted.
+
+### 13.9 Limitations and remaining issues
+
+- Author-side repair of a Red Team finding, not independent review; the Technical Lead and a targeted
+  Red Team recheck remain necessary before acceptance.
+- Wedge rows are built from float boundary directions and then treated as exact rationals: feasibility,
+  recession and the ray certificate are exact *for the represented rows*. Rounding in
+  `cos`/`sin`/`radians` is ~1e-16 relative while the frozen instance's certificate margins are
+  ~1e-2 (absolute row values 17–35 and 0.017), so the classification is not near a numerical boundary.
+  A future instance with tiny margins would need an interval enclosure of the directions.
+- The G07b certificate and the `P_4` visibility claims are finite/algebraic checks; they are not a
+  continuous proof and not P1-A property passage (no candidate exists).
+- RT-003's other findings are not re-adjudicated here: RT3-F1/F2/F5/F7 were repaired earlier
+  (`530734a`, `a8401fc`) and still need the Red Team recheck; RT3-F3/F4 are now answered by SR-001 and
+  implemented here.
+- SR-001 reopen conditions (changed sensors/bearings/error bound/wedge sign, added physical
+  constraints, a serialization that rounds `phi` back to `90`, or valid counter-evidence) were not
+  triggered.
+- No candidate, simulator, P1-B, SPEC/catalog edit, `MODEL_SPEC.md`, `RT-002` closure, or push.
+
+### 13.10 Local commit status (this repair)
+
+- `git diff --check` / `git diff --cached --check`: exit `0`, no output.
+- Authorized paths only: `src/evaluator/`, `tests/p1a/`, this report.
+- Result commit: `SR001_FIX_COMMIT_NOT_SELF_EMBEDDABLE` — a new commit whose parent is
+  `556abb3a79fbab26caf2dce6ff79dff14a86c478`; its full hash is returned to the Technical Lead in the
+  Executor completion handoff. History is preserved (`--amend`, `rebase`, `reset`, force-update not
+  used), so `556abb3`, `a8401fc`, `530734a`, `a49cc64` and `e9b94a2` remain available for review.
+- Remote push status: **`NOT PUSHED`**.

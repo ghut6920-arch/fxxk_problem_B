@@ -145,9 +145,20 @@ def run_evaluator_now(fixture: dict) -> dict:
 
     if fid == "G07":
         strip = halfplane.parse_halfplanes(inputs["g07a_parallel_strip"]["half_planes"])
+        wedge_spec = inputs["g07b_near_collinear"]
+        rows = halfplane.wedge_pair_halfplanes(wedge_spec)
+        certificate = inputs["g07b_ray_certificate"]
+        ray_ok, _witnesses = halfplane.ray_certificate(
+            rows, certificate["q"], certificate["d"]
+        )
+        state = halfplane.near_collinear_wedges_state(wedge_spec)
         return {
             "g07a_state": halfplane.halfplane_state(strip),
-            "g07b_state": halfplane.near_collinear_wedges_state(inputs["g07b_near_collinear"]),
+            "g07b_state": state,
+            "g07b_feasible": halfplane._feasible(rows),
+            "g07b_recession_nontrivial": halfplane._recession_nontrivial(rows),
+            "g07b_ray_certificate": ray_ok,
+            "g07b_finite_diameter_reported": state == "BOUNDED",
         }
 
     if fid == "G08":
@@ -238,42 +249,77 @@ def run_evaluator_now(fixture: dict) -> dict:
         p4 = p4_points()
         p3_nonempty = {}
         p4_nonempty = {}
-        for world in inputs["worlds"]:
-            if world.get("kind", predicates.DIRECTIONAL) != predicates.OMNI:
-                continue
+        for world in inputs["omni_worlds"]:
             source = {"g": world["g"], "R_c": world["R_c"], "kind": predicates.OMNI}
             p3_nonempty[world["name"]] = len(visible_scan_points(p3, source)) > 0
             p4_nonempty[world["name"]] = len(visible_scan_points(p4, source)) > 0
 
-        def heading_observation(name):
-            world = [w for w in inputs["worlds"] if w["name"] == name][0]
-            source = {
-                "g": world["g"],
-                "R_c": world["R_c"],
-                "kind": predicates.DIRECTIONAL,
-                "phi_deg": world["phi_deg"],
-            }
-            return observation(source, world["chosen_p"])
+        # SR-001 / D-002 heading triple: the two perturbations are hidden phi values, so they are
+        # serialized and read back as JSON rather than compared through the display rounding rule.
+        triple = inputs["heading_triple"]
+        phis = list(triple["phi_deg"])
+        roundtripped = [json.loads(json.dumps(phi)) for phi in phis]
+        g = triple["g"]
 
-        coincidence = [w for w in inputs["worlds"] if w["name"] == "coincidence_o03"][0]
+        def heading_observations(point):
+            return [
+                observation(
+                    {
+                        "g": g,
+                        "R_c": triple["R_c"],
+                        "kind": predicates.DIRECTIONAL,
+                        "phi_deg": phi,
+                    },
+                    point,
+                )
+                for phi in roundtripped
+            ]
+
+        p4_visible_nonempty = []
+        for phi in roundtripped:
+            source = {
+                "g": g,
+                "R_c": triple["R_c"],
+                "kind": predicates.DIRECTIONAL,
+                "phi_deg": phi,
+            }
+            p4_visible_nonempty.append(len(visible_scan_points(p4, source)) > 0)
+
+        coincidence = inputs["coincidence_o03"]
         coincidence_source = {
             "g": coincidence["g"],
             "R_c": coincidence["R_c"],
             "kind": predicates.DIRECTIONAL,
             "phi_deg": coincidence["phi_deg"],
         }
+        position_worlds = [
+            w
+            for w in inputs["omni_worlds"]
+            if w["name"] == "position_perturbation_eps_d"
+        ]
+        position_world_present = (
+            len(position_worlds) == 1
+            and position_worlds[0]["g"] == [700.0 + inputs["epsilon_d"], 700.0]
+            and "phi_deg" not in position_worlds[0]
+        )
+        at_p_L = heading_observations(triple["p_L"])
         return {
             "P_3_count": len(p3),
             "P_4_count": len(p4),
             "p3_visible_nonempty": p3_nonempty,
             "p4_visible_nonempty": p4_nonempty,
-            "heading_boundary_observation": heading_observation("heading_boundary"),
-            "heading_boundary_eps_far_observation": heading_observation(
-                "heading_boundary_eps_far"
+            "heading_triple_at_p_R": heading_observations(triple["p_R"]),
+            "heading_triple_at_p_L": at_p_L,
+            "heading_triple_mirror_closed_boundary_at_p_L_90": at_p_L[1],
+            "heading_triple_at_p_offaxis": heading_observations(triple["p_offaxis"]),
+            "heading_triple_p4_visible_nonempty": p4_visible_nonempty,
+            "heading_json_roundtrip_preserved": roundtripped == phis,
+            "heading_json_perturbations_distinct_from_90": all(
+                abs(phi - 90.0) > 0.0 for phi in (roundtripped[0], roundtripped[2])
             ),
-            "heading_boundary_eps_near_observation": heading_observation(
-                "heading_boundary_eps_near"
-            ),
+            "heading_json_perturbations_pairwise_distinct": roundtripped[0]
+            != roundtripped[2],
+            "position_perturbation_world_present": position_world_present,
             "coincidence_label": observation(coincidence_source, coincidence["g"]),
             "coincidence_used_as_coverage_evidence": False,
         }

@@ -393,5 +393,154 @@ class Rt003F2ResidualTest(unittest.TestCase):
                 self.assertTrue(result["ok"])
 
 
+class Sr001G07G15Test(unittest.TestCase):
+    """SR-001 / D-002 revision of G07b (UNBOUNDED) and G15 (heading triple with epsilon_phi).
+
+    Evaluator-side only: not a candidate run and not P1-A property passage. The expectations asserted
+    here are the ones named in the revised `experiments/EXP-002/FIXTURE_CATALOG.md` and
+    `audits/strategic/SR-001.md`.
+    """
+
+    # --- G07b: feasibility, then recession; no feedback-bin precision ------------------------
+
+    def _g07b_spec(self):
+        return selfcheck.load_fixture(FIXTURES_DIR, "G07")["inputs"]["g07b_near_collinear"]
+
+    def test_g07b_is_unbounded(self):
+        self.assertEqual(halfplane.near_collinear_wedges_state(self._g07b_spec()), "UNBOUNDED")
+
+    def test_g07b_feasibility_then_recession(self):
+        rows = halfplane.wedge_pair_halfplanes(self._g07b_spec())
+        self.assertTrue(halfplane._feasible(rows), "the frozen wedge intersection is nonempty")
+        self.assertTrue(halfplane._recession_nontrivial(rows), "a nonzero recession ray exists")
+
+    def test_g07b_ray_certificate(self):
+        fixture = selfcheck.load_fixture(FIXTURES_DIR, "G07")
+        cert = fixture["inputs"]["g07b_ray_certificate"]
+        rows = halfplane.wedge_pair_halfplanes(fixture["inputs"]["g07b_near_collinear"])
+        ok, witnesses = halfplane.ray_certificate(rows, cert["q"], cert["d"])
+        self.assertTrue(ok, "q=(2000,0), d=(1,0) must be a certified recession ray")
+        self.assertEqual(len(witnesses), len(rows))
+        self.assertTrue(all(w["feasible_ok"] and w["recession_ok"] for w in witnesses))
+
+    def test_g07b_ray_stays_inside_both_wedges(self):
+        # Independent sample check of the certificate on the pure wedge P (no disk/radius cap).
+        spec = self._g07b_spec()
+        for t in (0.0, 1.0, 1e3, 1e6, 1e9, 1e12):
+            with self.subTest(t=t):
+                q = [2000.0 + t, 0.0]
+                for S, theta in (
+                    (spec["S1"], spec["theta_hat_1_deg"]),
+                    (spec["S2"], spec["theta_hat_2_deg"]),
+                ):
+                    residual = predicates.wrap_deg(theta - predicates.bearing_deg(S, q))
+                    self.assertLessEqual(abs(residual), spec["delta_deg"])
+
+    def test_g07b_finite_solution_is_not_reported(self):
+        actual = selfcheck.run_evaluator_now(
+            selfcheck.load_fixture(FIXTURES_DIR, "G07")
+        )
+        self.assertNotEqual(actual["g07b_state"], "BOUNDED")
+        self.assertNotEqual(actual["g07b_state"], "NUMERICAL_UNCERTAIN")
+        self.assertNotEqual(actual["g07b_state"], "CONFLICT")
+        self.assertFalse(actual["g07b_finite_diameter_reported"])
+
+    def test_g07b_negative_control_ray_is_not_certified(self):
+        # theta_hat_2 = 90 deg puts the ray outside the second wedge: bounded, no certificate.
+        spec = dict(self._g07b_spec())
+        spec["theta_hat_2_deg"] = 90.0
+        rows = halfplane.wedge_pair_halfplanes(spec)
+        self.assertEqual(halfplane.near_collinear_wedges_state(spec), "BOUNDED")
+        self.assertFalse(halfplane.ray_certificate(rows, [2000, 0], [1, 0])[0])
+
+    def test_feedback_bin_precision_logic_is_removed(self):
+        # Regression guard: feedback-bin width must never return as a geometric precision limit.
+        self.assertFalse(hasattr(halfplane, "RESOLUTION_DEG"))
+        self.assertFalse(hasattr(halfplane, "_has_near_parallel_pair"))
+
+    def test_g07_frozen_expectation_is_unbounded(self):
+        fixture = selfcheck.load_fixture(FIXTURES_DIR, "G07")
+        self.assertEqual(fixture["expected_evaluator"]["g07a_state"], "UNBOUNDED")
+        self.assertEqual(fixture["expected_evaluator"]["g07b_state"], "UNBOUNDED")
+
+    # --- G15: frozen heading triple, mirror, JSON distinction, full P4 visibility -------------
+
+    def _g15(self):
+        return selfcheck.load_fixture(FIXTURES_DIR, "G15")
+
+    def test_epsilon_phi_definition_matches_the_frozen_fixture(self):
+        import math
+
+        fixture = self._g15()
+        eps_d = fixture["inputs"]["epsilon_d"]
+        self.assertAlmostEqual(
+            math.degrees(math.atan(eps_d / 700.0)),
+            fixture["inputs"]["epsilon_phi_deg"],
+            places=15,
+        )
+        self.assertAlmostEqual(
+            math.atan(eps_d / 700.0), fixture["inputs"]["epsilon_phi_rad"], places=18
+        )
+        self.assertNotEqual(fixture["inputs"]["epsilon_phi_deg"], eps_d)
+
+    def test_heading_triple_observations(self):
+        actual = selfcheck.run_evaluator_now(self._g15())
+        self.assertEqual(
+            actual["heading_triple_at_p_R"], ["direction", "direction", "no_signal"]
+        )
+        self.assertEqual(
+            actual["heading_triple_mirror_closed_boundary_at_p_L_90"], "direction"
+        )
+        self.assertEqual(
+            actual["heading_triple_at_p_offaxis"],
+            ["direction", "direction", "direction"],
+        )
+
+    def test_heading_triple_p4_visible_set_nonempty(self):
+        actual = selfcheck.run_evaluator_now(self._g15())
+        self.assertEqual(actual["heading_triple_p4_visible_nonempty"], [True, True, True])
+
+    def test_heading_json_roundtrip_keeps_perturbations_distinct(self):
+        fixture = self._g15()
+        phis = fixture["inputs"]["heading_triple"]["phi_deg"]
+        self.assertEqual(len(phis), 3)
+        self.assertEqual(phis[1], 90.0)
+        self.assertNotEqual(phis[0], 90.0)
+        self.assertNotEqual(phis[2], 90.0)
+        self.assertNotEqual(phis[0], phis[2])
+        actual = selfcheck.run_evaluator_now(fixture)
+        self.assertTrue(actual["heading_json_roundtrip_preserved"])
+        self.assertTrue(actual["heading_json_perturbations_distinct_from_90"])
+        self.assertTrue(actual["heading_json_perturbations_pairwise_distinct"])
+
+    def test_position_perturbation_is_separately_named(self):
+        fixture = self._g15()
+        actual = selfcheck.run_evaluator_now(fixture)
+        self.assertTrue(actual["position_perturbation_world_present"])
+        named = [
+            w
+            for w in fixture["inputs"]["omni_worlds"]
+            if w["name"] == "position_perturbation_eps_d"
+        ]
+        self.assertEqual(len(named), 1)
+        self.assertNotIn("phi_deg", named[0])
+        # the heading test must not be encoded as a source displacement
+        triple = fixture["inputs"]["heading_triple"]
+        self.assertNotIn("phi_deg", triple["g"] if isinstance(triple["g"], dict) else [])
+        self.assertNotEqual(triple["g"], [700.0 + fixture["inputs"]["epsilon_d"], 700.0])
+
+    def test_directional_coincidence_is_not_coverage_evidence(self):
+        actual = selfcheck.run_evaluator_now(self._g15())
+        self.assertEqual(actual["coincidence_label"], predicates.O03_OPEN)
+        self.assertFalse(actual["coincidence_used_as_coverage_evidence"])
+
+    def test_g15_heading_labels_are_in_the_closed_set(self):
+        allowed = {predicates.NEAR, predicates.DIRECTION, predicates.NO_SIGNAL, predicates.O03_OPEN}
+        actual = selfcheck.run_evaluator_now(self._g15())
+        for key in ("heading_triple_at_p_R", "heading_triple_at_p_L", "heading_triple_at_p_offaxis"):
+            for label in actual[key]:
+                self.assertIn(label, allowed)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

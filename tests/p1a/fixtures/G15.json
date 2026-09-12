@@ -2,44 +2,58 @@
   "id": "G15",
   "phase_checks": ["evaluator_now"],
   "candidate_later_checks": [
-    "the same visible-set claim recomputed from the candidate scan"
+    "the same visible-set claim recomputed from the candidate scan",
+    "candidate must classify the frozen heading triple with epsilon_phi as an angle distinct from the metre epsilon_d, and must not use the directional coincidence point as coverage evidence"
   ],
   "inputs": {
     "P_3_formula": "1400*(i,j), i,j in {-1,0,1}",
     "P_4_formula": "700*(i,j), i,j in {-4,...,4}",
     "epsilon_d": 1e-06,
-    "worlds": [
+    "epsilon_phi_deg": 8.18511135901176e-08,
+    "epsilon_phi_rad": 1.4285714285714286e-09,
+    "epsilon_phi_definition": "epsilon_phi = atan(epsilon_d / 700 metres), an angle in radians distinct from the metre epsilon_d (SR-001 / D-002)",
+    "omni_worlds": [
       {"name": "disk_edge", "g": [1800, 0], "kind": "omni", "R_c": 1500},
       {"name": "p4_grid_line", "g": [700, 0], "kind": "omni", "R_c": 1500},
       {"name": "p4_grid_point", "g": [700, 700], "kind": "omni", "R_c": 1500},
-      {"name": "eps_perturbation", "g": [700.000001, 700], "kind": "omni", "R_c": 1500},
-      {"name": "heading_boundary", "g": [700, 700], "kind": "directional", "phi_deg": 90.0, "chosen_p": [1400, 700], "R_c": 1500},
-      {"name": "heading_boundary_eps_far", "g": [700, 700.000001], "kind": "directional", "phi_deg": 90.0, "chosen_p": [1400, 700], "R_c": 1500},
-      {"name": "heading_boundary_eps_near", "g": [700, 699.999999], "kind": "directional", "phi_deg": 90.0, "chosen_p": [1400, 700], "R_c": 1500},
-      {"name": "coincidence_o03", "g": [0, 0], "kind": "directional", "phi_deg": 0.0, "R_c": 1500}
+      {"name": "position_perturbation_eps_d", "g": [700.000001, 700], "kind": "omni", "R_c": 1500}
     ],
-    "heading_boundary_choice": {
-      "chosen_p": [1400, 700],
-      "note": "p=(1400,700) is in P_4; g=(700,700) with phi=90 deg gives n(phi).(p-g)=0 exactly (closed half-plane, visible). The eps_d perturbation is a distance perturbation of g_y by +/-eps_d, which flips the same visibility boundary."
-    }
+    "position_perturbation_note": "g=(700+epsilon_d,700) is the separately named position perturbation (SR-001); it is never the heading test and carries no phi",
+    "heading_triple": {
+      "g": [700, 700],
+      "kind": "directional",
+      "R_c": 1500,
+      "phi_deg": [89.99999991814889, 90.0, 90.00000008185111],
+      "p_R": [1400, 700],
+      "p_L": [0, 700],
+      "p_offaxis": [700, 1400],
+      "note": "frozen advisor triple; the two perturbed headings are hidden phi values and must not be rounded to the two-decimal display rule"
+    },
+    "coincidence_o03": {"g": [0, 0], "kind": "directional", "phi_deg": 0.0, "R_c": 1500}
   },
   "truth": {
     "note": "the coincidence point (0,0) is a P_4 lattice point and is not coverage evidence",
     "plan_section": "§5.1",
-    "tr012_f4": "OPEN hold. The catalog requests a heading perturbation while defining epsilon_d in metres (an upstream dimensional ambiguity). This distance-perturbation realisation of the same visibility boundary is retained unchanged pending a recorded clarification that supplies the heading unit and numeric instance; no fixture number or expected label was substituted. No catalog or SPEC edit is made here."
+    "sr001": "G15 heading triple, mirror closed boundary, JSON distinction and complete P4 visibility per SR-001 / D-002; epsilon_phi = atan(epsilon_d / 700 m) is an angle, kept distinct from the metre epsilon_d"
   },
   "expected_evaluator": {
     "P_3_count": 9,
     "P_4_count": 81,
     "p3_visible_nonempty": {
-      "disk_edge": true, "p4_grid_line": true, "p4_grid_point": true, "eps_perturbation": true
+      "disk_edge": true, "p4_grid_line": true, "p4_grid_point": true, "position_perturbation_eps_d": true
     },
     "p4_visible_nonempty": {
-      "disk_edge": true, "p4_grid_line": true, "p4_grid_point": true, "eps_perturbation": true
+      "disk_edge": true, "p4_grid_line": true, "p4_grid_point": true, "position_perturbation_eps_d": true
     },
-    "heading_boundary_observation": "direction",
-    "heading_boundary_eps_far_observation": "no_signal",
-    "heading_boundary_eps_near_observation": "direction",
+    "heading_triple_at_p_R": ["direction", "direction", "no_signal"],
+    "heading_triple_at_p_L": ["no_signal", "direction", "direction"],
+    "heading_triple_mirror_closed_boundary_at_p_L_90": "direction",
+    "heading_triple_at_p_offaxis": ["direction", "direction", "direction"],
+    "heading_triple_p4_visible_nonempty": [true, true, true],
+    "heading_json_roundtrip_preserved": true,
+    "heading_json_perturbations_distinct_from_90": true,
+    "heading_json_perturbations_pairwise_distinct": true,
+    "position_perturbation_world_present": true,
     "coincidence_label": "O03_OPEN",
     "coincidence_used_as_coverage_evidence": false
   }
