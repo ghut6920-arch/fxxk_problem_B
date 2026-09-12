@@ -76,6 +76,20 @@ Scope: `configuration` (independence waiver). Not model-family, not selection.
 
 Reopen Conditions: Formal promotion or `P1A_PROPERTIES_*` acceptance that asserts isolated authorship.
 
+### D-005 External pre-registration of claims, failure grades, and C0-default contest strategy
+
+Date: 2026-09-13. Source: user-delivered external Strategist note recorded in `audits/strategic/SR-002.md`.
+
+Decision: KEEP C0/C1/C2 routes and the C0 analytic cover; MODIFY near-term execution to C0-only necessary verification; REJECT current independent-evaluation and formal-readiness claims; REJECT C2/P4/P5 spend in this window only. Not a selection. Paper claim ladder and P1-A failure grades in SR-002 are now binding for later WIs and wording. C1 stays closed until every listed qualification holds.
+
+Evidence/scope: SR-002; TR-014 PASS of `e4ee8febfc8ff89e927eba436e81e2ae7759af1c`; D-004; RT-002 F1 still open. Configuration and contest allocation, not model-family failure.
+
+Rejected: treating TR-014 or a later P1-A self-check as independent evaluation; opening C1/C2/formal slots from one rehearsal or a synthetic clock; rewriting these grades after seeing scores.
+
+Affected stages: Red Team of the candidate remains the next engineering gate; any later P1-A run WI must be the full C0 suite; paper claims must use the five evidence kinds without substitution.
+
+Reopen: SR-002 tables. Official-rule change, reviewed theoretical counterexample, or C1 meeting every listed qualification.
+
 ## Decision Template
 
 ### D-TODO

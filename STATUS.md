@@ -25,7 +25,7 @@ None. `MODEL_SPEC.md` is intentionally absent.
 
 ## Recent Major Decisions
 
-- Historical 2026-09-12 strategy note authorized 2–3 candidate mathematical routes with a simple baseline. Experiment **design** later completed under WI-010. User D-001 accepted the P1-A SPEC and authorized the evaluator WI only. User D-003 later authorized local evaluator integration and a different-author C0 P1-A **candidate implementation** WI; that is not final selection and not `MODEL_SPEC.md`. In-repo Strategist is retired; strategy advice is external.
+- Historical 2026-09-12 strategy note authorized 2–3 candidate mathematical routes with a simple baseline. Experiment **design** later completed under WI-010. User D-001 accepted the P1-A SPEC and authorized the evaluator WI only. User D-003 later authorized local evaluator integration and a C0 P1-A candidate WI; D-004 waived same-model authorship without creating isolation. User-delivered SR-002 / D-005 KEEP the three routes, set C0 as the contest-default **execution** path, reject current independent-evaluation and formal-readiness claims, and keep C1/C2/P4/P5 closed in this window. That is not final selection and not `MODEL_SPEC.md`.
 
 ## Collaboration State
 
@@ -47,4 +47,4 @@ None. `MODEL_SPEC.md` is intentionally absent.
 
 ## Blockers
 
-- Next gate is Red Team of candidate `e4ee8febfc8ff89e927eba436e81e2ae7759af1c`. Push, P1-A property-run WI, P1-B, selection, and `RT-002` closure remain unauthorized. Same-model candidate is a recorded isolation residual.
+- Next engineering gate remains Red Team of candidate `e4ee8febfc8ff89e927eba436e81e2ae7759af1c`. SR-002 / D-005 bind claim wording and P1-A failure grades; they do not start P1-A, close `RT-002`, or open C1. After Red Team, a later full C0 property-run WI still needs explicit authorization. Push, P1-B, selection, and formal-readiness claims remain unauthorized.
