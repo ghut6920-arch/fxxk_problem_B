@@ -36,6 +36,7 @@ None. `MODEL_SPEC.md` is intentionally absent.
 - `WI-007` verified and audited the official B-problem input set; `题目拆解与分析.md` is preserved as derived reading input, not official or reviewed model evidence.
 - `WI-008` is `COMPLETE_WITH_SUPERSEDING_FIX`; the official-evidence correction addendum in `TR-007` restores the mixed-type requirement and records why the earlier recheck was wrong. Its design result remains unintegrated and unpushed; no model has been selected.
 - `WI-009` is `COMPLETE`; `TR-008` recheck passed corrected fixed result `44bf45ab43fbba6d14461b13c485890db437dd30`. The complete mathematical plan remains on the design branch, unintegrated and unpushed; no implementation, experiment execution, final selection, or `MODEL_SPEC.md` is authorized.
+- `WI-010` is `IN_PROGRESS` on `design/NA-003-experiment-design` from Execution Start `bdeb26bd1247a85df479b91b9fdae5e6293e2d2a`. It authorizes one experiment-design document only; no experiment, implementation, formal-test use, selection, integration, or push is authorized.
 - No active collaboration issue authorizes history rewriting, branch deletion, object pruning, or remote publication.
 
 ## Blockers
