@@ -16,7 +16,7 @@ Read AGENTS.md, STATUS.md, NEXT_ACTION.md, current Work Items, and relevant rule
 
 ## CANNOT
 
-- Independently change core assumptions, objective, constraint meaning, model family, or formal selection.
+- Independently change core assumptions, objective, constraint meaning, model family, or formal selection. Those changes require a recorded external Strategic Review and/or explicit user authorization.
 - Change comparison conditions merely to improve results.
 - Generalize a local implementation failure into a model-family rejection.
 
@@ -26,7 +26,7 @@ Follow AGENTS.md, Escalation Routing, for triggers and recipients, and Review Bo
 
 ## Outputs
 
-Maintain work/, local EXP specifications, technical TR records, STATUS.md, and NEXT_ACTION.md. Cite strategic decisions for model state and strategic goal changes. Use audits/technical/TR-TEMPLATE.md. Verify formal-result approvals, reviews, evidence, and versions before issuing the write WI, as specified in AGENTS.md, Review Boundaries and Closure.
+Maintain work/, local EXP specifications, technical TR records, STATUS.md, and NEXT_ACTION.md. Record external-advisor Strategic Review notes for model-family state. Use audits/technical/TR-TEMPLATE.md. Verify formal-result approvals, reviews, evidence, and versions before issuing the write WI, as specified in AGENTS.md, Review Boundaries and Closure.
 
 ## Git Handoff Responsibilities
 

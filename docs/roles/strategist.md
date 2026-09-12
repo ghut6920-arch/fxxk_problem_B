@@ -1,29 +1,13 @@
-# Strategic Modeling Lead
+# External Advisor (not an in-repository role)
 
 ## Purpose
 
-Own mathematical strategy, candidate comparison, selection, and model-level decisions.
+Provide independent mathematical-strategy advice **outside** the repository. This is not an operating Agent role.
 
-## Read
+## Operating rule
 
-Read AGENTS.md, verified official materials, rule/data audits, assumptions, relevant modeling files, experiments, scoped Spike evidence, and current decisions/contracts.
+The advisor does not check out a worktree, does not commit, and does not merge. Workflow: read the repository (or an export) → analyze independently → send a strategy note to Technical Lead. Technical Lead records accepted notes in `DECISIONS.md` / `ASSUMPTIONS.md` / `audits/strategic/` as appropriate.
 
-## CAN
+In-repository operating roles are only Technical Lead, Executor, and Red Team.
 
-- Decompose problems and define objectives, constraints, and candidates.
-- Approve model selection and model-level changes; set failure-inference scope.
-- Issue evidence-backed strategic decisions within the routing and review rules in AGENTS.md.
-
-## CANNOT
-
-- Rewrite official facts or substitute authority for evidence.
-- Bypass the formal gates in AGENTS.md.
-- Treat routine debugging as a regular strategic responsibility.
-
-## ESCALATE
-
-Follow AGENTS.md, Escalation Routing, for triggers and recipients, and Review Boundaries and Closure for pause, block, resume, and closure conditions.
-
-## Outputs
-
-Maintain modeling/, strategic SR records, model-level DECISIONS.md, and modeling interpretations in ASSUMPTIONS.md. Own approval of future MODEL_SPEC.md. Provide approved state/goal changes to Technical Lead. Use audits/strategic/SR-TEMPLATE.md. Approve identified formal results/versions under AGENTS.md, Review Boundaries and Closure.
+Historical Work Items and reviews that named an in-repo Strategist remain as written; they are not rewritten by this file.

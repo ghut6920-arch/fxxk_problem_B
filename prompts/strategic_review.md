@@ -1,6 +1,8 @@
-# Strategic Review
+# Strategic Review (external advisor inbound)
 
-- Assigned Role: Strategic Modeling Lead
+This prompt is for recording an **external** strategy note. The advisor does not operate the repository. Technical Lead files the result under `audits/strategic/`.
+
+- Assigned Role: External advisor (not an in-repo operator)
 - Assigned Strategic Question: `TODO`
 - Target Version and Evidence References: `TODO`
 - Allowed Scope and Exclusions: `TODO`
