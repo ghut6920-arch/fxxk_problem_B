@@ -2,7 +2,7 @@
 
 ## Competition Stage
 
-Official inputs and prior plan/design remain as recorded below. WI-016 P1-A finite-fixture PASS stands. WI-017 P1-B + one Q3 and one Q4 **practice** is technically accepted at `a48c77cc0d46a81b96aa56f54197b8837c4c735c` (`P1B_PASS_PRACTICE_OBSERVED`, TR-018). User states practice slots are unlimited; that does not close `RT-002` or authorize formal tests. C1 remains closed. Origin remains user-guaranteed (D-006).
+Official inputs and prior plan/design remain as recorded below. WI-017 practice observations stand. TR-019: `clear_rectangle_centres` at `a48c77c` does not snake in local rectangle coordinates. WI-018 issued to restore that contract. C1 and formal slots remain closed.
 
 ## Verified Facts
 
@@ -44,9 +44,10 @@ None. `MODEL_SPEC.md` is intentionally absent.
 - `WI-015` is `COMPLETE` for implementation at `e4ee8febfc8ff89e927eba436e81e2ae7759af1c` (TR-014 PASS; RT-004; TR-015). Isolation is **not** claimed (D-004 / RT4-F1). Unmerged, unpushed.
 - `WI-016` is `COMPLETE` at `761c0f7788ed773d2a132b92caaa9e1378b22c88` (TR-016 PASS). Author and independent rerun: `P1A_PROPERTIES_PASS` (26/26). Wording: same-model internal fixture agreement, not independent evaluation. Independent challenge of this run commit is recorded absent. Unmerged, unpushed.
 - `WI-017` is `COMPLETE` at `a48c77cc0d46a81b96aa56f54197b8837c4c735c` (TR-018). Live Q3/Q4 practice both `COMPLETE` with `K=12`. Operator UI: Q3 `N=12` all omni; Q4 `N=12` (2 omni, 10 directional). Unknown-accept 0, loopback wall ~26 s / ~48 s. Unmerged, unpushed.
+- `WI-018` is `READY` / issued: restore local snake for 225 clear centres (TR-019 FIX, implementation). Not started in this Technical Lead session.
 
 - No active collaboration issue authorizes history rewriting, branch deletion, object pruning, or remote publication.
 
 ## Blockers
 
-- WI-017 practice observations accepted; operator UI `N=K=12` on those two cases. Do not open C1 or a formal slot. `RT-002` F1 still requires repeated stressed evidence for formal readiness. Independent challenge of `761c0f7` / `a48c77c` remains absent unless later targeted.
+- WI-018 waits for Executor. Do not open C1, shrink 225/81, or consume a formal slot. Practice `K=N=12` and 225-point cover are not reopened by this repair. Independent Red Team of the old snake and the repair commit follows the result.

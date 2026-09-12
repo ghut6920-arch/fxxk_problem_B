@@ -1,13 +1,12 @@
 # Primary Integration Goal
 
-Hold C0 after P1-A fixture PASS and two practice observations. Do not open C1 or a formal slot.
+Execute WI-018: restore local-rectangle snake for the 225 clear centres at Comparison Base `a48c77cc0d46a81b96aa56f54197b8837c4c735c`.
 
 ## Acceptance Criteria
 
-- Paper wording: these two practices had operator-UI `N=K=12` (Q3 all omni; Q4 2 omni + 10 dir). Still practice only.
-- `RT-002` stays open. Unlimited practice ≠ formal qualification.
-- No C1, no formal `/enter`, no push/merge without a new named authorization.
+- Emitted sequence at non-axis `θ` has consecutive steps ≤20 m (≤22 m with submission); 225-point **set** unchanged.
+- Tests fail on the old global-y snake and pass after repair. No C1, no 81→49/225→150, no live simulator, no push.
 
-Status: WAITING_FOR_USER — WI-017 COMPLETE.
+Status: IN_PROGRESS — WI-018 issued; waiting for Executor.
 
-Owner: User (UI `N` check / optional stressed practice / paper); Technical Lead issues any later WI only after that.
+Owner: Implementation Engineer; Technical Lead reviews the fixed result; Red Team after that result commit.
