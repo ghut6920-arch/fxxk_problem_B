@@ -1,0 +1,29 @@
+{
+  "id": "G11",
+  "phase_checks": ["evaluator_now"],
+  "candidate_later_checks": [
+    "worst-case cover-radius upper bound and move cost",
+    "must not claim that 90 degrees is always optimal"
+  ],
+  "inputs": {
+    "first_observation": {"S": [0, 0], "theta_hat_deg": 0.0, "g": [1000, 0], "R_c": 1500},
+    "comparators": {
+      "pool_6": [
+        [250, 500], [250, -500],
+        [500, 500], [500, -500],
+        [750, 500], [750, -500]
+      ],
+      "lateral": [500, 500],
+      "forward": [500, 0]
+    }
+  },
+  "truth": {
+    "note": "Q2 local comparator; shared first observation, not a new model family",
+    "plan_section": "§4.2"
+  },
+  "expected_evaluator": {
+    "c_in_membership_pool": [true, true, true, true, true, true],
+    "c_in_membership_lateral": true,
+    "c_in_membership_forward": true
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "G13",
+  "phase_checks": ["evaluator_now"],
+  "candidate_later_checks": [
+    "successor containment A2_near / A2_dir",
+    "near score 0 is not position variance 0"
+  ],
+  "inputs": {
+    "S": [0, 0],
+    "R_c": 1500,
+    "theta_hat_deg": 0.0,
+    "worlds": [
+      {"g": [4.999999, 0], "note": "5 - eps_d"},
+      {"g": [5, 0], "note": "exactly 5: closed, so near"},
+      {"g": [5.000001, 0], "note": "5 + eps_d"}
+    ]
+  },
+  "truth": {
+    "analytic": "the 5 m threshold is closed on the near side",
+    "plan_section": "§4.2"
+  },
+  "expected_evaluator": {
+    "observation": ["near", "near", "direction"]
+  }
+}

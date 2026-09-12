@@ -1,0 +1,22 @@
+{
+  "id": "G02",
+  "phase_checks": ["evaluator_now"],
+  "candidate_later_checks": [
+    "candidate must report UNBOUNDED and must not report a finite diameter"
+  ],
+  "inputs": {
+    "convention": "a*x + b*y + c >= 0",
+    "half_planes": [
+      {"a": 0, "b": 1, "c": 0, "text": "y >= 0"},
+      {"a": 0, "b": -1, "c": 1, "text": "y <= 1"}
+    ]
+  },
+  "truth": {
+    "analytic": "unbounded strip; recession along +/-(1,0); no x bound",
+    "plan_section": "§3 step 2"
+  },
+  "expected_evaluator": {
+    "halfplane_state": "UNBOUNDED",
+    "finite_diameter_reported": false
+  }
+}

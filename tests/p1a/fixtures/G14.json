@@ -1,0 +1,27 @@
+{
+  "id": "G14",
+  "phase_checks": ["evaluator_now"],
+  "candidate_later_checks": [
+    "keep no_signal; do not apply the Q2 omnidirectional guaranteed-receive C_in to this candidate"
+  ],
+  "inputs": {
+    "g": [1000, 0],
+    "kind": "directional",
+    "phi_deg": 0.0,
+    "n_phi": [1, 0],
+    "R_c": 1500,
+    "S": [0, 0],
+    "required_existence": {"omni_sources_present_for_legal_q4_mixed_world": true},
+    "note": "n(phi) . (S - g) = -1000 < 0: the sensor is on the back side"
+  },
+  "truth": {
+    "component_world": true,
+    "note": "single-source component world, not a 10-16 source performance sample",
+    "plan_section": "§2 visibility; §4.2 A2_no"
+  },
+  "expected_evaluator": {
+    "visible": false,
+    "observation": "no_signal",
+    "world_label": "component_world"
+  }
+}

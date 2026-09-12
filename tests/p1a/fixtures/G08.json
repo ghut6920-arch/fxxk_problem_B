@@ -1,0 +1,25 @@
+{
+  "id": "G08",
+  "phase_checks": ["evaluator_now"],
+  "candidate_later_checks": [
+    "candidate geometry for the +90 degree rotated equivalent; re-check the representation contract after rotation"
+  ],
+  "inputs": {
+    "S": [0, 0],
+    "A_deg": 359.5,
+    "B_deg": -0.5,
+    "C_deg": 89.5,
+    "rotation_deg": 90.0,
+    "note": "A and B are the same internal direction; C is A rotated by +90 degrees; two-decimal display is not internal arithmetic"
+  },
+  "truth": {
+    "analytic": "normalize to (-180, 180]: A -> -0.5, B -> -0.5, C -> 89.5",
+    "plan_section": "§3; §2 delta"
+  },
+  "expected_evaluator": {
+    "A_normalized_deg": -0.5,
+    "B_normalized_deg": -0.5,
+    "ab_internally_equivalent": true,
+    "C_normalized_deg": 89.5
+  }
+}

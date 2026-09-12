@@ -1,0 +1,36 @@
+{
+  "id": "T08",
+  "phase_checks": ["evaluator_now"],
+  "candidate_later_checks": [
+    "L=2 is not reset by ordinary progress",
+    "one clear list per discovered source",
+    "every fallback task is executed or discharged with a trace"
+  ],
+  "inputs": {
+    "script": [
+      {"seq": 1, "action": "measure", "x": [0, 0], "c": 1, "note": "discover source channel 1"},
+      {"seq": 2, "action": "progress", "kind": "small_progress", "ledger_charged": false},
+      {"seq": 3, "action": "progress", "kind": "small_progress", "ledger_charged": false},
+      {"seq": 4, "action": "measure", "x": [0, 0], "c": 2, "note": "switch receive channel"},
+      {"seq": 5, "action": "progress", "kind": "repeat_positive_feedback", "ledger_charged": false},
+      {"seq": 6, "action": "clear", "x": [0, 0], "c": 1, "s": 1, "note": "successful clear"},
+      {"seq": 7, "action": "cancel_remaining", "c": 1, "ledger_charged": false}
+    ],
+    "initial_state": {"p": [0, 0], "b": 1},
+    "L": 2,
+    "note": "injected events, not a candidate run; only the fully specified move/measure/clear events are charged"
+  },
+  "truth": {
+    "note": "expected T = 5 (measure ch.1) + 6 (measure ch.2 with one switch) + 5 (successful clear) = 16",
+    "plan_section": "§2; §7.1; design §4.3 T08"
+  },
+  "expected_evaluator": {
+    "ledger_total": 16.0,
+    "K": 1,
+    "fully_specified_actions": 3,
+    "N_measure": 2,
+    "N_switch": 1,
+    "N_clear": 1,
+    "L_move_m": 0.0
+  }
+}

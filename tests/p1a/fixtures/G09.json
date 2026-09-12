@@ -1,0 +1,38 @@
+{
+  "id": "G09",
+  "phase_checks": ["evaluator_now"],
+  "candidate_later_checks": [
+    "inner-domain certificates of the submitted points",
+    "6-point pool vs lateral (500,500) vs forward (500,0) comparison; forward is not in the 6-point pool"
+  ],
+  "inputs": {
+    "S": [0, 0],
+    "theta_hat_deg": 0.0,
+    "channel": 1,
+    "R_c": 1500,
+    "worlds": [
+      {"g": [5.000001, 0], "note": "5 + eps_d"},
+      {"g": [1000, 0]},
+      {"g": [1500, 0]}
+    ],
+    "submitted_pool": [
+      [250, 500], [250, -500],
+      [500, 500], [500, -500],
+      [750, 500], [750, -500]
+    ],
+    "extra_points": {"lateral": [500, 500], "forward": [500, 0]}
+  },
+  "truth": {
+    "worlds_kind": "omni",
+    "R_c": 1500,
+    "note": "truth stays evaluator-side; the candidate-facing record must omit it",
+    "plan_section": "§4.1"
+  },
+  "expected_evaluator": {
+    "worlds_in_D": [true, true, true],
+    "first_observation": ["direction", "direction", "direction"],
+    "c_in_membership_pool": [true, true, true, true, true, true],
+    "c_in_membership_lateral": true,
+    "c_in_membership_forward": true
+  }
+}

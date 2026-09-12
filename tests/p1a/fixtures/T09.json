@@ -1,0 +1,21 @@
+{
+  "id": "T09",
+  "phase_checks": ["evaluator_now"],
+  "candidate_later_checks": [
+    "keep and charge the old fallback certificate; do not drop a valid certificate because a newly computed crude bound is larger"
+  ],
+  "inputs": {
+    "old_fallback_certificate_bound": 100,
+    "new_crude_bound_after_one_step": 120,
+    "note": "non-monotone crude bound; no candidate certificate manager exists in WI-014"
+  },
+  "truth": {
+    "note": "the stored numbers are the fixture's only evaluator_now content; the property statement is candidate_later",
+    "plan_section": "§7.2-§7.3; design §4.3 T09"
+  },
+  "expected_evaluator": {
+    "old_fallback_certificate_bound": 100,
+    "new_crude_bound_after_one_step": 120,
+    "keep_old_certificate": true
+  }
+}

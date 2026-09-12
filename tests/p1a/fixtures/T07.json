@@ -1,0 +1,33 @@
+{
+  "id": "T07",
+  "phase_checks": ["evaluator_now"],
+  "candidate_later_checks": [
+    "candidate must not report a false CONFLICT on the legal worlds"
+  ],
+  "inputs": {
+    "worlds": {
+      "q3_n10_all_omni": {"problem": "Q3", "N": 10, "N_dir": 0},
+      "q3_n16_all_omni": {"problem": "Q3", "N": 16, "N_dir": 0},
+      "q4_n10_dir1": {"problem": "Q4", "N": 10, "N_dir": 1},
+      "q4_n16_dir15": {"problem": "Q4", "N": 16, "N_dir": 15},
+      "q4_n10_dir10_all_directional": {"problem": "Q4", "N": 10, "N_dir": 10},
+      "q3_n10_one_already_cleared": {"problem": "Q3", "N": 10, "N_dir": 0, "cleared": 1}
+    },
+    "illegal_world_is_reject_only": true
+  },
+  "truth": {
+    "note": "Q4 requires 1 <= N_dir <= N-1, so an all-directional Q4 world is illegal; the illegal world is a reject test, never a performance sample; a successful clear does not reduce the initial count",
+    "plan_section": "§2; §6; design §4.3 T07"
+  },
+  "expected_evaluator": {
+    "validate_world_ok": {
+      "q3_n10_all_omni": true,
+      "q3_n16_all_omni": true,
+      "q4_n10_dir1": true,
+      "q4_n16_dir15": true,
+      "q4_n10_dir10_all_directional": false,
+      "q3_n10_one_already_cleared": true
+    },
+    "initial_N_counts_cleared_source": true
+  }
+}

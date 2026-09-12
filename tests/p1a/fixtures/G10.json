@@ -1,0 +1,28 @@
+{
+  "id": "G10",
+  "phase_checks": ["evaluator_now"],
+  "candidate_later_checks": [
+    "true position retained in the candidate outer approximation"
+  ],
+  "inputs": {
+    "g": [1800, 0],
+    "S": [800, 0],
+    "true_bearing_deg": 0.0,
+    "note": "g lies on the boundary of D; ||g - S|| = 1000 exactly",
+    "worlds": [
+      {"R_c": 1000, "theta_hat_deg": 1.0},
+      {"R_c": 1000, "theta_hat_deg": -1.0},
+      {"R_c": 1500, "theta_hat_deg": 1.0},
+      {"R_c": 1500, "theta_hat_deg": -1.0}
+    ]
+  },
+  "truth": {
+    "analytic": "r = 1000; both +/-1 degree endpoints satisfy |wrap(theta_hat - 0)| <= delta",
+    "plan_section": "§4.1-§4.2"
+  },
+  "expected_evaluator": {
+    "g_in_D": true,
+    "observation": ["direction", "direction", "direction", "direction"],
+    "direction_contract_ok": [true, true, true, true]
+  }
+}

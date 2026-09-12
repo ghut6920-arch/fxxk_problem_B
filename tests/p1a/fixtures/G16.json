@@ -1,0 +1,44 @@
+{
+  "id": "G16",
+  "phase_checks": ["evaluator_now"],
+  "candidate_later_checks": [
+    "candidate centres match the formula up to the 1 m submission bound",
+    "adjacent submitted distance <= 22 m"
+  ],
+  "inputs": {
+    "S": [0, 0],
+    "theta_deg": 0.0,
+    "epsilon_d": 1e-06,
+    "rectangle": {"x_min": 0, "x_max": 1500, "y_min": -30, "y_max": 30},
+    "formula": "(10 + 20 i, -20 + 20 j) for i = 0..74, j = 0,1,2",
+    "source_placements": {
+      "corner": [0, 30],
+      "cell_edge": [10, 10],
+      "cell_vertex": [20, 0],
+      "distance_20_minus_eps": [[10, 0], [29.999999, 0]],
+      "distance_20": [[10, 0], [30, 0]],
+      "distance_20_plus_eps": [[10, 0], [30.000001, 0]]
+    },
+    "submitted_centre_with_1m_error": {
+      "exact": [10, 0],
+      "submitted": [10.6, 0.8],
+      "offset": [0.6, 0.8]
+    },
+    "adjacent_centres": [[10, 0], [30, 0]],
+    "note": "each placement pair is [submitted clear centre, true source position]; clear is evaluated with the submitted centre against the true source position"
+  },
+  "truth": {
+    "note": "cell-to-centre cover is 10 sqrt(2) < 20; with the 1 m Euclidean submission bound it is 10 sqrt(2) + 1 < 20",
+    "plan_section": "§5.2"
+  },
+  "expected_evaluator": {
+    "centre_count": 225,
+    "centres_match_formula": true,
+    "corner_nearest_centre": [10, 20],
+    "corner_centre_distance": 14.142135623730951,
+    "submitted_offset_norm": 1.0,
+    "clear_results": ["success", "success", "fail"],
+    "adjacent_nominal": 20.0,
+    "adjacent_bound_with_1m_errors": 22.0
+  }
+}

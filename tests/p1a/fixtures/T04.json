@@ -1,0 +1,28 @@
+{
+  "id": "T04",
+  "phase_checks": ["evaluator_now"],
+  "candidate_later_checks": [
+    "existence vs cleared records stay consistent; a second success must not increment K twice"
+  ],
+  "inputs": {
+    "g": [0, 0],
+    "channel": 1,
+    "u_c": 1,
+    "epsilon_d": 1e-06,
+    "heading_irrelevant": true,
+    "clear_points": [[19.999999, 0], [20, 0], [20.000001, 0]],
+    "two_success_script": [
+      {"seq": 1, "action": "clear", "x": [0, 0], "c": 1, "s": 1},
+      {"seq": 2, "action": "clear", "x": [0, 0], "c": 1, "s": 1}
+    ]
+  },
+  "truth": {
+    "note": "the 20 m clear radius is closed; K counts distinct successfully cleared channels",
+    "plan_section": "§2"
+  },
+  "expected_evaluator": {
+    "clear_results": ["success", "success", "fail"],
+    "K_after_two_successes": 1,
+    "N_clear_after_two_successes": 2
+  }
+}

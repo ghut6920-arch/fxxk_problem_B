@@ -1,0 +1,45 @@
+{
+  "id": "G15",
+  "phase_checks": ["evaluator_now"],
+  "candidate_later_checks": [
+    "the same visible-set claim recomputed from the candidate scan"
+  ],
+  "inputs": {
+    "P_3_formula": "1400*(i,j), i,j in {-1,0,1}",
+    "P_4_formula": "700*(i,j), i,j in {-4,...,4}",
+    "epsilon_d": 1e-06,
+    "worlds": [
+      {"name": "disk_edge", "g": [1800, 0], "kind": "omni", "R_c": 1500},
+      {"name": "p4_grid_line", "g": [700, 0], "kind": "omni", "R_c": 1500},
+      {"name": "p4_grid_point", "g": [700, 700], "kind": "omni", "R_c": 1500},
+      {"name": "eps_perturbation", "g": [700.000001, 700], "kind": "omni", "R_c": 1500},
+      {"name": "heading_boundary", "g": [700, 700], "kind": "directional", "phi_deg": 90.0, "chosen_p": [1400, 700], "R_c": 1500},
+      {"name": "heading_boundary_eps_far", "g": [700, 700.000001], "kind": "directional", "phi_deg": 90.0, "chosen_p": [1400, 700], "R_c": 1500},
+      {"name": "heading_boundary_eps_near", "g": [700, 699.999999], "kind": "directional", "phi_deg": 90.0, "chosen_p": [1400, 700], "R_c": 1500},
+      {"name": "coincidence_o03", "g": [0, 0], "kind": "directional", "phi_deg": 0.0, "R_c": 1500}
+    ],
+    "heading_boundary_choice": {
+      "chosen_p": [1400, 700],
+      "note": "p=(1400,700) is in P_4; g=(700,700) with phi=90 deg gives n(phi).(p-g)=0 exactly (closed half-plane, visible). The eps_d perturbation is a distance perturbation of g_y by +/-eps_d, which flips the same visibility boundary."
+    }
+  },
+  "truth": {
+    "note": "the coincidence point (0,0) is a P_4 lattice point and is not coverage evidence",
+    "plan_section": "§5.1"
+  },
+  "expected_evaluator": {
+    "P_3_count": 9,
+    "P_4_count": 81,
+    "p3_visible_nonempty": {
+      "disk_edge": true, "p4_grid_line": true, "p4_grid_point": true, "eps_perturbation": true
+    },
+    "p4_visible_nonempty": {
+      "disk_edge": true, "p4_grid_line": true, "p4_grid_point": true, "eps_perturbation": true
+    },
+    "heading_boundary_observation": "direction",
+    "heading_boundary_eps_far_observation": "no_signal",
+    "heading_boundary_eps_near_observation": "direction",
+    "coincidence_label": "O03_OPEN",
+    "coincidence_used_as_coverage_evidence": false
+  }
+}

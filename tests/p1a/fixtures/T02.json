@@ -1,0 +1,21 @@
+{
+  "id": "T02",
+  "phase_checks": ["evaluator_now"],
+  "candidate_later_checks": [
+    "candidate must preserve the open O-03 branch and must not pick an official answer"
+  ],
+  "inputs": {
+    "omni_near": {"g": [3, 0], "kind": "omni", "R_c": 1500, "channel": 1, "p": [0, 0]},
+    "directional_coincidence": {"g": [0, 0], "kind": "directional", "phi_deg": 0.0, "R_c": 1500, "channel": 1, "p": [0, 0]},
+    "o03_allowed_labels": ["near", "no_signal"]
+  },
+  "truth": {
+    "note": "the directional coincidence point is the open O-03 branch; both labels are allowed and neither is chosen",
+    "plan_section": "ASSUMPTIONS.md O-03; design §4.3 T02"
+  },
+  "expected_evaluator": {
+    "omni_near_observation": "near",
+    "o03_label": "O03_OPEN",
+    "o03_allowed_labels": ["near", "no_signal"]
+  }
+}

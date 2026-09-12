@@ -1,0 +1,28 @@
+{
+  "id": "G05",
+  "phase_checks": ["evaluator_now"],
+  "candidate_later_checks": [
+    "candidate: vertex dedup, diameter, covering circle"
+  ],
+  "inputs": {
+    "convention": "a*x + b*y + c >= 0",
+    "half_planes": [
+      {"a": 1, "b": 0, "c": 0, "text": "x >= 0"},
+      {"a": -1, "b": 0, "c": 1, "text": "x <= 1"},
+      {"a": 0, "b": 1, "c": 0, "text": "y >= 0"},
+      {"a": 0, "b": -1, "c": 2, "text": "y <= 2"}
+    ]
+  },
+  "truth": {
+    "analytic": "rectangle [0,1] x [0,2]; the farthest pairs are the two diagonals",
+    "plan_section": "§3"
+  },
+  "expected_evaluator": {
+    "halfplane_state": "BOUNDED",
+    "vertices": [[0, 0], [0, 2], [1, 0], [1, 2]],
+    "diameter": 2.23606797749979,
+    "farthest_pair_midpoint": [0.5, 1],
+    "max_vertex_distance_to_midpoint": 1.118033988749895,
+    "min_enclosing_radius": 1.118033988749895
+  }
+}

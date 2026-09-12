@@ -1,0 +1,32 @@
+{
+  "id": "G07",
+  "phase_checks": ["evaluator_now"],
+  "candidate_later_checks": [
+    "candidate near-collinear wedge geometry must return NUMERICAL_UNCERTAIN rather than a fake precise bounded solution"
+  ],
+  "inputs": {
+    "convention": "a*x + b*y + c >= 0",
+    "g07a_parallel_strip": {
+      "half_planes": [
+        {"a": 0, "b": 1, "c": 0, "text": "y >= 0"},
+        {"a": 0, "b": -1, "c": 1, "text": "y <= 1"}
+      ]
+    },
+    "g07b_near_collinear": {
+      "S1": [0, 0],
+      "theta_hat_1_deg": 0.0,
+      "S2": [1000, 0],
+      "theta_hat_2_deg": 0.01,
+      "delta_deg": 1.0
+    }
+  },
+  "truth": {
+    "g07a_analytic": "unbounded parallel strip; a finite diameter is forbidden",
+    "g07b_analytic": "two wedge boundary directions 0.01 degrees apart, below the frozen 1 degree feedback resolution; no finite vertex set may be certified",
+    "plan_section": "§3 numerical rule"
+  },
+  "expected_evaluator": {
+    "g07a_state": "UNBOUNDED",
+    "g07b_state": "NUMERICAL_UNCERTAIN"
+  }
+}

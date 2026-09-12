@@ -1,0 +1,20 @@
+{
+  "id": "T03",
+  "phase_checks": ["evaluator_now"],
+  "candidate_later_checks": [
+    "Q3 vs Q4 update rules",
+    "back-side no_signal must not delete the true position"
+  ],
+  "inputs": {
+    "empty_channel": {"channel": 2, "p": [0, 0], "worlds_on_channel_2": []},
+    "outside_radius": {"g": [0, 0], "kind": "omni", "R_c": 1000, "p": [1000.000001, 0]},
+    "directional_back": {"g": [1000, 0], "kind": "directional", "phi_deg": 0.0, "R_c": 1500, "p": [0, 0]}
+  },
+  "truth": {
+    "note": "empty channel, radius outside, and directional back all return no_signal",
+    "plan_section": "§2; design §4.3 T03"
+  },
+  "expected_evaluator": {
+    "observations": ["no_signal", "no_signal", "no_signal"]
+  }
+}
