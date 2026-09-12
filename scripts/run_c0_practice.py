@@ -47,10 +47,37 @@ from candidate import observe as candidate_observe      # noqa: E402
 from candidate import scan as candidate_scan            # noqa: E402
 from protocol.client import DEFAULT_BASE_URL, RobotClient  # noqa: E402
 from protocol.errors import ProtocolError, UnknownAcceptError  # noqa: E402
-from protocol.session import PracticeSession            # noqa: E402
+from protocol.session import PracticeSession, SessionConfirmation  # noqa: E402
 
 #: read the mock only in --mock mode; it lives with the P1-B tests
 MOCK_DIR = REPO / "tests" / "p1b"
+#: the WI-020 cost accountant (itemized plan section 5.3 terms)
+COSTING_DIR = REPO / "tests"
+if str(COSTING_DIR) not in sys.path:
+    sys.path.insert(0, str(COSTING_DIR))
+
+
+def itemized_cost(question, requests):
+    """Split the live request log into the plan section 5.3 cost terms.
+
+    ``measure`` and ``clear`` requests are replayed in emission order; the
+    decomposition is independent of the candidate's own ledger.
+    """
+    from tests.c0_baseline import costing
+
+    class Recorded:
+        __slots__ = ("action", "point", "channel", "success")
+
+        def __init__(self, entry):
+            body = entry["body"]
+            self.action = "measure" if entry["path"] == "/measure" else "clear"
+            self.point = (body["position"]["x"], body["position"]["y"])
+            self.channel = body["channel"]
+            response = entry.get("raw_response") or {}
+            self.success = response.get("clear_result") == "success"
+
+    actions = [Recorded(entry) for entry in requests if entry["path"] in ("/measure", "/clear")]
+    return costing.decompose(actions, question)
 
 
 class ProtocolEnv:
@@ -117,15 +144,20 @@ def run(args):
 
     client = RobotClient(base_url, robot_id=args.robot_id, timeout=args.timeout,
                          max_retries=args.max_retries, id_prefix="c0")
+    confirmation = None
+    if not args.mock:
+        confirmation = SessionConfirmation(args.confirm_session_problem, args.mode,
+                                           args.robot_id, args.base_url)
+        report["session_confirmation"] = confirmation.to_dict()
     session = PracticeSession(client, margin_s=args.time_margin_s, mode=args.mode,
-                              require_practice_confirmation=True)
+                              require_practice_confirmation=True, confirmation=confirmation)
     env = ProtocolEnv(session)
     points = candidate_scan.P3() if args.problem == "Q3" else candidate_scan.P4()
     report["scan_points"] = len(points)
     report["planned_measures"] = len(points) * len(candidate_scan.Q3_Q4_CHANNELS)
 
     try:
-        enter = session.enter()
+        enter = session.enter(problem=args.problem)
         report["enter"] = {
             "virtual_time_s": enter.virtual_time_s,
             "remaining_real_duration_s": enter.remaining_real_duration_s,
@@ -158,6 +190,12 @@ def run(args):
             "max_residual_s": session.tracker.max_residual,
         }
         report["requests"] = client.log()
+        cost = itemized_cost(args.problem, report["requests"])
+        report["cost"] = cost.to_dict()
+        report["cost"]["ledger_agrees_with_decomposition"] = (
+            abs(session.tracker.candidate_total - cost.total_seconds) < 1e-6)
+        report["cost"]["tv_over_k"] = (None if cost.k_success == 0
+                                       else cost.total_seconds / cost.k_success)
         if simulator is not None:
             report["mock_state"] = {
                 "executed_actions": len(simulator.executed),
@@ -180,6 +218,9 @@ def main(argv=None):
                         help="the session mode the operator sees; formal aborts before /enter")
     parser.add_argument("--confirm-practice", action="store_true",
                         help="operator confirmation that the open session is a practice/演练 run")
+    parser.add_argument("--confirm-session-problem", choices=("Q3", "Q4"), default=None,
+                        help="the problem number the operator sees for the OPEN session; "
+                             "must match --problem (WI-020 requires a fresh per-session check)")
     parser.add_argument("--mock", action="store_true", help="run offline against the bundled mock")
     parser.add_argument("--mock-url-label", default="http://127.0.0.1:2026")
     parser.add_argument("--bearing-error-deg", type=float, default=0.0)
@@ -199,6 +240,13 @@ def main(argv=None):
     if not args.mock and not args.confirm_practice:
         parser.error("refusing to send /enter: pass --confirm-practice only after checking that the "
                      "open session in the simulator UI is a practice/演练 run")
+    if not args.mock:
+        if args.confirm_session_problem is None:
+            parser.error("refusing to send /enter: --confirm-session-problem is required; state the "
+                         "problem number the operator sees for the OPEN session")
+        if args.confirm_session_problem != args.problem:
+            parser.error(f"refusing to send /enter: the open session is declared "
+                         f"{args.confirm_session_problem} but --problem is {args.problem}")
 
     report = run(args)
     payload = json.dumps(report, indent=2, ensure_ascii=False, default=str)

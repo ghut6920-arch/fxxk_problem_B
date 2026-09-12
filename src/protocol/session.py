@@ -59,14 +59,51 @@ class RealTimeGuard:
         }
 
 
+class SessionConfirmation:
+    """The operator's assertion about the **currently open** session (WI-020).
+
+    The interface exposes neither the mode nor the problem number, and the logged-in
+    team identifier is not derivable from the repository.  So each run must be told,
+    explicitly and per session, what the operator sees in the simulator UI: which
+    problem, that it is a practice (演练) session, the team identifier in use right
+    now, and the base URL.  A previous session's identifier must never be reused
+    without re-checking.
+    """
+
+    def __init__(self, problem, mode, robot_id, base_url):
+        self.problem = problem
+        self.mode = mode
+        self.robot_id = robot_id
+        self.base_url = base_url
+
+    def mismatches(self, *, problem, mode, robot_id, base_url):
+        problems = []
+        if mode != "practice":
+            problems.append(f"mode is {mode!r}, not 'practice'")
+        if self.mode != mode:
+            problems.append(f"confirmed mode {self.mode!r} != run mode {mode!r}")
+        if problem is not None and self.problem != problem:
+            problems.append(f"confirmed problem {self.problem!r} != run problem {problem!r}")
+        if robot_id is not None and self.robot_id != robot_id:
+            problems.append("confirmed robot_id != run robot_id")
+        if base_url is not None and str(self.base_url).rstrip("/") != str(base_url).rstrip("/"):
+            problems.append(f"confirmed base_url {self.base_url!r} != run base_url {base_url!r}")
+        return problems
+
+    def to_dict(self):
+        return {"problem": self.problem, "mode": self.mode, "robot_id": self.robot_id,
+                "base_url": self.base_url, "source": "operator-confirmed, current session"}
+
+
 class PracticeSession:
     """Sequential C0 practice session over a :class:`~protocol.client.RobotClient`."""
 
     def __init__(self, client, margin_s=1.0, clock=time.monotonic, mode="practice",
-                 require_practice_confirmation=True):
+                 require_practice_confirmation=True, confirmation=None):
         self.client = client
         self.clock = clock
         self.mode = mode
+        self.confirmation = confirmation
         self.require_practice_confirmation = require_practice_confirmation
         self.margin_s = float(margin_s)
         self.tracker = mapping.LedgerTracker()
@@ -82,9 +119,15 @@ class PracticeSession:
         self.unknown_accept_count = 0
 
     # -- lifecycle ----------------------------------------------------------
-    def enter(self):
+    def enter(self, problem=None):
         if self.require_practice_confirmation and self.mode != "practice":
             raise ProtocolStop("mode_not_practice", f"mode={self.mode}; refusing to send /enter")
+        if self.confirmation is not None:
+            problems = self.confirmation.mismatches(
+                problem=problem, mode=self.mode, robot_id=self.client.robot_id,
+                base_url=self.client.base_url)
+            if problems:
+                raise ProtocolStop("session_not_confirmed", "; ".join(problems))
         response = self.client.enter()
         received = self.clock()
         if not response.accepted:
@@ -159,6 +202,7 @@ class PracticeSession:
         worst = self.tracker.worst_record()
         return {
             "mode": self.mode,
+            "session_confirmation": None if self.confirmation is None else self.confirmation.to_dict(),
             "stop_reason": self.stop_reason,
             "adaptive_enabled": self.adaptive_enabled,
             "adaptive_status": self.adaptive_status,
