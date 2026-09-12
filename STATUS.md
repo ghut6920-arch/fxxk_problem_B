@@ -35,7 +35,7 @@ None. `MODEL_SPEC.md` is intentionally absent.
 - `RT-001` leaves F1–F3 open at `MAJOR` and narrows but leaves F4 open at `MINOR`; it does not pass `SMOKE-001` or close `WI-001`.
 - `WI-007` verified and audited the official B-problem input set; `题目拆解与分析.md` is preserved as derived reading input, not official or reviewed model evidence.
 - `WI-008` is `COMPLETE_WITH_SUPERSEDING_FIX`; the official-evidence correction addendum in `TR-007` restores the mixed-type requirement and records why the earlier recheck was wrong. Its design result remains unintegrated and unpushed; no model has been selected.
-- `WI-009` authorizes only a complete mathematical plan, deterministic bounds, and pseudocode. It does not authorize experiments, implementation, final selection, `MODEL_SPEC.md`, or a push.
+- `WI-009` is `IN_PROGRESS` on `design/NA-002-complete-model-plan` from Execution Start `ddebd7dd8d4db5017f94f1584da5b8e637826d93`; it authorizes only a complete mathematical plan, deterministic bounds, and pseudocode. It does not authorize experiments, implementation, final selection, `MODEL_SPEC.md`, or a push.
 - No active collaboration issue authorizes history rewriting, branch deletion, object pruning, or remote publication.
 
 ## Blockers
