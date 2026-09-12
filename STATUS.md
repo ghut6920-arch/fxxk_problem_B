@@ -2,7 +2,7 @@
 
 ## Competition Stage
 
-Official inputs and prior plan/design remain as recorded below. WI-014 evaluator/fixtures are technically accepted at `1ae791b8055690fd9d1239d0e864819865b58f6b` and locally integrated on `main` at merge `61465c5513c5bdc3d593d3fd389f6866d8339721` (TR-012 PASS; TR-013 PASS; RT-003 recheck `cd60ec9e76cd1db61ef6dd848776b7bb15cdd1a6`). User D-003 authorized that integration and a different-author C0 P1-A candidate WI (`WI-015`). Not pushed. Not a P1-A property run, not selection, not formal readiness.
+Official inputs and prior plan/design remain as recorded below. WI-014 evaluator/fixtures are on local `main`. WI-015 C0 candidate is technically accepted at `e4ee8febfc8ff89e927eba436e81e2ae7759af1c` (TR-014 PASS; RT-004; TR-015). SR-002 / D-005 bind C0-default claims. WI-016 (full C0 P1-A property run) is issued, not executed. D-004 isolation residual remains. Not merged, not pushed, not selection.
 
 ## Verified Facts
 
@@ -25,7 +25,7 @@ None. `MODEL_SPEC.md` is intentionally absent.
 
 ## Recent Major Decisions
 
-- Historical 2026-09-12 strategy note authorized 2–3 candidate mathematical routes with a simple baseline. Experiment **design** later completed under WI-010. User D-001 accepted the P1-A SPEC and authorized the evaluator WI only. User D-003 later authorized local evaluator integration and a different-author C0 P1-A **candidate implementation** WI; that is not final selection and not `MODEL_SPEC.md`. In-repo Strategist is retired; strategy advice is external.
+- Historical 2026-09-12 strategy note authorized 2–3 candidate mathematical routes with a simple baseline. Experiment **design** later completed under WI-010. User D-001 accepted the P1-A SPEC and authorized the evaluator WI only. User D-003 later authorized local evaluator integration and a C0 P1-A candidate WI; D-004 waived same-model authorship without creating isolation. User-delivered SR-002 / D-005 KEEP the three routes, set C0 as the contest-default **execution** path, reject current independent-evaluation and formal-readiness claims, and keep C1/C2/P4/P5 closed in this window. That is not final selection and not `MODEL_SPEC.md`.
 
 ## Collaboration State
 
@@ -41,10 +41,11 @@ None. `MODEL_SPEC.md` is intentionally absent.
 - `WI-012` is `COMPLETE`; `TR-011` passed Executor result `beb2651cd0289df7b22f8fc8b643c30c794a328d` with conclusion `P0_PREMISES_CLEAR`. The P0 record is on `main` as `evidence/experiments/EXP-001/P0_STATIC_REVIEW.md` (byte-identical to that result). That PASS authorized drafting a P1-A SPEC, not implementation.
 - `WI-013` is `COMPLETE` by user authorization D-001 (SPEC usable); not an independent TR-012 PASS. `experiments/EXP-002/SPEC.md` remains the P1-A freeze.
 - `WI-014` is `COMPLETE` for evaluator/fixtures at `1ae791b8055690fd9d1239d0e864819865b58f6b`, locally merged onto `main` as `61465c5513c5bdc3d593d3fd389f6866d8339721`. Author conclusion remains `EVALUATOR_FIXTURES_OPEN`. Evaluator author remains barred from `src/candidate/`.
-- `WI-015` is `READY` / issued. User D-004 allows `deepseek-flash` in a new session to write the candidate; §4.5 isolation is **not** claimed. Not a property-run WI.
+- `WI-015` is `COMPLETE` for implementation at `e4ee8febfc8ff89e927eba436e81e2ae7759af1c` (TR-014 PASS; RT-004; TR-015). Isolation is **not** claimed (D-004 / RT4-F1). Unmerged, unpushed.
+- `WI-016` is `READY` / issued: full C0 P1-A property run. MINOR RT4-F2/F3 not repaired first. Not started in this Technical Lead session.
 
 - No active collaboration issue authorizes history rewriting, branch deletion, object pruning, or remote publication.
 
 ## Blockers
 
-- WI-015 waits for the D-004 `deepseek-flash` session. Push, P1-A property-run WI, P1-B, selection, and `RT-002` closure remain unauthorized. Same-model candidate is a recorded isolation residual, not independent authorship.
+- WI-016 waits for Executor. SR-002 / D-005 still bind wording, failure grades, budget-0 experiments, and formal-slot gates. Do not open C1/C2/P4/P5, consume a formal slot, close `RT-002`, or treat a later P1-A conclusion as independent evaluation.

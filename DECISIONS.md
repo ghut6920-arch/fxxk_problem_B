@@ -76,6 +76,20 @@ Scope: `configuration` (independence waiver). Not model-family, not selection.
 
 Reopen Conditions: Formal promotion or `P1A_PROPERTIES_*` acceptance that asserts isolated authorship.
 
+### D-005 External pre-registration of claims, failure grades, and C0-default contest strategy
+
+Date: 2026-09-13. Source: user-delivered external Strategist note recorded in `audits/strategic/SR-002.md`.
+
+Decision: KEEP C0/C1/C2 as surviving candidate routes; KEEP C0 as this-round default paper/contest **resource** path (not selection); MODIFY evidence promotion so D-004 results are same-model internal checks; REJECT live C1, C1 formal slots, and favourable invented clocks; REJECT C2/P4/P5 and non-essential performance experiments in this window; REJECT claiming formal-test qualification while RT-002 F1 is open. Not a selection. Full claim ladder, failure grades, and wording in SR-002 bind later WIs.
+
+Evidence/scope: SR-002; TR-014 PASS of `e4ee8febfc8ff89e927eba436e81e2ae7759af1c`; D-004; RT-002 F1 still open. Configuration and contest allocation, not model-family failure.
+
+Rejected: treating TR-014 or a later P1-A self-check as independent evaluation; opening C1/C2/formal slots from one rehearsal or a synthetic clock; rewriting these grades after seeing scores; C2/P4/P5, C1-BACK, parameter scans, invented-clock C1-SIM repeats, or figure-only reruns in this window; consuming a formal slot before the SR-002 gate list (P1-A/P1-B, named C0 end-to-end, verified simulator origin, stressed rehearsals, no unexplained deadline failure, no unknown accepts, independent challenge or recorded absence, RT-002 F1 strategic disposition plus Red Team recheck). A user-accepted deadline risk cannot be labelled Strategist approval or used to close RT-002. Paper wording must follow SR-002 D-004 allowed/forbidden lists; different directories, prompts, or role names do not restore independence.
+
+Affected stages: no C1/C2/P4/P5 WIs from this note; any later P1-A run WI must be the full C0 suite; formal slots stay unused; paper claims must use the five evidence kinds without substitution. Figures must not skip unfinished correctness checks.
+
+Reopen: official-rule change; reviewed theoretical counterexample; a named model-variant still violating its core mechanism after two substantive repairs; or the SR-002 real-time qualifications. A single self-test failure does not fail C0 analytic geometry or the whole candidate family.
+
 ## Decision Template
 
 ### D-TODO
