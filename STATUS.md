@@ -2,7 +2,7 @@
 
 ## Competition Stage
 
-Official inputs are verified. The complete mathematical plan (WI-009) and staged experiment design (WI-010) are on `main`. No implementation, simulator run, model selection, or `MODEL_SPEC.md` is authorized. P0 static review (WI-012 / EXP-001) must be re-issued against the consolidated tree; it has not started.
+Official inputs are verified. The complete mathematical plan (WI-009), staged experiment design (WI-010), and P0 static review (WI-012 / EXP-001) are on `main`. No implementation, simulator run, model selection, or `MODEL_SPEC.md` is authorized. P1-A is not issued.
 
 ## Verified Facts
 
@@ -38,9 +38,9 @@ None. `MODEL_SPEC.md` is intentionally absent.
 - `WI-009` is `COMPLETE`; `TR-008` recheck passed corrected fixed result `44bf45ab43fbba6d14461b13c485890db437dd30`. The complete mathematical plan is on `main` as `modeling/COMPLETE_MODEL_PLAN.md` (byte-identical to that result). No implementation, experiment execution, final selection, or `MODEL_SPEC.md` is authorized.
 - `WI-010` is `COMPLETE`; `TR-009` recheck passed design revision `e3ca1e2a12b9f27bee95d03dc31591f19c61fac8`. The experiment design is on `main` as `modeling/EXPERIMENT_DESIGN.md` (byte-identical to that revision). `RT-002` F1 remains open and still blocks only future formal-readiness promotion. The document is not execution authorization, selection, or push.
 - `WI-011` is `COMPLETE`; `TR-010` passed Executor result `49db3ae1c57c4aa0fd4c321569c9fcbd748fd528` with conclusion `INPUTS_PRESENT_NOT_APPROVED`. The inventory is on `main` as `evidence/prerequisites/P0_INPUT_AUDIT.md`.
-- `WI-012` / `experiments/EXP-001/SPEC.md` is re-issued after consolidation. Retired Execution Start: `bf0b6aa344723df84718606f32219aae3cf0d983`. The live assignment prompt records the new Execution Start. This is not P1-A, a simulator run, or a push.
+- `WI-012` is `COMPLETE`; `TR-011` passed Executor result `beb2651cd0289df7b22f8fc8b643c30c794a328d` with conclusion `P0_PREMISES_CLEAR`. The P0 record is on `main` as `evidence/experiments/EXP-001/P0_STATIC_REVIEW.md` (byte-identical to that result). This PASS does not authorize P1-A, close `RT-002`, select a model, or push.
 - No active collaboration issue authorizes history rewriting, branch deletion, object pruning, or remote publication.
 
 ## Blockers
 
-- No blocker remains for the WI-009 mathematical-plan scope or the WI-010 experiment-design document. Both are on `main`. `RT-002` F1 still blocks future formal-readiness promotion until Red Team recheck and a recorded Strategic Review (external advisor). P0 static review is the current Executor assignment after the re-issued WI-012 Execution Start. Real-time feasibility remains unverified. Local `main` remains unpushed.
+- No blocker remains for the WI-009 mathematical-plan scope, the WI-010 experiment-design document, or the WI-012 P0 static review. All three are on `main`. `RT-002` F1 still blocks future formal-readiness promotion until Red Team recheck and a recorded Strategic Review (external advisor). P1-A is not issued. Real-time feasibility remains unverified. Local `main` remains unpushed.

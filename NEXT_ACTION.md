@@ -1,15 +1,13 @@
 # Primary Integration Goal
 
-Goal: Re-issue and execute the P0 static source-and-premise review against the consolidated `main` copies of the mathematical plan and experiment design, without implementing models, running a simulator, or creating P1-A code.
+Goal: Hold after the completed P0 static source-and-premise review. Do not draft or execute P1-A, implement models, run a simulator, close `RT-002`, or push until the user authorizes a new Work Item.
 
 ## Acceptance Criteria
 
-- Use the `main` files `modeling/COMPLETE_MODEL_PLAN.md` and `modeling/EXPERIMENT_DESIGN.md` (byte-identical to the reviewed design-branch versions).
-- Pin official hashes, plan/design commits, and record that candidate-implementation and evaluator commits are currently absent.
-- Locate the four proof-chain premises by section without inventing new mathematics.
-- Conclude `P0_PREMISES_CLEAR` or `P0_PREMISES_OPEN`.
-- Do not implement code, run the simulator, draft P1-A fixtures, select a model, create `MODEL_SPEC.md`, close `RT-002`, or push.
+- `WI-012` remains `COMPLETE` on the reviewed Executor result `beb2651cd0289df7b22f8fc8b643c30c794a328d` (`P0_PREMISES_CLEAR`, `TR-011` `PASS`).
+- The `main` copy of `evidence/experiments/EXP-001/P0_STATIC_REVIEW.md` stays byte-identical to that result.
+- No P1-A WI, implementation, evaluator, fixture, simulator run, model selection, `MODEL_SPEC.md`, `RT-002` closure, or push is issued from this goal.
 
-Status: READY — WI-012 re-issued after consolidation; Executor runs only after the assignment prompt records the Execution Start Commit
+Status: WAITING — P0 closed; next WI requires explicit user authorization
 
-Owner Role: Implementation Engineer
+Owner Role: Technical Lead
