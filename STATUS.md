@@ -2,7 +2,7 @@
 
 ## Competition Stage
 
-Official inputs and prior plan/design remain as recorded below. WI-014 evaluator/fixtures are on local `main`. WI-015 C0 candidate implementation is technically accepted at `e4ee8febfc8ff89e927eba436e81e2ae7759af1c` (TR-014 PASS). D-004 same-model residual remains. Not merged, not pushed, not a P1-A property run, not selection.
+Official inputs and prior plan/design remain as recorded below. WI-014 evaluator/fixtures are on local `main`. WI-015 C0 candidate is technically accepted at `e4ee8febfc8ff89e927eba436e81e2ae7759af1c` (TR-014 PASS; RT-004 at `f06fd5915c9ec325eca55011c848718da7cc01e5`). SR-002 / D-005 bind C0-default claims and failure grades. D-004 isolation residual remains (RT4-F1). Not merged, not pushed, not a P1-A property run, not selection.
 
 ## Verified Facts
 
@@ -47,4 +47,4 @@ None. `MODEL_SPEC.md` is intentionally absent.
 
 ## Blockers
 
-- Next engineering gate remains Red Team of candidate `e4ee8febfc8ff89e927eba436e81e2ae7759af1c`. SR-002 / D-005 bind claim wording and P1-A failure grades; they do not start P1-A, close `RT-002`, or open C1. After Red Team, a later full C0 property-run WI still needs explicit authorization. Push, P1-B, selection, and formal-readiness claims remain unauthorized.
+- RT-004 is recorded. Remaining: optional MINOR repair of RT4-F2/F3; user authorization of a **full** C0 P1-A run WI. SR-002 / D-005 bind wording and failure grades. Do not start P1-A, close `RT-002`, or open C1 from this status. Push, P1-B, selection, and independent-evaluation claims remain unauthorized.

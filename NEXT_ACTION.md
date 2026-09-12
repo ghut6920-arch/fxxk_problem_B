@@ -1,13 +1,13 @@
 # Primary Integration Goal
 
-Independent Red Team of WI-015 candidate `e4ee8febfc8ff89e927eba436e81e2ae7759af1c`. Do not start the P1-A property-run WI until that recheck is recorded. SR-002 / D-005 already freeze C0 as the default later run target and forbid C1/C2 in this window.
+Hold the reviewed C0 candidate `e4ee8febfc8ff89e927eba436e81e2ae7759af1c`. Do not open C1. A full C0 P1-A property-run WI waits for explicit user authorization. Optional MINOR repair of RT4-F2/F3 may precede that run.
 
 ## Acceptance Criteria
 
-- Review the named commit only; do not import a moving worktree; do not edit `src/candidate/` or `src/evaluator/`.
-- Challenge oracle coupling, G07/G15, T05 true-cell retention, T08/T09, ledger T10, and evaluator import/copy.
-- Highest finding severity recorded; `RT-002` stays open; no `P1A_PROPERTIES_*`, merge, push, selection, or C1 WI.
+- RT4-F1 (D-004 isolation) stays recorded; 195 tests are not `P1A_PROPERTIES_*`.
+- `RT-002` stays open. No merge, push, selection, or independent-evaluation wording.
+- If a P1-A run WI is authorized, it must be the **full** C0 suite (SR-002), not a convenient subset.
 
-Status: WAITING_FOR_RED_TEAM — WI-015 implementation PASSed; SR-002 recorded; property run is not opened.
+Status: WAITING_FOR_USER_AUTHORIZATION — SR-002 and RT-004 recorded.
 
-Owner: Red Team (review); Technical Lead (after recheck); user (authorization of any later full C0 P1-A run WI).
+Owner: User (authorize P1-A run and/or MINOR repair); Technical Lead (issue the named WI only after that).
