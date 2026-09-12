@@ -20,10 +20,10 @@ Decision this experiment will inform: whether a later Technical Lead may draft a
   - OFFICIAL-003 SHA-256 `C882513D5B7E0EC50F3068570EA55FDC1B5C4A5FA2D6E9E54E79B33CF0858CB2`
   - Official package SHA-256 `A54C0E6B552D31E2DBD41ABA4A07769943433CB9317927514C2D39EC6442E241` as recorded in `problem/official/MANIFEST.md`
 - Other inputs:
-  - `modeling/COMPLETE_MODEL_PLAN.md` at `44bf45ab43fbba6d14461b13c485890db437dd30`
-  - `modeling/EXPERIMENT_DESIGN.md` at `e3ca1e2a12b9f27bee95d03dc31591f19c61fac8`
+  - `modeling/COMPLETE_MODEL_PLAN.md` at Execution Start HEAD (blob `407b5e9f…`, identical to `44bf45ab43fbba6d14461b13c485890db437dd30`)
+  - `modeling/EXPERIMENT_DESIGN.md` at Execution Start HEAD (blob `9a2b46e8…`, identical to `e3ca1e2a12b9f27bee95d03dc31591f19c61fac8`)
   - `problem/RULES.md`, `problem/DATA_AUDIT.md`, `problem/official/MANIFEST.md` at Execution Start
-  - `audits/technical/TR-008.md`, `audits/technical/TR-009.md` recheck addendum, `work/WI-011.md`, and the WI-011 inventory commit `49db3ae1c57c4aa0fd4c321569c9fcbd748fd528`
+  - `audits/technical/TR-008.md`, `audits/technical/TR-009.md` recheck addendum, `work/WI-011.md`, and `evidence/prerequisites/P0_INPUT_AUDIT.md` at HEAD
 
 ## Configuration
 
