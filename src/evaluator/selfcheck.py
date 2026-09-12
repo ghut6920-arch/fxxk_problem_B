@@ -502,8 +502,41 @@ def _compare_numbers(expected, actual, tol: float, path: str):
     return []
 
 
+def _contains_non_finite(value) -> bool:
+    """True when ``value`` is a non-finite float, or a container holding one anywhere inside.
+
+    Used by the RT-003 RT3-F2 residual repair: an *extra* actual key (one the expectation does not
+    cover) is normally ignored, but it must not be allowed to hide a NaN or an infinity.
+    """
+    if isinstance(value, bool):
+        return False
+    if isinstance(value, float):
+        return not math.isfinite(value)
+    if isinstance(value, dict):
+        return any(_contains_non_finite(item) for item in value.values())
+    if isinstance(value, (list, tuple)):
+        return any(_contains_non_finite(item) for item in value)
+    return False
+
+
 def compare(expected, actual, tol: float = 1e-9, path: str = "root"):
-    """Recursive comparison returning a list of human-readable mismatch strings."""
+    """Recursive comparison returning a list of human-readable mismatch strings.
+
+    Semantics (unchanged, and preserved by the RT3-F2 residual repair):
+
+    - Extra *finite* actual entries are deliberately allowed and ignored: the fixtures' ``actual``
+      mappings legitimately carry non-expected summary fields (for example ``centres_unique`` in
+      G16), and frozen expectations only assert the keys they name.
+    - Non-finite values are matched explicitly by kind and sign when the expectation names the key
+      (``_compare_numbers``): NaN matches only NaN, an infinity only the same infinity.
+
+    RT-003 RT3-F2 residual repair: an extra actual key not covered by the expectation *is* reported
+    when its value is, or contains anywhere inside (nested dicts and lists included), a NaN or an
+    infinity. Previously ``compare({'a':1.0}, {'a':1.0,'b':nan})`` returned ``[]``, so a non-finite
+    covering-circle, diameter or ledger value placed in an unexpected key would silently pass the
+    only numeric gate. Only non-finiteness triggers this: finite extra keys keep their old ignored
+    status, so no frozen expectation changes.
+    """
     problems = []
     if isinstance(expected, dict):
         if not isinstance(actual, dict):
@@ -513,6 +546,13 @@ def compare(expected, actual, tol: float = 1e-9, path: str = "root"):
                 problems.append("%s.%s: missing in actual" % (path, key))
             else:
                 problems.extend(compare(value, actual[key], tol, "%s.%s" % (path, key)))
+        for key in actual:
+            if key in expected:
+                continue
+            if _contains_non_finite(actual[key]):
+                problems.append(
+                    "%s.%s: unexpected non-finite actual value %r" % (path, key, actual[key])
+                )
         return problems
     if isinstance(expected, (list, tuple)):
         if not isinstance(actual, (list, tuple)) or len(expected) != len(actual):

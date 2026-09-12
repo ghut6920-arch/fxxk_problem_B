@@ -305,5 +305,93 @@ class Tr012RegressionTest(unittest.TestCase):
         self.assertAlmostEqual(ledger["sum_delta_t"], ledger["T"])
 
 
+class Rt003F2ResidualTest(unittest.TestCase):
+    """RT-003 RT3-F2 residual: an *unexpected* key must not hide a NaN or an infinity.
+
+    The first TR-012/RT-003 F2 repair rejected a non-finite actual value only when the expectation
+    named the key; extra actual keys stayed ignored, so ``compare({'a':1.0}, {'a':1.0,'b':nan})``
+    still returned ``[]``. These regressions cover the residual, nested dicts and lists included, and
+    pin the two semantics that must *not* change: extra finite keys stay ignored, and explicitly
+    expected non-finite values still match by kind and sign. Evaluator-side only; not a candidate run.
+    """
+
+    NAN = float("nan")
+    INF = float("inf")
+    NINF = float("-inf")
+
+    def test_extra_nan_key_is_reported(self):
+        problems = selfcheck.compare({"a": 1.0}, {"a": 1.0, "b": self.NAN})
+        self.assertTrue(problems, "an unexpected NaN value must not pass silently")
+        self.assertIn("b", problems[0])
+
+    def test_extra_positive_and_negative_infinity_keys_are_reported(self):
+        for value in (self.INF, self.NINF):
+            with self.subTest(value=value):
+                self.assertTrue(selfcheck.compare({"a": 1.0}, {"a": 1.0, "b": value}))
+
+    def test_extra_key_holding_a_container_with_nan_is_reported(self):
+        self.assertTrue(
+            selfcheck.compare({"a": 1.0}, {"a": 1.0, "b": {"x": [1.0, self.NAN]}})
+        )
+        self.assertTrue(
+            selfcheck.compare({"a": 1.0}, {"a": 1.0, "b": [{"y": self.NINF}]})
+        )
+
+    def test_nested_extra_non_finite_key_is_reported(self):
+        self.assertTrue(
+            selfcheck.compare({"a": {"r": 1.0}}, {"a": {"r": 1.0, "n": self.INF}})
+        )
+        self.assertTrue(
+            selfcheck.compare(
+                {"a": {"b": {"c": 1.0}}}, {"a": {"b": {"c": 1.0, "d": self.NAN}}}
+            )
+        )
+
+    def test_list_element_mapping_with_extra_nan_is_reported(self):
+        self.assertTrue(
+            selfcheck.compare([{"a": 1.0}], [{"a": 1.0, "b": self.NAN}])
+        )
+
+    def test_extra_finite_keys_keep_their_ignored_semantics(self):
+        # G16's real `actual` mapping carries the extra finite summary key `centres_unique`, so
+        # finite extras must stay ignored or every frozen fixture check would break.
+        self.assertEqual(selfcheck.compare({"a": 1.0}, {"a": 1.0, "b": 2.0}), [])
+        self.assertEqual(selfcheck.compare({"a": 1.0}, {"a": 1.0, "b": [1.0, 2.0]}), [])
+        self.assertEqual(selfcheck.compare({"a": 1.0}, {"a": 1.0, "b": True}), [])
+        self.assertEqual(
+            selfcheck.compare({"a": {"r": 1.0}}, {"a": {"r": 1.0, "t": 3.0}}), []
+        )
+        self.assertEqual(
+            selfcheck.compare({"c": 225}, {"c": 225, "centres_unique": 225}), []
+        )
+
+    def test_explicitly_expected_non_finite_values_still_match(self):
+        self.assertEqual(selfcheck.compare({"a": self.NAN}, {"a": self.NAN}), [])
+        self.assertEqual(selfcheck.compare({"a": self.INF}, {"a": self.INF}), [])
+        self.assertEqual(selfcheck.compare({"a": self.NINF}, {"a": self.NINF}), [])
+        self.assertTrue(selfcheck.compare({"a": self.INF}, {"a": self.NINF}))
+        self.assertTrue(selfcheck.compare({"a": 1.0}, {"a": self.NAN}))
+
+    def test_fixture_level_check_flags_an_injected_non_finite_extra_key(self):
+        # Simulate a future fixture whose actual mapping gains an unexpected non-finite value: the
+        # fixture-level gate must fail, not pass.
+        fixture = selfcheck.load_fixture(FIXTURES_DIR, "G03")
+        actual = dict(selfcheck.run_evaluator_now(fixture))
+        self.assertEqual(selfcheck.compare(fixture["expected_evaluator"], actual), [])
+        tainted = dict(actual)
+        tainted["unexpected_diameter_estimate"] = self.NAN
+        self.assertTrue(
+            selfcheck.compare(fixture["expected_evaluator"], tainted),
+            "an injected unexpected NaN must fail the fixture-level comparison",
+        )
+
+    def test_frozen_fixtures_are_unaffected(self):
+        # No frozen fixture may gain a spurious problem from the new extra-key rule.
+        for result in selfcheck.check_all(FIXTURES_DIR):
+            with self.subTest(fixture=result["id"]):
+                self.assertEqual(result["mismatches"], [])
+                self.assertTrue(result["ok"])
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

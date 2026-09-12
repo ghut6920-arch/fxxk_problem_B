@@ -656,3 +656,162 @@ Technical Lead, before those items can be re-classified.
   Lead in the Executor completion handoff. All historical commits are preserved; no `--amend`, `rebase`,
   `reset` or force-update was used, so `a49cc64…` and `e9b94a2…` remain available for review.
 - Remote push status: **`NOT PUSHED`**.
+
+## 12. RT-003 RT3-F2 residual repair (2026-09-12)
+
+### 12.1 Identification and scope authority
+
+- Role: Implementation Engineer (Executor) — **same WI-014 evaluator author** (independence bind
+  unchanged: this author still must never author `src/candidate/`).
+- Worktree: `E:/pycharm/projects/pythonProject18/题目/B题-executor`; branch `feat/WI-014-p1a-evaluator`.
+- Comparison Base Commit: `f69f2c670827fc807a124945bef280fb0907775d` (unchanged)
+- **Execution Start Commit for this repair: `530734ab450e597b178a4a5156329ec5b587348f`** (the fixed
+  result of the TR-012 repair; verified equal to Executor `HEAD` before any edit)
+- Retained earlier starts: `e9b94a298c220421ca4fab3d70d5e607f71f7983` (original WI-014),
+  `a49cc64827cc398c44a41d4094776edddb41f79f` (TR-012 repair start)
+- Scope authority: Red Team record `audits/redteam/RT-003.md` finding **RT3-F2** (reviewed target
+  `a49cc648…`), whose required remediation is "reject NaN vs non-NaN and mismatched infinities; **fail on
+  unexpected nonfinite extra keys**; add NaN regressions", plus the assigned minimal counterexample
+  `compare({'a':1.0}, {'a':1.0,'b':float('nan')})`. `RT-003.md` and the updated `TR-012.md` are the
+  Technical Lead's / Red Team's worktree records in `E:/pycharm/projects/pythonProject18/题目/B题` and are
+  **not committed**; they were read read-only. No branch switch, merge, rebase, reset, fetch or history
+  rewrite was performed.
+- Allowed writes: `src/evaluator/`, `tests/p1a/`, this report only.
+
+### 12.2 Precheck (before any edit)
+
+| Check | Command | Result |
+|---|---|---|
+| Worktree | `git rev-parse --show-toplevel` | assigned path — PASS |
+| Branch | `git branch --show-current` | `feat/WI-014-p1a-evaluator` — PASS |
+| HEAD == supplied Execution Start | `git rev-parse HEAD` | `530734ab450e597b178a4a5156329ec5b587348f` — PASS |
+| Comparison Base is ancestor | `git merge-base --is-ancestor f69f2c67… HEAD` | exit `0` — PASS |
+| WI-014 present | `git cat-file -e HEAD:work/WI-014.md` | exit `0` — PASS |
+| Clean worktree | `git status --short --branch` | only the branch line — PASS |
+
+### 12.3 Residual defect reproduced
+
+State of `530734a` (only `compare(1.0, nan)` was fixed there; unexpected keys were still ignored):
+
+```
+RT3-F2 minimal                   -> []      (expected: non-empty)
+extra inf                        -> []      (expected: non-empty)
+extra nested                     -> []
+nested extra nan                 -> []
+list of dicts                    -> []
+finite extra (should stay [])    -> []
+compare(1.0, nan)  -> ['root: expected 1.0, got nan (NaN vs non-NaN)']   (already fixed)
+compare(nan, nan)  -> []                                                 (already fixed)
+compare(inf, inf)  -> []                                                 (already fixed)
+```
+
+So the third clause of RT3-F2's required remediation — *fail on unexpected nonfinite extra keys* — was
+still open: `compare` iterated only the **expected** keys, so a NaN or infinity placed in any key the
+expectation did not name passed the only numeric gate silently, at any nesting depth.
+
+### 12.4 Repair performed
+
+`src/evaluator/selfcheck.py`: added `_contains_non_finite(value)` (true for a non-finite float, or for a
+dict/list/tuple holding one anywhere inside, recursively) and extended the mapping branch of `compare` to
+report every **extra** actual key whose value contains a non-finite number:
+
+```
+"%s.%s: unexpected non-finite actual value %r" % (path, key, actual[key])
+```
+
+Semantics deliberately preserved (both pinned by new regressions):
+
+- **Extra finite keys stay ignored.** The fixtures' real `actual` mappings legitimately carry keys the
+  frozen `expected_evaluator` does not assert (e.g. G16's `centres_unique`); only non-finiteness triggers
+  the new report, so no frozen expectation changes and manifest hashes are untouched.
+- **Explicitly expected non-finite values keep their convention** (`_compare_numbers`, unchanged): NaN
+  matches only NaN, an infinity only the same infinity, finite never matches non-finite.
+
+Nesting is covered by recursion: extra keys inside nested mappings are caught at the level where the
+expectation stops naming keys, and list/tuple elements recurse into their mappings, so
+`compare([{'a':1.0}], [{'a':1.0,'b':nan}])` is now reported.
+
+Post-repair behaviour (all as required):
+
+```
+MUST FLAG  {'a':1.0} vs {'a':1.0,'b':nan}            -> root.b: unexpected non-finite actual value nan
+MUST FLAG  {'a':1.0} vs {'a':1.0,'b':inf}            -> root.b: unexpected non-finite actual value inf
+MUST FLAG  {'a':1.0} vs {'a':1.0,'b':-inf}           -> root.b: unexpected non-finite actual value -inf
+MUST FLAG  {'a':1.0} vs {'a':1.0,'b':{'x':[nan]}}    -> reported (container scan)
+MUST FLAG  {'a':{'r':1.0}} vs {'a':{'r':1.0,'n':inf}}-> root.a.n: unexpected non-finite actual value inf
+MUST FLAG  [{'a':1.0}] vs [{'a':1.0,'b':nan}]        -> root[0].b: unexpected non-finite actual value nan
+MUST FLAG  deep dict                                  -> root.a.b.d: unexpected non-finite actual value nan
+MUST PASS  finite extras (scalars, lists, bools, nested, G16-style)  -> []
+MUST PASS  compare({'a':nan},{'a':nan}) / inf pairs  -> []
+```
+
+### 12.5 Regression tests added
+
+`tests/p1a/test_evaluator_fixtures.py`, new `Rt003F2ResidualTest` (9 cases): extra NaN key reported;
+extra `+inf`/`-inf` keys reported; extra key holding a nested container with NaN reported; nested extra
+non-finite keys reported (two depths); list-element mapping with extra NaN reported; extra **finite** keys
+keep ignored semantics (scalars, lists, bools, nested, G16-style `centres_unique`); explicitly expected
+non-finite values still match by kind and sign; a fixture-level check flags an injected
+`unexpected_diameter_estimate: NaN` on G03 while the untainted expectation still passes; and all 26 frozen
+fixtures remain unperturbed.
+
+### 12.6 Commands and results (this repair)
+
+| Command | Exit | Result |
+|---|---|---|
+| Precheck (§12.2, 6 checks) | `0` | PASS |
+| Pre-repair reproduction (§12.3) | `0` | Residual reproduced (`[]` for every extra non-finite case) |
+| `PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -m unittest discover -s tests/p1a -v` | `0` | **Ran 35 tests … OK** (26 previous + 9 new) |
+| `PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -m evaluator` | `0` | 26/26 `evaluator_now` PASS; manifest 26 checked / 0 mismatched |
+| Manifest vs index blobs, all 26 fixtures | — | 0 mismatches (no fixture byte changed) |
+| Manifest vs checkout-filtered `HEAD` bytes, all 26 | — | 0 mismatches, no CRLF |
+| `git diff --check` / `git diff --cached --check` | `0` | no output |
+| Authorized-path check on staged/committed list | no off-path rows | only `src/evaluator/`, `tests/p1a/`, this report |
+| `git ls-files src/candidate` | `0` | empty — no candidate tree |
+
+### 12.7 Unchanged by this repair
+
+No frozen mathematical definition, no fixture numeric instance, and no `expected_evaluator` value was
+changed; `tests/p1a/fixtures/manifest.json` and every fixture hash are identical to §11.7. G07 and G15
+retain their **OPEN** status from §11.5 (RT-003 RT3-F3 / RT3-F4 interpretation holds are untouched and
+still require a recorded external clarification). RT-003's other findings (RT3-F1, RT3-F3, RT3-F4,
+RT3-F5, RT3-F6, RT3-F7) are outside this bounded task: RT3-F1/F5/F7 were already repaired in `530734a`,
+and RT3-F3/F4 remain held.
+
+### 12.8 Current conclusion (closed set from `work/WI-014.md`)
+
+Unchanged:
+
+### `EVALUATOR_FIXTURES_OPEN`
+
+The RT3-F2 residual is repaired with regressions, but the F3/F4 (RT3-F3/RT3-F4) interpretation holds
+remain open, so the frozen G07/G15 references stay unverified and readiness is still not claimed. The
+historical `EVALUATOR_FIXTURES_READY` (§10) remains superseded and not accepted.
+
+### 12.9 Limitations and remaining issues
+
+- **Author-side repair only.** This is the WI-014 evaluator author fixing a defect the Red Team found;
+  it is not independent review, and `530734a` plus this commit still need a Red Team recheck against
+  RT-003 before any acceptance.
+- **Other RT-003 findings are not closed here.** RT3-F3 (G07b certifiable `UNBOUNDED` vs frozen
+  `NUMERICAL_UNCERTAIN`) and RT3-F4 (G15 heading-perturbation unit) remain OPEN pending a recorded
+  external advisor/user clarification; RT3-F6 (common-mode self-check) is a participation/independence
+  matter for the Technical Lead, not something this author can resolve by adding tests.
+- `_contains_non_finite` scans dict values, list elements and tuples; it does not descend into arbitrary
+  objects, sets, or non-float numeric types (e.g. `decimal.Decimal('NaN')`), which the fixtures do not
+  use. Extra non-finite values nested inside an *expected* key are handled by the existing explicit-match
+  convention, not by this rule.
+- `compare` still ignores extra **finite** keys by design; therefore a spuriously *present* finite extra
+  key remains undetectable by this gate. That is the preserved semantics, recorded here as a residual
+  limitation rather than silently changed.
+- No candidate, P1-B, simulator, SPEC/catalog edit, `MODEL_SPEC.md`, or `RT-002` closure; no push.
+
+### 12.10 Local commit status (this repair)
+
+- Staged paths: `src/evaluator/selfcheck.py`, `tests/p1a/test_evaluator_fixtures.py`, this report only.
+- `git diff --check` / `git diff --cached --check`: exit `0`, no output.
+- Result commit: `RT003_FIX_COMMIT_NOT_SELF_EMBEDDABLE` — a new commit whose parent is `530734ab450e597b178a4a5156329ec5b587348f`;
+  its full hash is returned to the Technical Lead in the Executor completion handoff. History is
+  preserved (`--amend`, `rebase`, `reset`, force-update not used), so `530734a`, `a49cc64` and `e9b94a2`
+  remain available for review.
+- Remote push status: **`NOT PUSHED`**.
