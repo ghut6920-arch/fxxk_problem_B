@@ -1,0 +1,10 @@
+C0 practice run: problem=Q4 mode=mock url=mock:http://127.0.0.1:51594
+  outcome                 : COMPLETED
+  stop_reason             : None
+  accepted_actions        : 3420
+  unknown_accept_count    : 0
+  adaptive_actions        : 0 (adaptive_enabled=False)
+  virtual_time_s          : 42444.216088
+  max_ledger_residual_s   : 9.100025089026076e-07
+  enter remaining real s  : 1200.0
+  completion              : COMPLETE success=10

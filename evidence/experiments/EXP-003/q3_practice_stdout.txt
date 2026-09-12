@@ -1,0 +1,10 @@
+C0 practice run: problem=Q3 mode=practice url=http://127.0.0.1:2026
+  outcome                 : COMPLETED
+  stop_reason             : None
+  accepted_actions        : 2025
+  unknown_accept_count    : 0
+  adaptive_actions        : 0 (adaptive_enabled=False)
+  virtual_time_s          : 38510.900536
+  max_ledger_residual_s   : 4.946008402839652e-07
+  enter remaining real s  : 650.0
+  completion              : COMPLETE success=12
