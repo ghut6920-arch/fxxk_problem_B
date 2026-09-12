@@ -84,7 +84,7 @@ Decision: KEEP C0/C1/C2 routes and the C0 analytic cover; MODIFY near-term execu
 
 Evidence/scope: SR-002; TR-014 PASS of `e4ee8febfc8ff89e927eba436e81e2ae7759af1c`; D-004; RT-002 F1 still open. Configuration and contest allocation, not model-family failure.
 
-Rejected: treating TR-014 or a later P1-A self-check as independent evaluation; opening C1/C2/formal slots from one rehearsal or a synthetic clock; rewriting these grades after seeing scores; C2/P4/P5, C1-BACK, parameter scans, invented-clock C1-SIM repeats, or figure-only reruns in this window; consuming a formal slot before P1-A, P1-B, and a named-version complete C0 end-to-end check (list may still be incomplete if the advisor paste was cut).
+Rejected: treating TR-014 or a later P1-A self-check as independent evaluation; opening C1/C2/formal slots from one rehearsal or a synthetic clock; rewriting these grades after seeing scores; C2/P4/P5, C1-BACK, parameter scans, invented-clock C1-SIM repeats, or figure-only reruns in this window; consuming a formal slot before P1-A, P1-B, a named-version complete C0 end-to-end check, verified simulator origin, repeated stressed rehearsals per problem, and no unexplained deadline failure (list may still be incomplete if the advisor paste was cut).
 
 Affected stages: no C1/C2/P4/P5 WIs from this note; any later P1-A run WI must be the full C0 suite; formal slots stay unused; paper claims must use the five evidence kinds without substitution. Figures must not skip unfinished correctness checks.
 
