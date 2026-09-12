@@ -1,14 +1,13 @@
 # Primary Integration Goal
 
-Execute WI-015: different-author C0 P1-A candidate implementation under `src/candidate/`.
+Independent Red Team of WI-015 candidate `e4ee8febfc8ff89e927eba436e81e2ae7759af1c`. Do not start the P1-A property-run WI until that recheck is recorded.
 
 ## Acceptance Criteria
 
-- Author is not the WI-014 evaluator author; `src/candidate/` does not import `src/evaluator/`.
-- Candidate unittests pass or the report is honestly `CANDIDATE_IMPL_OPEN`.
-- Evaluator fixtures and `tests/p1a` still pass; SPEC/catalog/plan unchanged.
-- No `P1A_PROPERTIES_*` conclusion, no P1-B, no simulator, no `RT-002` closure, no push, no model selection.
+- Review the named commit only; do not import a moving worktree; do not edit `src/candidate/` or `src/evaluator/`.
+- Challenge oracle coupling, G07/G15, T05 true-cell retention, T08/T09, ledger T10, and evaluator import/copy.
+- Highest finding severity recorded; `RT-002` stays open; no `P1A_PROPERTIES_*`, merge, push, or selection.
 
-Status: IN_PROGRESS — WI-015 issued; waiting for a different Executor. Local evaluator integration is done; remote push is not authorized.
+Status: WAITING_FOR_RED_TEAM — WI-015 implementation PASSed; property run is not opened.
 
-Owner: Implementation Engineer (different from WI-014); Technical Lead reviews the fixed result.
+Owner: Red Team (review); Technical Lead (after recheck); user (authorization of any later run WI).

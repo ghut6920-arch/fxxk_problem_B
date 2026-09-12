@@ -2,7 +2,7 @@
 
 ## Competition Stage
 
-Official inputs and prior plan/design remain as recorded below. WI-014 evaluator/fixtures are technically accepted at `1ae791b8055690fd9d1239d0e864819865b58f6b` and locally integrated on `main` at merge `61465c5513c5bdc3d593d3fd389f6866d8339721` (TR-012 PASS; TR-013 PASS; RT-003 recheck `cd60ec9e76cd1db61ef6dd848776b7bb15cdd1a6`). User D-003 authorized that integration and a different-author C0 P1-A candidate WI (`WI-015`). Not pushed. Not a P1-A property run, not selection, not formal readiness.
+Official inputs and prior plan/design remain as recorded below. WI-014 evaluator/fixtures are on local `main`. WI-015 C0 candidate implementation is technically accepted at `e4ee8febfc8ff89e927eba436e81e2ae7759af1c` (TR-014 PASS). D-004 same-model residual remains. Not merged, not pushed, not a P1-A property run, not selection.
 
 ## Verified Facts
 
@@ -41,10 +41,10 @@ None. `MODEL_SPEC.md` is intentionally absent.
 - `WI-012` is `COMPLETE`; `TR-011` passed Executor result `beb2651cd0289df7b22f8fc8b643c30c794a328d` with conclusion `P0_PREMISES_CLEAR`. The P0 record is on `main` as `evidence/experiments/EXP-001/P0_STATIC_REVIEW.md` (byte-identical to that result). That PASS authorized drafting a P1-A SPEC, not implementation.
 - `WI-013` is `COMPLETE` by user authorization D-001 (SPEC usable); not an independent TR-012 PASS. `experiments/EXP-002/SPEC.md` remains the P1-A freeze.
 - `WI-014` is `COMPLETE` for evaluator/fixtures at `1ae791b8055690fd9d1239d0e864819865b58f6b`, locally merged onto `main` as `61465c5513c5bdc3d593d3fd389f6866d8339721`. Author conclusion remains `EVALUATOR_FIXTURES_OPEN`. Evaluator author remains barred from `src/candidate/`.
-- `WI-015` is `READY` / issued. User D-004 allows `deepseek-flash` in a new session to write the candidate; §4.5 isolation is **not** claimed. Not a property-run WI.
+- `WI-015` is `COMPLETE` for implementation at `e4ee8febfc8ff89e927eba436e81e2ae7759af1c` (TR-014 PASS). Author conclusion `CANDIDATE_IMPL_READY` is implementation-only. §4.5 isolation is **not** claimed (D-004). Unmerged, unpushed. Not a property-run WI.
 
 - No active collaboration issue authorizes history rewriting, branch deletion, object pruning, or remote publication.
 
 ## Blockers
 
-- WI-015 waits for the D-004 `deepseek-flash` session. Push, P1-A property-run WI, P1-B, selection, and `RT-002` closure remain unauthorized. Same-model candidate is a recorded isolation residual, not independent authorship.
+- Next gate is Red Team of candidate `e4ee8febfc8ff89e927eba436e81e2ae7759af1c`. Push, P1-A property-run WI, P1-B, selection, and `RT-002` closure remain unauthorized. Same-model candidate is a recorded isolation residual.
