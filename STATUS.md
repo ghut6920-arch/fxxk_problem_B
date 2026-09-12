@@ -35,9 +35,9 @@ None. `MODEL_SPEC.md` is intentionally absent.
 - `RT-001` leaves F1–F3 open at `MAJOR` and narrows but leaves F4 open at `MINOR`; it does not pass `SMOKE-001` or close `WI-001`.
 - `WI-007` verified and audited the official B-problem input set; `题目拆解与分析.md` is preserved as derived reading input, not official or reviewed model evidence.
 - `WI-008` is `COMPLETE_WITH_SUPERSEDING_FIX`; the official-evidence correction addendum in `TR-007` restores the mixed-type requirement and records why the earlier recheck was wrong. Its design result remains unintegrated and unpushed; no model has been selected.
-- `WI-009` is `IN_PROGRESS` on `design/NA-002-complete-model-plan` from Execution Start `ddebd7dd8d4db5017f94f1584da5b8e637826d93`; it authorizes only a complete mathematical plan, deterministic bounds, and pseudocode. It does not authorize experiments, implementation, final selection, `MODEL_SPEC.md`, or a push.
+- `WI-009` is `FIX_REQUIRED` after `TR-008` reviewed result `1b42abf8cf4ad07355c386089443871b4e7b65b2`. Its mathematical plan and analytic bounds passed the plan-level review, but `ASSUMPTIONS.md` must stop duplicating confirmed rules and the one-metre centre tolerance must be identified as an Euclidean norm bound. No experiment, implementation, final selection, `MODEL_SPEC.md`, integration, or push is authorized.
 - No active collaboration issue authorizes history rewriting, branch deletion, object pruning, or remote publication.
 
 ## Blockers
 
-- The corrected type domain and identified derivation/completeness gaps must be resolved under WI-009 before any affected experiment, selection, or formal promotion. Real-time feasibility remains unverified and cannot be inferred from a finite virtual-cost bound.
+- Two local documentation corrections block WI-009 completion under `TR-008`. Real-time feasibility remains unverified and cannot be inferred from the accepted analytic virtual-cost bounds.
