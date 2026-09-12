@@ -108,7 +108,7 @@ WI-017 author conclusion: `P1B_PASS_PRACTICE_OBSERVED`. TR-018 PASS for that sco
 
 | Line | Branch | Full hash |
 |---|---|---|
-| Lead `main` (this briefing’s intended parent before the briefing commit) | `main` | see git after this file is committed |
+| Lead `main` including this briefing | `main` | `9890d4e0ce3188de259f7ec60a97a87678196b3d` |
 | P1-A run | `feat/WI-016-p1a-c0-run` ancestor | `761c0f7788ed773d2a132b92caaa9e1378b22c88` |
 | P1-B + practice | `feat/WI-017-p1b-c0-practice` | `a48c77cc0d46a81b96aa56f54197b8837c4c735c` |
 | Evaluator | integrated on `main` | `1ae791b8055690fd9d1239d0e864819865b58f6b` |
