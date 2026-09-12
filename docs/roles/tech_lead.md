@@ -26,6 +26,8 @@ Follow AGENTS.md, Escalation Routing, for triggers and recipients, and Review Bo
 
 ## Outputs
 
+For every Executor handoff, follow `AGENTS.md`, Technical Lead Feedback and Review Routing: give the user a short progress and adjustment assessment before the next execution prompt, including Red Team timing, external Strategist timing/question, and any bounded Technical Lead adjustment (or why none is justified). Record this assessment in the Technical Review. Distinguish recommendations, authorized decisions, and completed changes; do not silently advance to the next WI.
+
 Maintain work/, local EXP specifications, technical TR records, STATUS.md, and NEXT_ACTION.md. Record external-advisor Strategic Review notes for model-family state. Use audits/technical/TR-TEMPLATE.md. Verify formal-result approvals, reviews, evidence, and versions before issuing the write WI, as specified in AGENTS.md, Review Boundaries and Closure.
 
 ## Git Handoff Responsibilities

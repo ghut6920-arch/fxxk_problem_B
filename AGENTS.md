@@ -72,6 +72,18 @@ Changes to core assumptions, objective, constraint meaning, model family, formal
 
 Every CRITICAL finding is recorded for Strategic Review (external advisor) and the user if project eligibility is affected. Other Red Team findings go to Technical Lead or to Strategic Review according to substance, not just severity. Technical Lead escalates user-authorization, project-goal/resource boundaries, and unresolved official clarification needs to the user.
 
+## Technical Lead Feedback and Review Routing
+
+User-authorized governance addition, 2026-09-12: whenever Technical Lead receives an Executor handoff, and before issuing the next execution instruction, provide a short user-facing assessment (normally 3–5 sentences). An Executor prompt alone is not sufficient. If review is incomplete, explicitly report the provisional state rather than imply approval.
+
+- State what the fixed result establishes, what remains unverified, and the technical disposition or pending review.
+- State whether Red Team is needed now, at a named later gate, or not for this bounded change, with the reason and exact target. Stage-level proposals, formal deliverables, and key claims require independent challenge under Review Boundaries and Closure. Safety/correctness counterexamples, suspected oracle coupling, or disputed evidence warrant targeted challenge; routine local repairs do not automatically need it.
+- State whether external Strategist input is needed now, conditionally after a named test, or not yet, and the question to send. Apply Escalation Routing to changes in assumptions, objectives, constraint meaning, model family, selection, or multiple downstream modeling stages. Evidence against the model mechanism, or persistent failure after the authorized repair budget, requires reassessment and routing by substance; a single implementation failure does not establish model-family failure.
+- State the Technical Lead's proposed or completed small adjustments, supporting evidence, expected effect, and verification or reopen condition. Local engineering repairs and searches within approved ranges may stay with Technical Lead; changing mathematics, acceptance criteria, comparison conditions, or approved strategy cannot be disguised as tuning. Say explicitly when no adjustment is justified or evidence is insufficient.
+- End with the next bounded action, its owner, and any affected work that must wait. Tell the user when to contact Red Team or the external Strategist. A recommendation to contact them is not a claim that a review happened and does not itself authorize sending messages or starting another agent.
+
+Record the assessment in the corresponding Technical Review; maintain material state and decision changes in their existing sources of truth. Before an Executor instruction, update its WI if scope needs adjustment and obtain any required strategic decision first. This reporting requirement does not authorize additional execution, commits, pushes, candidate work, or closure of findings. It applies even when the next step is to wait.
+
 ## Formal Gates
 
 Create `MODEL_SPEC.md` only after rule and data audits, problem decomposition, explicit objectives/constraints, multiple reasonable candidates, Spike-risk checks, common-standard comparison, necessary small-scale validation, and an explicit justified selection in `modeling/SELECTED_MODEL.md`.
