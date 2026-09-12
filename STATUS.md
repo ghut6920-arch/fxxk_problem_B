@@ -2,7 +2,7 @@
 
 ## Competition Stage
 
-Official inputs and prior plan/design remain as recorded below. WI-014 latest evaluator a8401fc2bf53375610b29f96f1c332d09738975e passes 35 self-tests; RT-003 recheck at 6831fed64472bc97e71f2a6e985d688c971d230e confirms F1/F2/F5/F7 repaired, F6 partial. External Strategist SR-001 / D-002 resolves G07/G15 interpretation. Technical Lead revised SPEC/catalog; implementation and targeted recheck remain pending. Model routes unchanged; no candidate or formal readiness authorized.
+Official inputs and prior plan/design remain as recorded below. WI-014 evaluator/fixtures are technically accepted at `1ae791b8055690fd9d1239d0e864819865b58f6b` (TR-012 PASS; RT-003 recheck `cd60ec9e76cd1db61ef6dd848776b7bb15cdd1a6`). SR-001 / D-002 G07/G15 corrections are implemented. Result is not on `main`, not pushed, and is not a P1-A property run. Model routes unchanged; no candidate or formal readiness authorized.
 
 ## Verified Facts
 
@@ -40,10 +40,10 @@ None. `MODEL_SPEC.md` is intentionally absent.
 - `WI-011` is `COMPLETE`; `TR-010` passed Executor result `49db3ae1c57c4aa0fd4c321569c9fcbd748fd528` with conclusion `INPUTS_PRESENT_NOT_APPROVED`. The inventory is on `main` as `evidence/prerequisites/P0_INPUT_AUDIT.md`.
 - `WI-012` is `COMPLETE`; `TR-011` passed Executor result `beb2651cd0289df7b22f8fc8b643c30c794a328d` with conclusion `P0_PREMISES_CLEAR`. The P0 record is on `main` as `evidence/experiments/EXP-001/P0_STATIC_REVIEW.md` (byte-identical to that result). That PASS authorized drafting a P1-A SPEC, not implementation.
 - `WI-013` is `COMPLETE` by user authorization D-001 (SPEC usable); not an independent TR-012 PASS. `experiments/EXP-002/SPEC.md` remains the P1-A freeze.
-- `WI-014` remains `FIX_REQUIRED`, now for implementing the resolved SR-001 / D-002 definitions. G07b requires an UNBOUNDED ray certificate; G15 requires the independent angle perturbation triple and mirror/coverage/serialization checks. RT-003 is retrieved byte-identical to its fixed review commit. No candidate implementation or integration is authorized.
+- `WI-014` is `COMPLETE` for evaluator/fixtures at `1ae791b8055690fd9d1239d0e864819865b58f6b`. TR-012 final recheck PASSed that version; RT-003 at `cd60ec9e76cd1db61ef6dd848776b7bb15cdd1a6` confirms F3/F4 repaired, F1/F2/F5/F7 unreverted, F6 partial. Author conclusion remains `EVALUATOR_FIXTURES_OPEN`. The result is unintegrated and unpushed. Evaluator author is barred from `src/candidate/`. No candidate implementation is authorized.
 
 - No active collaboration issue authorizes history rewriting, branch deletion, object pruning, or remote publication.
 
 ## Blockers
 
-- No further Strategist wait for current G07/G15 definitions. Implement their recorded correction and obtain technical/Red Team recheck before WI-014 acceptance. RT-003 F6 remains partial; RT-002 remains open. No P1-A candidate passage, selection, candidate WI or remote publication is authorized by this correction.
+- WI-014 technical acceptance is recorded. C0/candidate, `main` integration, and any push wait for explicit user authorization. RT-003 F6 remains a standing isolation caveat; RT-002 remains open and still blocks only future formal-readiness promotion. No P1-A candidate passage, selection, or remote publication is authorized by this acceptance.

@@ -1,15 +1,14 @@
 # Primary Integration Goal
 
-Implement SR-001 / D-002 corrections to WI-014 G07/G15 evaluator and fixtures.
+Do not start C0. Keep the accepted WI-014 evaluator/fixtures at `1ae791b8055690fd9d1239d0e864819865b58f6b` unintegrated until the user authorizes either `main` integration or a different-author candidate WI.
 
 ## Acceptance Criteria
 
-- G07b verifies q=(2000,0), d=(1,0) and returns UNBOUNDED; no disk/radius truncation or feedback-bin precision shortcut.
-- G15 follows revised catalog angle triple, mirror closed boundary, JSON distinction and full P4 visible-set checks; position perturbation is separate.
-- Original regressions and all required WI tests/hashes remain verified; retain failure history.
-- New fixed result receives Technical Review and targeted Red Team recheck; no automatic overall acceptance or P1-A passage.
-- No C0 WI, candidate code, simulator, model-route change, RT-002 closure or push.
+- Evaluator author remains barred from `src/candidate/`; relabelling is not independence.
+- `RT-002` remains open and continues to block only future formal-readiness promotion.
+- No P1-A property run, simulator, model selection, or push from this status.
+- Any later candidate WI must cite this accepted evaluator version and must not be written by the WI-014 evaluator author.
 
-Status: FIX_REQUIRED — interpretation resolved by SR-001; preparation of the amended execution contract precedes Executor dispatch.
+Status: WAITING_FOR_USER_AUTHORIZATION — WI-014 technically complete; C0 is not opened.
 
-Owner: Technical Lead (preparation/review); original evaluator Executor (bounded repair); Red Team (subsequent independent recheck).
+Owner: User (authorization); Technical Lead (integration or candidate WI only after that authorization).
