@@ -1,6 +1,6 @@
 # Tech Lead 交接（给 Codex）
 
-把本文件整份作为新 Codex 会话的**首条用户消息**。  
+把本文件整份作为新 Codex 会话的**首条用户消息**。
 新会话必须在 **`E:\pycharm\projects\pythonProject18\题目\B题`** 打开，角色是 **Technical Lead**。
 
 上一任暂代 Tech Lead 是 Grok。用户现在改回 **Codex 当 Tech Lead**。Executor 已另开会话，正在跑 WI-014。你不要自己当 Executor。
@@ -19,7 +19,7 @@
 
 **等 Executor 交回 WI-014 的固定结果 commit，然后做技术审查。**
 
-WI-014 = 独立评价器 + 冻结夹具（G01–G16、T01–T10）。  
+WI-014 = 独立评价器 + 冻结夹具（G01–G16、T01–T10）。
 不是 C0 实现，不是跑 P1-A 性质门槛，不是接模拟器。
 
 用户已经把 Executor 提示词发出去了。Executor 工作树在签发时是干净的，HEAD 等于 Execution Start。你**不要自己跑 WI-014**，不要抢写代码。
@@ -27,7 +27,7 @@ WI-014 = 独立评价器 + 冻结夹具（G01–G16、T01–T10）。
 Executor 回执后你按这个顺序做：
 
 1. `git cat-file -e "<result>^{commit}"`
-2. 确认只改了  
+2. 确认只改了
    `src/evaluator/`、`tests/p1a/`、`evidence/experiments/EXP-002/EVALUATOR_AND_FIXTURES.md`
 3. 确认没有 `src/candidate/`，没有模拟器、没有 push
 4. 对照 `experiments/EXP-002/SPEC.md` 和 `FIXTURE_CATALOG.md` 抽查夹具数字、`evaluator_now` 自检、结论只能是 `EVALUATOR_FIXTURES_READY` 或 `EVALUATOR_FIXTURES_OPEN`
@@ -39,7 +39,7 @@ Executor 回执后你按这个顺序做：
 
 ### 先核对 Git（必须）
 
-工作树：`E:\pycharm\projects\pythonProject18\题目\B题`  
+工作树：`E:\pycharm\projects\pythonProject18\题目\B题`
 分支：`main`
 
 ```text
@@ -102,7 +102,7 @@ Executor 预检若报 Git 不匹配：普通角色不能自己修；停下来由
 
 历史分支保留、不要删：`design/NA-001`、`NA-002`、`NA-003`，`feat/WI-011-p0-input-audit`，`feat/NA-001-smoke-test`，`feat/WI-012-p0-static-review`。
 
-远程：`https://github.com/ghut6920-arch/fxxk_problem_B.git`  
+远程：`https://github.com/ghut6920-arch/fxxk_problem_B.git`
 `origin/main` 已推到 `d6c00a8`。之后本地又有 2 个 commit **未推**：
 
 - `f69f2c6` `work: issue WI-013 P1-A specification freeze and git contract`
@@ -112,7 +112,7 @@ Executor 预检若报 Git 不匹配：普通角色不能自己修；停下来由
 
 已完成并在 `main`（blob 与源 commit 一致）：
 
-- 官方材料 WI-007：`problem/official/` VERIFIED  
+- 官方材料 WI-007：`problem/official/` VERIFIED
   PDF `81C992A9…838CA`，附件1 `20A27603…47553`，附件2 `C882513D…58CB2`
 - 数学方案 WI-009：`modeling/COMPLETE_MODEL_PLAN.md` ← `44bf45a` blob `407b5e9f…`
 - 实验设计 WI-010：`modeling/EXPERIMENT_DESIGN.md` ← `e3ca1e2` blob `9a2b46e8…`；TR-009 复核 PASS
