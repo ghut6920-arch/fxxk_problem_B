@@ -139,12 +139,18 @@ class IndependenceTest(unittest.TestCase):
                 for name in imported:
                     self.assertNotIn("candidate", name, "candidate import in %s" % path)
 
-    def test_no_candidate_directory_is_required_or_created(self):
+    def test_candidate_tree_may_exist_without_evaluator_importing_it(self):
+        """WI-014 required ``src/candidate/`` to be absent. A later different-author candidate WI
+        may create that tree. Isolation is the AST import check above, not directory absence.
+        """
+        evaluator_dir = os.path.dirname(os.path.abspath(predicates.__file__))
+        self.assertTrue(os.path.isdir(evaluator_dir))
         candidate_dir = os.path.join(REPO_ROOT, "src", "candidate")
-        self.assertFalse(
-            os.path.isdir(candidate_dir),
-            "src/candidate/ must not exist during WI-014 (evaluator author independence bind)",
-        )
+        if os.path.isdir(candidate_dir):
+            self.assertNotEqual(
+                os.path.abspath(candidate_dir),
+                os.path.abspath(evaluator_dir),
+            )
 
 
 class Tr012RegressionTest(unittest.TestCase):

@@ -34,6 +34,32 @@ Decision: KEEP current model routes, MODIFY evaluator/fixture interpretation onl
 
 Evidence/scope: SR-001 proof and numeric definitions; TR-012; RT-003 recheck at 6831fed64472bc97e71f2a6e985d688c971d230e of evaluator a8401fc2bf53375610b29f96f1c332d09738975e. Configuration/fixture correction, not model-family failure or selection. Rejected: interpreting 1-degree feedback bins as precision; replacing heading change with source displacement. Effects: G07/G15 must be repaired and reviewed; candidate and formal gates remain closed. Reopen conditions: SR-001 lists changed geometry/constraints, serialization collapse, or valid counter-evidence. No RT-002 closure or publication approval.
 
+### D-003 User authorization to integrate WI-014 and open a C0 P1-A candidate WI
+
+Date: 2026-09-12
+
+Question: May Technical Lead locally integrate the reviewed evaluator `1ae791b8055690fd9d1239d0e864819865b58f6b` onto `main`, and open a **different-author** P1-A candidate-implementation WI for C0?
+
+Decision: Yes. The user directed execution of both previously offered next steps. Local integration of the reviewed evaluator/fixtures is authorized. Opening `work/WI-015.md` for C0 as the EXP-002 P1-A **candidate under test** is authorized. This is not a push, not P1-B, not simulator work, not `MODEL_SPEC.md`, and not final model selection.
+
+Evidence:
+
+- User message 2026-09-12: “执行你给出的第一步和第二步”
+- TR-012 PASS of `1ae791b8055690fd9d1239d0e864819865b58f6b`
+- RT-003 recheck `cd60ec9e76cd1db61ef6dd848776b7bb15cdd1a6`
+- EXP-002 SPEC candidate pin: C0 at plan blob `407b5e9f0bf001663bee4f9b9d4b21e601c4bbe4` (version freeze, not selection)
+- SR-001 / D-002 KEEP of C0/C1/C2 routes
+
+Reason: User authorization may open the next WI. The SPEC already names C0 as the P1-A candidate under test. Evaluator/candidate authors must remain distinct (`modeling/EXPERIMENT_DESIGN.md` §4.5).
+
+Rejected Alternatives: Same-author candidate; treating C0 P1-A implementation as final selection; merging C1/C2 adaptive scoring into this WI; pushing without a named remote/branch/payload; closing `RT-002`.
+
+Scope: `configuration` (process authorization) plus bounded `implementation` of the already-frozen C0 P1-A interfaces. Not `model-family`, not selection.
+
+Affected Stages: local `main` now carries the WI-014 evaluator; WI-015 may write `src/candidate/`. Formal promotion, P1-B, and model selection remain closed.
+
+Reopen Conditions: Evidence that C0 P1-A implementation requires changing plan mathematics, mixing evaluator and candidate authors, or expanding into C1/C2/P1-B. A later user instruction may still withhold push.
+
 ## Decision Template
 
 ### D-TODO

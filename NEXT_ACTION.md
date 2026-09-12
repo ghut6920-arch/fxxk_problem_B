@@ -1,14 +1,14 @@
 # Primary Integration Goal
 
-Do not start C0. Keep the accepted WI-014 evaluator/fixtures at `1ae791b8055690fd9d1239d0e864819865b58f6b` unintegrated until the user authorizes either `main` integration or a different-author candidate WI.
+Execute WI-015: different-author C0 P1-A candidate implementation under `src/candidate/`.
 
 ## Acceptance Criteria
 
-- Evaluator author remains barred from `src/candidate/`; relabelling is not independence.
-- `RT-002` remains open and continues to block only future formal-readiness promotion.
-- No P1-A property run, simulator, model selection, or push from this status.
-- Any later candidate WI must cite this accepted evaluator version and must not be written by the WI-014 evaluator author.
+- Author is not the WI-014 evaluator author; `src/candidate/` does not import `src/evaluator/`.
+- Candidate unittests pass or the report is honestly `CANDIDATE_IMPL_OPEN`.
+- Evaluator fixtures and `tests/p1a` still pass; SPEC/catalog/plan unchanged.
+- No `P1A_PROPERTIES_*` conclusion, no P1-B, no simulator, no `RT-002` closure, no push, no model selection.
 
-Status: WAITING_FOR_USER_AUTHORIZATION — WI-014 technically complete; C0 is not opened.
+Status: IN_PROGRESS — WI-015 issued; waiting for a different Executor. Local evaluator integration is done; remote push is not authorized.
 
-Owner: User (authorization); Technical Lead (integration or candidate WI only after that authorization).
+Owner: Implementation Engineer (different from WI-014); Technical Lead reviews the fixed result.
