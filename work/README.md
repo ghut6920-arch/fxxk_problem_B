@@ -1,6 +1,6 @@
 # Work Items
 
-Use sequential identifiers `WI-NNN`. Multiple Work Items may exist under one Primary Integration Goal, but overlapping ownership of a core module requires coordination. The next identifier is `WI-014`. `WI-013` froze `experiments/EXP-002/SPEC.md` and the P1-A git contract; it does not authorize `src/` implementation.
+Use sequential identifiers `WI-NNN`. Multiple Work Items may exist under one Primary Integration Goal, but overlapping ownership of a core module requires coordination. The next identifier is `WI-015`. `WI-014` is the P1-A evaluator and fixture WI; it must not write `src/candidate/`. The WI-014 author is barred from a later candidate WI.
 
 Long-lived worktrees: Technical Lead `B题` (`main`), Executor `B题-executor`, Red Team `B题-redteam`. There is no in-repo Strategist worktree.
 

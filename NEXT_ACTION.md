@@ -1,14 +1,15 @@
 # Primary Integration Goal
 
-Goal: Review the issued P1-A specification (`experiments/EXP-002/SPEC.md`, `work/WI-013.md`) and do not open an implementation WI until that review disposes `PASS` and the user authorizes the evaluator WI (evaluator before candidate).
+Goal: Execute WI-014 — independent evaluator and frozen G01–G16 / T01–T10 fixtures — without writing `src/candidate/`, running P1-A against a candidate, starting P1-B, or pushing.
 
 ## Acceptance Criteria
 
-- `WI-013` remains a specification freeze: no `src/`, no fixture bytes, no property run, no P1-B, no simulator, no `MODEL_SPEC.md`, no `RT-002` closure.
-- A later Technical Review of `experiments/EXP-002/SPEC.md` records `PASS`, `FIX`, or `ESCALATE` on a fixed commit. The SPEC author must not self-PASS.
-- Only after `PASS` plus explicit user authorization may Technical Lead open the next WI, which must be the **independent evaluator and fixtures** WI, not the candidate and not a combined author.
-- G01–G16 and T01–T10 stay as frozen in EXP-002; T11–T12 remain P1-B.
+- Executor runs only `work/WI-014.md` from the assignment Execution Start on `feat/WI-014-p1a-evaluator`.
+- Fixtures match `experiments/EXP-002/FIXTURE_CATALOG.md`. Unittest covers `evaluator_now` only.
+- Closed-set conclusion is `EVALUATOR_FIXTURES_READY` or `EVALUATOR_FIXTURES_OPEN`.
+- No `src/candidate/`, no simulator, no T11–T12, no `MODEL_SPEC.md`, no `RT-002` closure, no push.
+- The WI-014 author is recorded and barred from a later candidate WI.
 
-Status: WAITING — WI-013 in `REVIEW`; next src/ WI requires Technical Review PASS and user authorization
+Status: READY — WI-014 issued; Executor runs only after the assignment prompt records the Execution Start Commit
 
-Owner Role: Technical Lead
+Owner Role: Implementation Engineer
