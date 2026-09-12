@@ -26,6 +26,14 @@ Affected Stages: P1-A evaluator/fixture construction. Does not authorize `src/ca
 
 Reopen Conditions: A later review finds the SPEC invents mathematics, merges P1-A with P1-B, or breaks the evaluator/candidate split.
 
+### D-002 External clarification of G07/G15
+
+Date: 2026-09-12. Source: user-delivered external Strategist note recorded in `audits/strategic/SR-001.md`.
+
+Decision: KEEP current model routes, MODIFY evaluator/fixture interpretation only. G07b is UNBOUNDED with q=(2000,0), d=(1,0); uncertainty is not a passing reference. G15 uses separate epsilon_phi=atan(1e-6/700) radians and the advisor's frozen heading triple, mirror and coverage checks. Technical Lead adopts these bounded recommendations in SPEC/catalog and WI-014.
+
+Evidence/scope: SR-001 proof and numeric definitions; TR-012; RT-003 recheck at 6831fed64472bc97e71f2a6e985d688c971d230e of evaluator a8401fc2bf53375610b29f96f1c332d09738975e. Configuration/fixture correction, not model-family failure or selection. Rejected: interpreting 1-degree feedback bins as precision; replacing heading change with source displacement. Effects: G07/G15 must be repaired and reviewed; candidate and formal gates remain closed. Reopen conditions: SR-001 lists changed geometry/constraints, serialization collapse, or valid counter-evidence. No RT-002 closure or publication approval.
+
 ## Decision Template
 
 ### D-TODO

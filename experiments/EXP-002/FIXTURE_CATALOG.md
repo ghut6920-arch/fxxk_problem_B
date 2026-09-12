@@ -2,7 +2,7 @@
 
 Author: Technical Lead. This catalog instantiates `experiments/EXP-002/SPEC.md` and `modeling/EXPERIMENT_DESIGN.md` §4.2–4.3 with explicit numbers. It does not add a new test class or a new mathematical object.
 
-`ε_d = 1e-6` metres. `δ = π/180`. `D = B(0,1800)`. Angles in the tables are degrees unless noted.
+`ε_d = 1e-6` metres. `ε_φ = atan(ε_d / (700 metres))` radians, approximately `8.18511135901176e-8` degrees (SR-001 / D-002). `δ = π/180`. `D = B(0,1800)`. Angles in the tables are degrees unless noted.
 
 Check phase:
 
@@ -55,7 +55,7 @@ Half-planes are `a x + b y + c ≥ 0`.
 ### G07 — parallel strip and near-collinear bearings
 
 - G07a parallel strip: same as G02; must be `UNBOUNDED` (finite-diameter forbidden).
-- G07b near-collinear wedges: `S1=(0,0)`, `θ̂_1=0°`; `S2=(1000,0)`, `θ̂_2=0.01°`; `δ=1°`. If a finite vertex set cannot be certified, expected `NUMERICAL_UNCERTAIN`. Must not invent a fake precise bounded solution.
+- G07b near-collinear wedges: `S1=(0,0)`, `θ̂_1=0°`; `S2=(1000,0)`, `θ̂_2=0.01°`; `δ=1°`. Expected `UNBOUNDED`, certified by `q=(2000,0)`, `d=(1,0)`: `q+t*d` is inside both wedges for all `t>=0`. This is pure wedge P; add no disk/radius cap. Verify feasibility and nonzero recession before finite-vertex construction. `NUMERICAL_UNCERTAIN` is UNRESOLVED, not a passing expected answer; CONFLICT/BOUNDED/finite-solution claims fail (SR-001).
 - Phase: `evaluator_now` (labels); candidate later.
 
 ### G08 — 0/360 wrap and rotated equivalent
@@ -131,9 +131,11 @@ Hidden truth is **only** in evaluator/fixture truth fields, never in candidate-f
   - P4 grid line: `g=(700,0)`
   - P4 grid point: `g=(700,700)` (`||g||=700√2<1800`)
   - `ε_d` perturbation: `g=(700+ε_d, 700)`
-  - directional heading boundary: `g=(700,700)`, `φ` such that `n(φ)·(p-g)=0` for a chosen `p∈P_4`, plus one `ε_d` heading perturbation
+  - directional heading triple: `g=(700,700)`, `p_R=(1400,700)`, `R_c=1500`; frozen `phi_deg=89.99999991814889, 90.0, 90.00000008185111` gives `direction, direction, no_signal` at p_R, respectively (independent angle ε_φ, SR-001).
+  - mirror closed boundary: `p_L=(0,700)` at `phi_deg=90.0` gives `direction`.
+  - for all three headings, `p=(700,1400)` gives `direction`, and the complete P_4 visible set is nonempty. JSON round-trip retains both perturbations distinct from 90.0; do not round hidden headings to two decimals.
   - coincidence (O-03): directional `g=(0,0)` which is a lattice point; that point is **not** coverage evidence
-- Evaluator_now: generate `P_3`,`P_4` from the formula; for each omni world, the set of lattice points with observation `near` or `direction` is nonempty (except the coincidence case, which must not be used as coverage evidence)
+- Evaluator_now: generate `P_3`,`P_4` from the formula; for each omni world, the set of lattice points with observation `near` or `direction` is nonempty (except the coincidence case, which must not be used as coverage evidence); additionally verify the heading triple, mirror boundary, JSON distinction, and directional P_4 nonempty checks above
 - Candidate_later: same visible-set claim from the candidate scan
 
 ### G16 — 225-point clear rectangle
