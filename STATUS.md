@@ -2,7 +2,7 @@
 
 ## Competition Stage
 
-Official inputs are verified. The complete mathematical plan (WI-009), staged experiment design (WI-010), and P0 static review (WI-012 / EXP-001) are on `main`. No implementation, simulator run, model selection, or `MODEL_SPEC.md` is authorized. P1-A is not issued.
+Official inputs are verified. The complete mathematical plan (WI-009), staged experiment design (WI-010), P0 static review (WI-012 / EXP-001), and P1-A specification freeze (WI-013 / EXP-002) are on `main`. No implementation, fixture run, simulator run, model selection, or `MODEL_SPEC.md` is authorized. P1-A **execution** is not issued.
 
 ## Verified Facts
 
@@ -38,9 +38,10 @@ None. `MODEL_SPEC.md` is intentionally absent.
 - `WI-009` is `COMPLETE`; `TR-008` recheck passed corrected fixed result `44bf45ab43fbba6d14461b13c485890db437dd30`. The complete mathematical plan is on `main` as `modeling/COMPLETE_MODEL_PLAN.md` (byte-identical to that result). No implementation, experiment execution, final selection, or `MODEL_SPEC.md` is authorized.
 - `WI-010` is `COMPLETE`; `TR-009` recheck passed design revision `e3ca1e2a12b9f27bee95d03dc31591f19c61fac8`. The experiment design is on `main` as `modeling/EXPERIMENT_DESIGN.md` (byte-identical to that revision). `RT-002` F1 remains open and still blocks only future formal-readiness promotion. The document is not execution authorization, selection, or push.
 - `WI-011` is `COMPLETE`; `TR-010` passed Executor result `49db3ae1c57c4aa0fd4c321569c9fcbd748fd528` with conclusion `INPUTS_PRESENT_NOT_APPROVED`. The inventory is on `main` as `evidence/prerequisites/P0_INPUT_AUDIT.md`.
-- `WI-012` is `COMPLETE`; `TR-011` passed Executor result `beb2651cd0289df7b22f8fc8b643c30c794a328d` with conclusion `P0_PREMISES_CLEAR`. The P0 record is on `main` as `evidence/experiments/EXP-001/P0_STATIC_REVIEW.md` (byte-identical to that result). This PASS does not authorize P1-A, close `RT-002`, select a model, or push.
+- `WI-012` is `COMPLETE`; `TR-011` passed Executor result `beb2651cd0289df7b22f8fc8b643c30c794a328d` with conclusion `P0_PREMISES_CLEAR`. The P0 record is on `main` as `evidence/experiments/EXP-001/P0_STATIC_REVIEW.md` (byte-identical to that result). That PASS authorized drafting a P1-A SPEC, not implementation.
+- `WI-013` is `REVIEW`; Technical Lead issued `experiments/EXP-002/SPEC.md` (P1-A freeze: G01–G16, T01–T10, evaluator/candidate split, 4 min 20 s budget). No `src/` or fixture bytes. Author self-check is not independent Technical Review. This does not authorize Executor code, P1-B, close `RT-002`, select a model, or push.
 - No active collaboration issue authorizes history rewriting, branch deletion, object pruning, or remote publication.
 
 ## Blockers
 
-- No blocker remains for the WI-009 mathematical-plan scope, the WI-010 experiment-design document, or the WI-012 P0 static review. All three are on `main`. `RT-002` F1 still blocks future formal-readiness promotion until Red Team recheck and a recorded Strategic Review (external advisor). P1-A is not issued. Real-time feasibility remains unverified. User-authorized publication: `origin/main` fast-forwarded to `e70c740321818ab3d012bf0278fde3a35862d85e`. This STATUS update is a follow-up local commit.
+- No blocker remains for the WI-009 mathematical-plan scope, the WI-010 experiment-design document, or the WI-012 P0 static review. `WI-013` SPEC issuance is `REVIEW` and blocks only later `src/` WIs until Technical Review. `RT-002` F1 still blocks future formal-readiness promotion until Red Team recheck and a recorded Strategic Review (external advisor). P1-A execution, P1-B, and real-time feasibility remain unverified. Prior user-authorized publication placed `origin/main` at `d6c00a8014325d042cb056e146b0c563bd5a6205` before this issuance.
