@@ -46,10 +46,11 @@ None. `MODEL_SPEC.md` is intentionally absent.
 - `WI-017` is `COMPLETE` at `a48c77cc0d46a81b96aa56f54197b8837c4c735c` (TR-018). Live Q3/Q4 practice both `COMPLETE` with `K=12`. Operator UI: Q3 `N=12` all omni; Q4 `N=12` (2 omni, 10 directional). Unknown-accept 0, loopback wall ~26 s / ~48 s. Unmerged, unpushed.
 - `WI-018` is `COMPLETE` at `d675831695d705ea8c4ffcb74fe8c83277847daf` (TR-020 PASS). Local snake restored; 225-set unchanged. Unmerged, unpushed.
 - `WI-019` is `COMPLETE` at `08bf26a2ae0e3873ad742ff1c977b860b16973e8` (TR-021). RT-005: old path-cost MAJOR; repair no MAJOR/CRITICAL residual in scope. Unpushed.
-- `WI-020` is `READY` / issued: Phase 1 B baseline. Not started in this Technical Lead session.
+- `WI-020` is `COMPLETE` at `7f4dfba66a1467da865e411c2aa03bbec2203843` (TR-023). `B_BASELINE_READY`. Live K=14/16; N not UI-reported. Unmerged, unpushed.
+- `WI-021` is `READY` / issued: Phase 2 RT of EXP-005 150/49 math. No implementation yet.
 
 - No active collaboration issue authorizes history rewriting, branch deletion, object pruning, or remote publication.
 
 ## Blockers
 
-- WI-020 waits for Executor. Do not start 150/49 or C1. Live practices need a fresh operator session confirm. New tests cannot start after 17:30 Beijing 2026-09-13.
+- WI-021 waits for Red Team. Do not implement 150/49 or C1. Ask the operator for UI N on the WI-020 practices if still visible. New tests cannot start after 17:30 Beijing 2026-09-13.
