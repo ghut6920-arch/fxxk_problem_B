@@ -1,13 +1,13 @@
 # Primary Integration Goal
 
-Execute WI-017: P1-B protocol adapter and at most one Q3 plus one Q4 **practice** C0 run. User starts the local simulator in practice mode.
+Hold C0 after P1-A fixture PASS and two practice observations. Do not open C1 or a formal slot.
 
 ## Acceptance Criteria
 
-- T11–T12 mock pass or the report is honestly not PASS.
-- Live runs are practice only; abort if formal. Origin waiver (D-006) is disclosed, not claimed as verification.
-- No C1, no formal slot, no `RT-002` closure, no independent-evaluation wording, no push.
+- Paper wording: practice observation only; `K=12` is successful clears, not proven `N`.
+- `RT-002` stays open. Unlimited practice ≠ formal qualification.
+- No C1, no formal `/enter`, no push/merge without a new named authorization.
 
-Status: IN_PROGRESS — WI-017 issued; waiting for Executor after the user starts practice-mode simulator.
+Status: WAITING_FOR_USER — WI-017 COMPLETE.
 
-Owner: User (start practice simulator); Implementation Engineer (WI-017); Technical Lead (review).
+Owner: User (UI `N` check / optional stressed practice / paper); Technical Lead issues any later WI only after that.

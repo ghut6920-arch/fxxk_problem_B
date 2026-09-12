@@ -2,7 +2,7 @@
 
 ## Competition Stage
 
-Official inputs and prior plan/design remain as recorded below. WI-016 P1-A finite-fixture PASS stands. User D-006 opened WI-017 (P1-B + C0 practice) and waived simulator-origin audit for that WI only; this is not formal qualification. C1 and formal slots remain closed.
+Official inputs and prior plan/design remain as recorded below. WI-016 P1-A finite-fixture PASS stands. WI-017 P1-B + one Q3 and one Q4 **practice** is technically accepted at `a48c77cc0d46a81b96aa56f54197b8837c4c735c` (`P1B_PASS_PRACTICE_OBSERVED`, TR-018). User states practice slots are unlimited; that does not close `RT-002` or authorize formal tests. C1 remains closed. Origin remains user-guaranteed (D-006).
 
 ## Verified Facts
 
@@ -43,10 +43,10 @@ None. `MODEL_SPEC.md` is intentionally absent.
 - `WI-014` is `COMPLETE` for evaluator/fixtures at `1ae791b8055690fd9d1239d0e864819865b58f6b`, locally merged onto `main` as `61465c5513c5bdc3d593d3fd389f6866d8339721`. Author conclusion remains `EVALUATOR_FIXTURES_OPEN`. Evaluator author remains barred from `src/candidate/`.
 - `WI-015` is `COMPLETE` for implementation at `e4ee8febfc8ff89e927eba436e81e2ae7759af1c` (TR-014 PASS; RT-004; TR-015). Isolation is **not** claimed (D-004 / RT4-F1). Unmerged, unpushed.
 - `WI-016` is `COMPLETE` at `761c0f7788ed773d2a132b92caaa9e1378b22c88` (TR-016 PASS). Author and independent rerun: `P1A_PROPERTIES_PASS` (26/26). Wording: same-model internal fixture agreement, not independent evaluation. Independent challenge of this run commit is recorded absent. Unmerged, unpushed.
-- `WI-017` is `READY` / issued: P1-B adapter + C0 practice (D-006). Not started in this Technical Lead session.
+- `WI-017` is `COMPLETE` at `a48c77cc0d46a81b96aa56f54197b8837c4c735c` (TR-018). Live Q3/Q4 practice both `COMPLETE` with `K=12`, unknown-accept 0, loopback wall ~26 s / ~48 s. `N` not UI-revealed. Unmerged, unpushed.
 
 - No active collaboration issue authorizes history rewriting, branch deletion, object pruning, or remote publication.
 
 ## Blockers
 
-- WI-017 is issued. Simulator origin is user-guaranteed (D-006), not independently hashed. Do not open C1, consume a formal slot, or close `RT-002`. Independent challenge of run `761c0f7` remains absent.
+- WI-017 practice observations accepted. Do not open C1 or a formal slot. `RT-002` F1 still requires repeated stressed evidence for formal readiness; extra quiet practices are optional, not sufficient. Check rehearsal UI for true `N` if still visible. Independent challenge of `761c0f7` / `a48c77c` remains absent unless later targeted.
