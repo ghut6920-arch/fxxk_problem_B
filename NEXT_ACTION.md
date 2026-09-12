@@ -1,6 +1,6 @@
 # Primary Integration Goal
 
-Execute WI-021: Red Team challenge of `experiments/EXP-005/COVER_VARIANT_SPEC.md`. Do not implement 150/49.
+Red Team continues WI-021 (150/49 **math** only). Do **not** implement 150/49. Do not treat B as Q3-complete. A later diagnosis WI for the Q3 14/16 miss is required before Phase 3/5.
 
 ## Acceptance Criteria
 
