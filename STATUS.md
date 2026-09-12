@@ -2,7 +2,7 @@
 
 ## Competition Stage
 
-Official inputs and prior plan/design remain as recorded below. WI-017 practice observations stand. TR-019: `clear_rectangle_centres` at `a48c77c` does not snake in local rectangle coordinates. WI-018 issued to restore that contract. C1 and formal slots remain closed.
+Official inputs and prior plan/design remain as recorded below. D-007: verify repaired C0 `d675831` (Phase 1 / WI-020); 150/49 research only after that gate and remaining time. SR-002 still closes C1/C2/formal. New-test **start** cutoff 2026-09-13 17:30 Beijing (Phase 0 clock 03:32). C1 not started.
 
 ## Verified Facts
 
@@ -44,10 +44,12 @@ None. `MODEL_SPEC.md` is intentionally absent.
 - `WI-015` is `COMPLETE` for implementation at `e4ee8febfc8ff89e927eba436e81e2ae7759af1c` (TR-014 PASS; RT-004; TR-015). Isolation is **not** claimed (D-004 / RT4-F1). Unmerged, unpushed.
 - `WI-016` is `COMPLETE` at `761c0f7788ed773d2a132b92caaa9e1378b22c88` (TR-016 PASS). Author and independent rerun: `P1A_PROPERTIES_PASS` (26/26). Wording: same-model internal fixture agreement, not independent evaluation. Independent challenge of this run commit is recorded absent. Unmerged, unpushed.
 - `WI-017` is `COMPLETE` at `a48c77cc0d46a81b96aa56f54197b8837c4c735c` (TR-018). Live Q3/Q4 practice both `COMPLETE` with `K=12`. Operator UI: Q3 `N=12` all omni; Q4 `N=12` (2 omni, 10 directional). Unknown-accept 0, loopback wall ~26 s / ~48 s. Unmerged, unpushed.
-- `WI-018` is `READY` / issued: restore local snake for 225 clear centres (TR-019 FIX, implementation). Not started in this Technical Lead session.
+- `WI-018` is `COMPLETE` at `d675831695d705ea8c4ffcb74fe8c83277847daf` (TR-020 PASS). Local snake restored; 225-set unchanged. Unmerged, unpushed.
+- `WI-019` is `COMPLETE` at `08bf26a2ae0e3873ad742ff1c977b860b16973e8` (TR-021). RT-005: old path-cost MAJOR; repair no MAJOR/CRITICAL residual in scope. Unpushed.
+- `WI-020` is `READY` / issued: Phase 1 B baseline. Not started in this Technical Lead session.
 
 - No active collaboration issue authorizes history rewriting, branch deletion, object pruning, or remote publication.
 
 ## Blockers
 
-- WI-018 waits for Executor. Do not open C1, shrink 225/81, or consume a formal slot. Practice `K=N=12` and 225-point cover are not reopened by this repair. Independent Red Team of the old snake and the repair commit follows the result.
+- WI-020 waits for Executor. Do not start 150/49 or C1. Live practices need a fresh operator session confirm. New tests cannot start after 17:30 Beijing 2026-09-13.
