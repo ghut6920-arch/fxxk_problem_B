@@ -1,13 +1,12 @@
 # Primary Integration Goal
 
-Execute WI-017: P1-B protocol adapter and at most one Q3 plus one Q4 **practice** C0 run. User starts the local simulator in practice mode.
+Execute WI-018: restore local-rectangle snake for the 225 clear centres at Comparison Base `a48c77cc0d46a81b96aa56f54197b8837c4c735c`.
 
 ## Acceptance Criteria
 
-- T11–T12 mock pass or the report is honestly not PASS.
-- Live runs are practice only; abort if formal. Origin waiver (D-006) is disclosed, not claimed as verification.
-- No C1, no formal slot, no `RT-002` closure, no independent-evaluation wording, no push.
+- Emitted sequence at non-axis `θ` has consecutive steps ≤20 m (≤22 m with submission); 225-point **set** unchanged.
+- Tests fail on the old global-y snake and pass after repair. No C1, no 81→49/225→150, no live simulator, no push.
 
-Status: IN_PROGRESS — WI-017 issued; waiting for Executor after the user starts practice-mode simulator.
+Status: IN_PROGRESS — WI-018 issued; waiting for Executor.
 
-Owner: User (start practice simulator); Implementation Engineer (WI-017); Technical Lead (review).
+Owner: Implementation Engineer; Technical Lead reviews the fixed result; Red Team after that result commit.
