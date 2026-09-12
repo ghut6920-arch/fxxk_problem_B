@@ -43,4 +43,4 @@ None. `MODEL_SPEC.md` is intentionally absent.
 
 ## Blockers
 
-- No blocker remains for the WI-009 mathematical-plan scope, the WI-010 experiment-design document, or the WI-012 P0 static review. All three are on `main`. `RT-002` F1 still blocks future formal-readiness promotion until Red Team recheck and a recorded Strategic Review (external advisor). P1-A is not issued. Real-time feasibility remains unverified. Local `main` remains unpushed.
+- No blocker remains for the WI-009 mathematical-plan scope, the WI-010 experiment-design document, or the WI-012 P0 static review. All three are on `main`. `RT-002` F1 still blocks future formal-readiness promotion until Red Team recheck and a recorded Strategic Review (external advisor). P1-A is not issued. Real-time feasibility remains unverified. User-authorized publication: `origin/main` fast-forwarded to `e70c740321818ab3d012bf0278fde3a35862d85e`. This STATUS update is a follow-up local commit.
