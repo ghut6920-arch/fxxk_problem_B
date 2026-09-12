@@ -31,6 +31,8 @@
     "N_measure": 2,
     "N_switch": 1,
     "N_clear": 1,
-    "L_move_m": 0.0
+    "L_move_m": 0.0,
+    "ledger_consistent": true,
+    "sum_delta_t": 16.0
   }
 }

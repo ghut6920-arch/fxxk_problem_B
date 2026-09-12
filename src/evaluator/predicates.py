@@ -16,6 +16,7 @@ No function here reads candidate output. No third-party import is used.
 from __future__ import annotations
 
 import math
+from fractions import Fraction as F
 
 # --- frozen constants -------------------------------------------------------------------------
 
@@ -100,18 +101,57 @@ def in_disk(g, radius: float = DISK_RADIUS) -> bool:
 # --- plan §2: visibility, observation, clear --------------------------------------------------
 
 
-def visibility(kind: str, phi_deg: float, p, g):
-    """Directional visibility ``n(phi)^T (p - g) >= 0``; omnidirectional is always visible.
+_EXACT_QUADRANT_NORMALS = {
+    0: (F(1), F(0)),
+    1: (F(0), F(1)),
+    2: (F(-1), F(0)),
+    3: (F(0), F(-1)),
+}
 
-    Returns ``None`` for the directional coincidence point where the plan/ASSUMPTIONS O-03 leaves
-    the visibility undefined.
+
+def normal_vector(phi_deg: float):
+    """Outward normal ``n(phi) = (cos phi, sin phi)`` of the plan §2 visibility contract.
+
+    Returns ``(nx, ny, exact)``. When ``phi`` is an exact float multiple of 90 degrees the normal is
+    returned as exact :class:`fractions.Fraction` components with ``exact=True`` (no trigonometry
+    rounding at all). Otherwise the components are floats and ``exact=False``.
+    """
+    quadrant = phi_deg / 90.0
+    if math.isfinite(quadrant) and quadrant == math.floor(quadrant):
+        return _EXACT_QUADRANT_NORMALS[int(quadrant) % 4] + (True,)
+    rad = math.radians(phi_deg)
+    return (math.cos(rad), math.sin(rad), False)
+
+
+def visibility(kind: str, phi_deg: float, p, g):
+    """Directional visibility of the plan's closed half-plane ``n(phi)^T (p - g) >= 0``.
+
+    Omnidirectional sources are always visible. The coincidence point keeps the open
+    ``ASSUMPTIONS.md`` O-03 branch and returns ``None``.
+
+    TR-012 F1 repair. The closed boundary must be accepted, but a floating ``cos(90 deg)`` residue
+    (``6.12e-17``) previously rejected points lying exactly on it (e.g. ``g=(700,700)``,
+    ``phi=90``, ``p=(0,700)``, expected ``direction``, returned ``no_signal``). Two exact arguments
+    replace that unstable evaluation, with no tolerance band and no widening of the contract:
+
+    - For an exact 90-degree multiple of ``phi`` the normal is one of ``(0,1),(1,0),(0,-1),(-1,0)``,
+      so the dot product is evaluated in exact rational arithmetic and a zero dot product is decided
+      exactly.
+    - For a generic angle the same closed predicate is evaluated in its analytically equivalent form
+      ``|wrap(phi - arg(g - p))| >= 90``. With ``v = p - g`` and ``beta = arg(g - p)``, we have
+      ``arg(v) = beta + 180``, so ``n(phi)^T v = |v| cos(phi - beta - 180) = -|v| cos(phi - beta)``;
+      hence ``n(phi)^T v >= 0`` iff ``cos(phi - beta) <= 0`` iff ``|wrap(phi - beta)| >= 90 degrees``.
+      The equivalence is algebraic, not a relaxation, and it uses no tolerance band.
     """
     if kind == OMNI:
         return True
     if same_point(p, g):
         return None
-    rad = math.radians(phi_deg)
-    return (math.cos(rad) * (p[0] - g[0]) + math.sin(rad) * (p[1] - g[1])) >= 0.0
+    nx, ny, exact = normal_vector(phi_deg)
+    if exact:
+        dot = nx * (F(p[0]) - F(g[0])) + ny * (F(p[1]) - F(g[1]))
+        return dot >= 0
+    return abs(wrap_deg(phi_deg - bearing_deg(p, g))) >= 90.0
 
 
 def observation(source, p):
@@ -154,17 +194,14 @@ def clear_succeeds(source, p) -> bool:
     return dist(p, source["g"]) <= CLEAR_RADIUS
 
 
-# --- plan §4.1: A_1 membership and the inner certificate C_in ---------------------------------
-
-
-def in_a1(g, S, R_c: float = R_MAX) -> bool:
-    """``A_1 = D cap W_1 cap {5 < ||g - S|| <= 1500}`` membership test for the wedge half-planes."""
-    if not in_disk(g):
-        return False
-    r = dist(g, S)
-    if not (NEAR_RADIUS < r <= R_MAX):
-        return False
-    return True
+# --- plan §4.1: first receive set A_1 (reference) and the inner certificate C_in ---------------
+#
+# TR-012 F6: the previous ``in_a1`` helper claimed to test ``A_1 = D cap W_1 cap {5 < r <= 1500}``
+# but only tested the disk and distance conjuncts, took no bearing input and ignored the wedge and
+# ``R_c``. It was unused and is removed rather than exposed as a full A_1 oracle. The wedge conjunct
+# ``W_1`` of the plan is not needed by any evaluator_now check in this WI, and ``C_in`` below is the
+# certificate actually used. Any future full ``A_1`` oracle must take the (S, theta_hat, delta)
+# observation and evaluate both half-planes as well.
 
 
 def c_in_member(S, theta_hat_deg: float, p) -> bool:
@@ -278,7 +315,11 @@ def delta_t(p_prev, b_prev, action):
     return dt
 
 
-def ledger_totals(script, p0=(0.0, 0.0), b0: int = 1):
+class InconsistentLedgerError(ValueError):
+    """Raised when an injected action script cannot correspond to valid plan §2 semantics."""
+
+
+def ledger_totals(script, p0=(0.0, 0.0), b0: int = 1, strict: bool = False):
     """Recompute the plan §2 totals from a fully specified action script.
 
     Non-ledger events (ordinary progress, repeated feedback, cancel/discharge) are ignored and are
@@ -287,6 +328,16 @@ def ledger_totals(script, p0=(0.0, 0.0), b0: int = 1):
     Totals: ``T = L_move / 5 + N_switch + 5 N_measure + 3 N_clear + 2 K``, where ``K`` is the
     number of *distinct channels* with at least one successful clear and ``N_clear`` counts
     failures too.
+
+    TR-012 F7 repair. ``sum_delta_t`` is the sum of the per-action increments and must equal the
+    totals identity ``T`` for a script that can actually occur, because ``3 + 2 s`` is charged per
+    clear while ``2 K`` is charged once per *distinct* cleared channel. Two successful clears on the
+    same channel cannot be valid successive events (plan §2: success requires ``u_c = 1``, and one
+    success clears the channel's only source), so such a script is reported with
+    ``consistent=False`` and an ``inconsistencies`` entry instead of a silently inconsistent total.
+    ``K`` still counts distinct channels exactly once (the single-count check is retained). With
+    ``strict=True`` an inconsistent script raises :class:`InconsistentLedgerError` instead of
+    returning a result.
     """
     l_move = 0.0
     n_switch = 0
@@ -294,11 +345,14 @@ def ledger_totals(script, p0=(0.0, 0.0), b0: int = 1):
     n_clear = 0
     successes = set()
     skipped = []
+    inconsistencies = []
+    sum_delta_t = 0.0
     p = p0
     b = b0
     for event in script:
         kind = event.get("action")
         if kind == "measure":
+            sum_delta_t += delta_t(p, b, event)
             l_move += dist(event["x"], p)
             n_measure += 1
             if event["c"] != b:
@@ -306,27 +360,47 @@ def ledger_totals(script, p0=(0.0, 0.0), b0: int = 1):
             b = event["c"]
             p = event["x"]
         elif kind == "clear":
+            sum_delta_t += delta_t(p, b, event)
             l_move += dist(event["x"], p)
             n_clear += 1
             if event.get("s", 0) == 1:
-                successes.add(event["c"])
+                channel = event["c"]
+                if channel in successes:
+                    inconsistencies.append(
+                        "duplicate successful clear on channel %r: a channel has at most one "
+                        "source and is cleared at most once (plan 2)" % (channel,)
+                    )
+                successes.add(channel)
             p = event["x"]          # plan §2: a clear does not change the receive channel
         elif kind == "move":
+            sum_delta_t += delta_t(p, b, event)
             l_move += dist(event["x"], p)
             p = event["x"]
         else:
             skipped.append(event.get("seq", None))
     k = len(successes)
     t = l_move / MOVE_SPEED + n_switch + 5.0 * n_measure + 3.0 * n_clear + 2.0 * k
-    return {
+    scale = max(1.0, abs(t), abs(sum_delta_t))
+    if abs(sum_delta_t - t) > 1e-9 * scale:
+        inconsistencies.append(
+            "per-action increments sum to %.12g but the plan 2 totals identity gives %.12g"
+            % (sum_delta_t, t)
+        )
+    result = {
         "L_move_m": l_move,
         "N_switch": n_switch,
         "N_measure": n_measure,
         "N_clear": n_clear,
         "K": k,
         "T": t,
+        "sum_delta_t": sum_delta_t,
+        "consistent": not inconsistencies,
+        "inconsistencies": inconsistencies,
         "skipped": skipped,
     }
+    if strict and inconsistencies:
+        raise InconsistentLedgerError("; ".join(inconsistencies))
+    return result
 
 
 # --- small independent numeric helpers (evaluator side) -----------------------------------------

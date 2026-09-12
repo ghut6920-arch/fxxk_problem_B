@@ -382,6 +382,12 @@ def run_evaluator_now(fixture: dict) -> dict:
             "clear_results": results,
             "K_after_two_successes": ledger["K"],
             "N_clear_after_two_successes": ledger["N_clear"],
+            # TR-012 F7: the injected duplicate-success script is not consistent with plan §2, so
+            # its totals identity must not be presented as a valid ledger.
+            "ledger_consistent": ledger["consistent"],
+            "ledger_inconsistency_count": len(ledger["inconsistencies"]),
+            "sum_delta_t": ledger["sum_delta_t"],
+            "totals_formula_T": ledger["T"],
         }
 
     if fid == "T05":
@@ -443,6 +449,9 @@ def run_evaluator_now(fixture: dict) -> dict:
             "N_switch": ledger["N_switch"],
             "N_clear": ledger["N_clear"],
             "L_move_m": ledger["L_move_m"],
+            # TR-012 F7: a well-formed injected script must satisfy the plan §2 totals identity.
+            "ledger_consistent": ledger["consistent"],
+            "sum_delta_t": ledger["sum_delta_t"],
         }
 
     if fid == "T09":
@@ -470,6 +479,29 @@ def run_evaluator_now(fixture: dict) -> dict:
     raise KeyError("no evaluator_now recipe for fixture %s" % fid)
 
 
+def _compare_numbers(expected, actual, tol: float, path: str):
+    """Numeric comparison that never silently accepts a non-finite actual value (TR-012 F2).
+
+    ``abs(1.0 - nan) > tol`` is ``False``, so a plain tolerance comparison returned no problem for
+    ``compare(1.0, float('nan'))``. Non-finite values are now compared by kind and sign: NaN only
+    matches NaN, an infinity only matches the same infinity, and a finite expectation never matches
+    a non-finite actual value.
+    """
+    exp = float(expected)
+    act = float(actual)
+    if math.isnan(exp) or math.isnan(act):
+        if math.isnan(exp) and math.isnan(act):
+            return []
+        return ["%s: expected %r, got %r (NaN vs non-NaN)" % (path, expected, actual)]
+    if math.isinf(exp) or math.isinf(act):
+        if exp == act:
+            return []
+        return ["%s: expected %r, got %r (non-finite mismatch)" % (path, expected, actual)]
+    if abs(exp - act) > tol:
+        return ["%s: expected %r, got %r" % (path, expected, actual)]
+    return []
+
+
 def compare(expected, actual, tol: float = 1e-9, path: str = "root"):
     """Recursive comparison returning a list of human-readable mismatch strings."""
     problems = []
@@ -495,8 +527,10 @@ def compare(expected, actual, tol: float = 1e-9, path: str = "root"):
             problems.append("%s: expected %r, got %r" % (path, expected, actual))
         return problems
     if isinstance(expected, (int, float)) and isinstance(actual, (int, float)):
-        if abs(float(expected) - float(actual)) > tol:
-            problems.append("%s: expected %r, got %r" % (path, expected, actual))
+        return _compare_numbers(expected, actual, tol, path)
+    if isinstance(expected, (int, float)) != isinstance(actual, (int, float)):
+        # a non-numeric actual (e.g. a string) may hide a non-finite or out-of-contract value
+        problems.append("%s: expected %r, got %r (type mismatch)" % (path, expected, actual))
         return problems
     if expected != actual:
         problems.append("%s: expected %r, got %r" % (path, expected, actual))

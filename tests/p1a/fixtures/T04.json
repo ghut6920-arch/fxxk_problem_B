@@ -18,11 +18,16 @@
   },
   "truth": {
     "note": "the 20 m clear radius is closed; K counts distinct successfully cleared channels",
-    "plan_section": "§2"
+    "plan_section": "§2",
+    "tr012_f7": "the injected two-success script is not a valid plan §2 succession (a channel is cleared at most once), so its totals identity is reported inconsistent instead of being presented as a valid ledger; the single-count K check is retained"
   },
   "expected_evaluator": {
     "clear_results": ["success", "success", "fail"],
     "K_after_two_successes": 1,
-    "N_clear_after_two_successes": 2
+    "N_clear_after_two_successes": 2,
+    "ledger_consistent": false,
+    "ledger_inconsistency_count": 2,
+    "sum_delta_t": 10.0,
+    "totals_formula_T": 8.0
   }
 }

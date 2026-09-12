@@ -383,13 +383,18 @@ with `hashlib` and then verified by the suite.
   `e9b94a298c220421ca4fab3d70d5e607f71f7983`; only local objects were inspected and no remote state was
   fetched.
 
-## 10. Conclusion (closed set from `work/WI-014.md`)
+## 10. Historical conclusion — SUPERSEDED, NOT ACCEPTED (see §11)
 
-Exactly one value is selected:
+> **Status note added 2026-09-12 (TR-012 repair).** This section is the *original* WI-014 conclusion and
+> is retained as history. Technical Review `audits/technical/TR-012.md` returned `FIX` on
+> `a49cc64827cc398c44a41d4094776edddb41f79f` and explicitly records this `EVALUATOR_FIXTURES_READY` as
+> "retained but not accepted". It is **superseded**; the current conclusion is stated in §11.8.
 
-### `EVALUATOR_FIXTURES_READY`
+Exactly one value was selected:
 
-Evidence:
+### `EVALUATOR_FIXTURES_READY` (historical, superseded)
+
+Evidence as originally reported:
 
 1. All 26 fixtures (`G01`–`G16`, `T01`–`T10`) exist with exactly the catalog numbers, each carrying its
    `candidate_later` property statement and its frozen `expected_evaluator` (§5.1, §7 V8).
@@ -401,6 +406,253 @@ Evidence:
 5. The disclosed intermediate unittest failure was a defect in the independence test itself, was
    repaired by inspecting imports with `ast`, and is retained with its repair (§4.11.1).
 
-Applicable boundary: this is an evaluator-plus-fixtures readiness record only. It is not P1-A property
-passage, not C0 implementation, not P1-B, not `RT-002` closure, not model selection, and not a push. The
-WI-014 author is recorded and barred from authoring `src/candidate/`.
+Original boundary statement (still true): this was an evaluator-plus-fixtures readiness record only, not
+P1-A property passage, not C0 implementation, not P1-B, not `RT-002` closure, not model selection, and not
+a push. The WI-014 author is recorded and barred from authoring `src/candidate/`.
+
+## 11. TR-012 bounded repair (2026-09-12)
+
+### 11.1 Identification and scope authority
+
+- Date: `2026-09-12`
+- Role: Implementation Engineer (Executor) — **same WI-014 evaluator author**
+- Author identity for the independence bind (unchanged): `Executor / Implementation Engineer — WI-014
+  evaluator author (agent instance "executor-B题", session model deepseek-flash, worktree B题-executor)`.
+  The TR-012 reviewer was a different agent (`Codex Technical Lead`), so this repair is author-side work,
+  not independent review; the independence bind (this author must never author `src/candidate/`) still holds.
+- Worktree: `E:/pycharm/projects/pythonProject18/题目/B题-executor`; branch `feat/WI-014-p1a-evaluator`.
+- Comparison Base Commit: `f69f2c670827fc807a124945bef280fb0907775d` (unchanged)
+- Original Execution Start Commit (retained): `e9b94a298c220421ca4fab3d70d5e607f71f7983`
+- **Repair Execution Start Commit: `a49cc64827cc398c44a41d4094776edddb41f79f`** (the fixed result of the
+  original WI-014 commit, verified equal to Executor `HEAD` before any edit)
+- Authorized writes / local commit: only `src/evaluator/`, `tests/p1a/`, and this report path.
+- Scope authority: `audits/technical/TR-012.md` (bounded repair items F1/F2/F5/F6/F7; F3/F4 held for
+  interpretation) and `prompts/EXECUTOR_WI-014_FIX.md`. Both are the Technical Lead's working-tree records
+  in the lead worktree `E:/pycharm/projects/pythonProject18/题目/B题` and are **not committed anywhere**;
+  they were read read-only by reference. No branch switch, merge, rebase, reset, fetch, install or history
+  rewrite was performed, and none was needed: the assignment's Repair Execution Start equals this branch's
+  `HEAD`. WI-014's own `work/WI-014.md` remains at the original READY text in this worktree; the lead's
+  `FIX_REQUIRED` status edit is uncommitted in the lead worktree and is not part of this branch.
+- Interpreter / environment: `Python 3.12.3`, Git Bash, `git version 2.46.2.windows.1`. No installation,
+  no network, no simulator.
+- Elapsed: approximately `9` minutes (`21:50`–`21:59` local), well inside the review budget.
+
+### 11.2 Repair precheck (before any edit)
+
+| Check | Command | Result |
+|---|---|---|
+| Worktree | `git rev-parse --show-toplevel` | `E:/pycharm/projects/pythonProject18/题目/B题-executor` — PASS |
+| Branch | `git branch --show-current` | `feat/WI-014-p1a-evaluator` — PASS |
+| HEAD == supplied Repair Execution Start | `git rev-parse HEAD` | `a49cc64827cc398c44a41d4094776edddb41f79f` — PASS |
+| Comparison Base is ancestor of HEAD | `git merge-base --is-ancestor f69f2c67… HEAD` | exit `0` — PASS |
+| WI / SPEC / catalog present at HEAD | `git cat-file -e HEAD:<path>` | exit `0` for all three — PASS |
+| Plan blob | `git rev-parse HEAD:modeling/COMPLETE_MODEL_PLAN.md` | `407b5e9f0bf001663bee4f9b9d4b21e601c4bbe4` — PASS |
+| Clean worktree | `git status --short --branch` | only the branch line — PASS |
+| `src/candidate` absent | `git ls-files src/candidate` | empty — PASS |
+
+### 11.3 TR-012 findings reproduced before repair
+
+Command (pre-repair, read-only, `PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src`):
+
+```python
+from evaluator import predicates as p, halfplane as h, selfcheck as s
+p.observation({'g':[700,700],'R_c':1500,'kind':'directional','phi_deg':90},[0,700])
+s.compare(1.0, float('nan'))
+p.in_a1([-100,0],[0,0])
+h.near_collinear_wedges_state(s.load_fixture(s.default_fixtures_dir(),'G07')['inputs']['g07b_near_collinear'])
+f = s.load_fixture(s.default_fixtures_dir(),'G07')['inputs']['g07b_near_collinear']
+[p.direction_contract_ok(f['theta_hat_1_deg'],f['S1'],[2000,0]),
+ p.direction_contract_ok(f['theta_hat_2_deg'],f['S2'],[2000,0])]
+ev = s.load_fixture(s.default_fixtures_dir(),'T04')['inputs']['two_success_script']
+sum(p.delta_t([0,0],1,e) for e in ev), p.ledger_totals(ev)['T']
+```
+
+Measured output (exit `0`):
+
+```
+F1 observation g=(700,700) phi=90 p=(0,700): 'no_signal'   (TR-012 expects 'direction')
+F2 compare(1.0, nan): []                                    (TR-012 expects non-empty)
+F6 in_a1([-100,0],[0,0]): True                              (misleading, as TR-012 states)
+F3 near_collinear_wedges_state: 'NUMERICAL_UNCERTAIN'
+F3 witness bearings at q=(2000,0): [True, True]
+F7 sum(delta_t)= 10.0  ledger T= 8.0  K= 1
+```
+
+F5 reproduced with the committed blob and the checkout filter:
+
+```
+manifest G01.json          : 9991428dd4f8c8620e76774769aeb61d864175ed8ab04d4a1a796ee2c643c921
+committed blob sha256      : 9991428dd4f8c8620e76774769aeb61d864175ed8ab04d4a1a796ee2c643c921  match: True
+checkout-filtered sha256   : f3e2e3ba93e5ea7213e75ad0c7e765fe597bf291603c2602efe6ec71e35801dd  match: False
+CRLF sequences in filtered : 21
+CRLF sequences in blob     : 0
+```
+
+All five bounded findings were reproduced exactly as TR-012 states.
+
+### 11.4 Repairs performed
+
+**F1 — closed directional boundary rejected.**
+`predicates.visibility` now decides the plan's *closed* half-plane without a cosine residue and with no
+tolerance band:
+- `normal_vector(phi_deg)` returns **exact rational** components when `phi` is an exact float multiple of
+  90 degrees (`exact=True`), and float components otherwise.
+- For the exact case the dot product `n·(p−g)` is computed in `fractions.Fraction`, so a zero dot product
+  (the boundary) is decided exactly instead of by `cos(90°) = 6.12e-17`.
+- For a generic angle the same predicate is evaluated in its analytically equivalent form
+  `|wrap(phi − arg(g − p))| >= 90`. Derivation: with `v = p − g` and `beta = arg(g − p)`,
+  `arg(v) = beta + 180`, so `n(phi)·v = |v| cos(phi − beta − 180) = −|v| cos(phi − beta)`; hence
+  `n(phi)·v >= 0` iff `cos(phi − beta) <= 0` iff `|wrap(phi − beta)| >= 90`. The equivalence is algebraic;
+  it is not a relaxation and adds no tolerance.
+Post-repair (exit `0`): `g=(700,700), phi=90` gives `direction` for sensors `(0,700)`, `(100,700)`,
+`(1400,700)`, `(2000,700)`; `(0,699)` → `no_signal`; `(0,701)` → `direction`; `phi=270` mirrors it; and
+G14/G15 keep their frozen labels (`no_signal`, `direction`, `no_signal`, `direction`).
+
+**F2 — NaN falsely passed numeric comparison.** `compare` now delegates numbers to `_compare_numbers`,
+which rejects any non-finite actual value against a finite expectation, matches NaN only to NaN and an
+infinity only to the same infinity, and also flags a numeric/non-numeric type mismatch. Post-repair:
+`compare(1.0, nan)` → non-empty; `compare(1.0, inf)` → non-empty; `compare(nan, nan)` → `[]`;
+`compare(inf, inf)` → `[]`; nested list/dict cases flagged.
+
+**F5 — checkout changes hashed fixture bytes.** Added the scoped `tests/p1a/.gitattributes` with the single
+rule `fixtures/*.json -text` (no root attribute file, no global Git configuration changed). `git check-attr
+-a -- tests/p1a/fixtures/G01.json` now reports `text: unset`. Verified for all 26 files:
+
+```
+manifest entries                : 26
+index-blob byte mismatches      : []
+checkout-filtered mismatches    : []
+any CRLF in filtered bytes      : False
+```
+
+**F6 — incomplete A1 helper advertised as full membership.** The unused `in_a1` helper was **removed**
+(not renamed into a new oracle). A comment records why the disk/range conjunct alone must never be exposed
+as `A_1`, and a regression asserts `not hasattr(predicates, "in_a1")`. `c_in_member` is unchanged and is
+the certificate actually used.
+
+**F7 — duplicate-success ledger inconsistency silently accepted.** `ledger_totals` now tracks the set of
+successfully cleared channels, reports `consistent` / `inconsistencies`, and additionally checks the
+identity `sum(delta_t) == T` (valid because `3 + 2s` is charged per clear while `2K` is charged once per
+distinct cleared channel). A second success on an already-cleared channel cannot be a valid plan §2
+succession and is flagged; `K` still counts distinct channels exactly once (the single-count check is
+retained). `strict=True` raises `InconsistentLedgerError`. The frozen T04 script now reports
+`consistent=False` with `sum_delta_t=10` vs `totals_formula_T=8`; a control script with one success on each
+of two channels is `consistent=True` with `sum_delta_t == T == 10`; the frozen T08 script is
+`consistent=True` with `sum_delta_t == T == 16`. The T04/T08 `expected_evaluator` blocks gained those
+disposition fields; their numeric inputs and all other numeric fixtures are unchanged.
+
+**Self-caught defect during this repair (disclosed).** The first version of the generic-angle branch used
+`|wrap(phi − beta)| <= 90`, i.e. the inverted equivalence. A probe against the classical `math.cos/sin`
+dot product exposed it before commit (it would have made `phi=0` "visible" for a source behind the sensor
+and broken the G14/G15 frozen labels had those used non-cardinal headings). It was corrected to `>= 90`
+before the commit, and
+`Tr012RegressionTest.test_generic_path_agrees_with_cos_sin_dot_reference` now cross-checks the generic
+branch against an independent `math.cos`/`math.sin` dot reference at `>= 0.5°` from the boundary. No
+committed revision ever contained the inverted form.
+
+### 11.5 Held items (interpretation) — NOT repaired, no expectation changed
+
+**F3 — G07 near-collinear certification (OPEN).** The evaluator still returns `NUMERICAL_UNCERTAIN` for the
+frozen G07b pair and the frozen expectation `g07b_state: "NUMERICAL_UNCERTAIN"` is **unchanged**. The
+earlier justification (that the design §4.3 360 × 1° *feedback partitioning* is a geometric precision
+limit) is **withdrawn in the code and fixture text as an unsupported claim**; TR-012 F3 supplies an
+unboundedness witness for this frozen pair (`q=(2000,0)` with the ray `q + t(1,0)`, `t >= 0`; bearing `0`
+lies inside both `[−1°, 1°]` and `[−0.99°, 1.01°]`). No replacement threshold was invented, no label was
+silently replaced, and SPEC/catalog were not edited. Resolution requires a recorded clarification from the
+external advisor / user, recorded by the Technical Lead (`TR-012.md` F3; `EXECUTOR_WI-014_FIX.md` item 4).
+
+**F4 — G15 heading vs position perturbation (OPEN).** The catalog requests a heading perturbation while
+defining `ε_d` in metres (an upstream dimensional ambiguity). The existing distance-perturbation
+realisation of the same visibility boundary is **retained unchanged** (no numeric fixture instance was
+substituted, no expected label changed) and is annotated `tr012_f4` in `G15.json`. Resolution requires a
+recorded clarification supplying the heading unit and numeric instance. SPEC/catalog were not edited.
+
+Consequently both `G07` and `G15` remain **OPEN references**, and this record does not claim them as
+verified.
+
+### 11.6 Commands and results (repair)
+
+| Command | Exit | Result |
+|---|---|---|
+| Repair precheck (§11.2, 8 checks) | `0` | PASS |
+| Pre-repair reproduction (§11.3) | `0` | All five findings reproduced |
+| `PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -m evaluator` | `0` | `26` fixtures PASS, manifest `26` checked / `0` mismatched |
+| `PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python -m unittest discover -s tests/p1a -v` | `0` | **Ran 26 tests … OK** (11 original + 15 new TR-012 regressions) |
+| Manifest vs index blobs, all 26 fixtures | `0` | `0` mismatches |
+| Manifest vs checkout-filtered bytes, all 26 fixtures | `0` | `0` mismatches, no CRLF |
+| `git check-attr -a -- tests/p1a/fixtures/G01.json` | `0` | `text: unset` |
+| `git diff --cached --check` | `0` | no output |
+| Authorized-path check on the staged list | `1` (no off-path rows) | only `src/evaluator/`, `tests/p1a/`, this report |
+| `git ls-files src/candidate` | `0` | empty — no candidate tree |
+
+### 11.7 Changed files and updated fixture hashes
+
+Changed: `src/evaluator/predicates.py` (F1, F6, F7), `src/evaluator/selfcheck.py` (F2, F7 dispositions),
+`src/evaluator/halfplane.py` (F3 annotation only; behaviour unchanged), `tests/p1a/test_evaluator_fixtures.py`
+(15 new regressions), `tests/p1a/.gitattributes` (new, F5), `tests/p1a/fixtures/T04.json`,
+`tests/p1a/fixtures/T08.json` (F7 disposition fields), `tests/p1a/fixtures/G07.json`,
+`tests/p1a/fixtures/G15.json` (OPEN-hold annotations only), `tests/p1a/fixtures/manifest.json`, and this
+report. All other fixture bytes are unchanged (`G01.json` re-verified identical, for example).
+
+| File | Historical SHA-256 (§5.1) | Post-repair SHA-256 |
+|---|---|---|
+| `tests/p1a/fixtures/G07.json` | `644e01141ec2af77c4760bb09941dda8eaa50a3e35669ad26cc4f43a45f3f6a7` | `b457b76992d7d767df99d8bc6bd6247701ba7daee55625444dd5c54da450d14a` |
+| `tests/p1a/fixtures/G15.json` | `9c36964810278e91cdc5c527d3ee32126f19a2328b1279b6f87622d10488f7a6` | `efe0353b02f9c819d090d0169f2835ff0bf7db54cd3737f85e3bc2dd4d3b423d` |
+| `tests/p1a/fixtures/T04.json` | `79e5f21505d92e3d3e587762131bafad8c5e2ad9d237cc34e2617ff3e9d0bb68` | `6e8a0c2be7715230866c7f99e9cdcc9486e8289e0afa4c84fe3446c818209c74` |
+| `tests/p1a/fixtures/T08.json` | `ae8ad1aa53d46ea07d999ed7ee488fa46d7466f632021423b5b5576ee0b764f3` | `844f4181f8c421a2abdc339e73be78c4fa6b414e2a029e7a3c9c6e6e12afd75c` |
+| `tests/p1a/fixtures/manifest.json` | `9e87080594517a3140ed6195451d69a241b268feee5e163c7741b9a8568fc031` | `3c46e3313e51c80362bf0302688a95939d602a2ce195bf78f90cd39fa90bdf89` |
+
+A new file `tests/p1a/.gitattributes` (SHA-256 not carried by the manifest, which covers only the 26 fixture
+JSON files) was added.
+
+### 11.8 Current conclusion (closed set from `work/WI-014.md`)
+
+Exactly one value is selected:
+
+### `EVALUATOR_FIXTURES_OPEN`
+
+Reasoning: the five bounded implementation/configuration defects F1/F2/F5/F6/F7 are repaired with focused
+regressions and all 26 `evaluator_now` self-checks and 26 manifest checks pass, but **two interpretation
+holds remain open** (F3 G07 near-collinear certification; F4 G15 heading-perturbation unit), so the frozen
+catalog expectation for those items is retained unverified. Per `audits/technical/TR-012.md` and
+`prompts/EXECUTOR_WI-014_FIX.md` item 5, the affected references must be reported as OPEN rather than
+converted to readiness. The historical `EVALUATOR_FIXTURES_READY` (§10) is superseded and not accepted.
+
+Applicable boundary: an evaluator-side repair only. It is not P1-A property passage, not C0
+implementation, not P1-B, not `RT-002` closure, not model selection, not SPEC/catalog change, and not a
+push. Resolution of F3/F4 requires a recorded external clarification from the advisor/user, recorded by the
+Technical Lead, before those items can be re-classified.
+
+### 11.9 Limitations
+
+- Repair author = original WI-014 evaluator author. This is author-side repair, **not** independent review;
+  TR-012 is the Technical Lead's review, and the separately recommended Red Team challenge has **not** been
+  assigned or performed.
+- F3/F4 are unresolved: the G07b label is retained only to avoid silently overwriting a frozen expectation,
+  and the G15 heading-perturbation realisation is retained as the documented interpretation. Neither is
+  certified, and neither may be reported as passed.
+- The generic-angle visibility branch reduces boundary ambiguity to the ~1 ulp of `atan2`/`degrees`; that
+  is inherent to float angle comparisons. The regression therefore only asserts generic-path agreement at
+  `>= 0.5°` from the boundary, while the exact-cardinal branch (all current fixtures) is decided exactly in
+  rational arithmetic.
+- `tests/p1a/.gitattributes` protects only `tests/p1a/fixtures/*.json`. Python sources are still subject to
+  `core.autocrlf=true` (harmless for Python), and no root `.gitattributes` was created (outside authorized
+  paths).
+- The TR-012 review and the fix assignment are uncommitted in the Technical Lead's worktree; this branch
+  contains no copy of them. If the Technical Lead commits a different repair contract, this commit must be
+  re-evaluated against it.
+- Fixture-freeze discipline is otherwise unchanged: `candidate_later` items are still listed and not run,
+  no candidate exists, and `tests/p1a/fixtures/manifest.json` intentionally does not self-reference.
+
+### 11.10 Local commit status (repair)
+
+- Pre-repair, pre-stage and post-commit `git diff --check` / `git diff --cached --check`: exit `0`, no
+  output. One *intermediate* staged check did exit `2` with `new blank line at EOF` on this report after
+  the §11 section was appended; the trailing blank line was removed and the re-run passed before the
+  commit. No other whitespace finding occurred.
+- Authorized paths staged: `src/evaluator/`, `tests/p1a/`, this report — nothing else.
+- Fixed result commit: `FIXED_COMMIT_NOT_SELF_EMBEDDABLE` — a new commit whose parent is the Repair
+  Execution Start `a49cc64827cc398c44a41d4094776edddb41f79f`; its full hash is returned to the Technical
+  Lead in the Executor completion handoff. All historical commits are preserved; no `--amend`, `rebase`,
+  `reset` or force-update was used, so `a49cc64…` and `e9b94a2…` remain available for review.
+- Remote push status: **`NOT PUSHED`**.

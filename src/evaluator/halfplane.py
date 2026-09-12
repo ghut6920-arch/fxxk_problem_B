@@ -7,10 +7,19 @@ the candidate implementation (``experiments/EXP-002/SPEC.md``: ``src/candidate/`
 
 Arithmetic is exact with :class:`fractions.Fraction` for the state labels, the vertex set, the
 diameter (squared distance is exact; the square root is the only float), and the covering-circle
-radius. A pair of non-parallel boundary normals whose line angle is below the frozen 1 degree
-feedback-bin resolution (design §4.3 "360 个 1° 区间") cannot be certified at the reference
-resolution and yields ``NUMERICAL_UNCERTAIN`` instead of a fake precise bounded solution
-(design §4.2 G07, plan §3 "数值规则").
+radius.
+
+TR-012 F3 (OPEN — under review, not resolved here). The near-collinear rule below currently
+declines to certify a finite vertex set when two non-parallel boundary normals are closer than
+``RESOLUTION_DEG`` and returns ``NUMERICAL_UNCERTAIN``. The earlier justification of that rule (that
+the design §4.3 360 x 1-degree *feedback partitioning* is a geometric precision limit) is disputed by
+TR-012 F3, which supplies an unboundedness witness for the frozen G07b pair (``q=(2000,0)`` with the
+ray ``q + t(1,0)``, ``t >= 0``). That justification is therefore **withdrawn as an unsupported
+claim**; the classification behaviour is retained *unchanged* only because the frozen G07 expectation
+must not be silently overwritten, and no replacement precision threshold is invented. The item stays
+OPEN pending a recorded clarification from the external advisor / user (``audits/technical/TR-012.md``
+F3; ``prompts/EXECUTOR_WI-014_FIX.md`` item 4). No threshold, comparison condition or acceptance scope
+is changed by this repair.
 """
 
 from __future__ import annotations
@@ -28,7 +37,9 @@ from .predicates import (
     min_enclosing_circle,
 )
 
-RESOLUTION_DEG = 1.0  # frozen 1-degree feedback-bin resolution (design §4.3)
+# Retained numeric constant of the current (OPEN, TR-012 F3) near-collinear rule. Its interpretation
+# as a geometric precision limit is withdrawn; see the module docstring.
+RESOLUTION_DEG = 1.0
 
 
 def _frac(value) -> F:
@@ -197,9 +208,14 @@ def near_collinear_wedges_state(spec):
     """Label for the G07b near-collinear pair of wedges.
 
     ``spec`` keys: ``S1``, ``theta_hat_1_deg``, ``S2``, ``theta_hat_2_deg``, ``delta_deg``.
-    The pair is ``NUMERICAL_UNCERTAIN`` when two boundary directions from different observations
-    differ by less than the frozen 1 degree feedback resolution, so a finite vertex set cannot be
-    certified without inventing precision (design §4.2 G07; plan §3 numerical rule).
+
+    Behaviour: returns ``NUMERICAL_UNCERTAIN`` when two boundary directions from different
+    observations differ by less than ``RESOLUTION_DEG``, else ``BOUNDED``.
+
+    TR-012 F3 status: **OPEN**. This behaviour is retained exactly as frozen only so the frozen G07
+    expectation is not silently overwritten; the precision-limit justification is withdrawn (see the
+    module docstring) and TR-012 supplies an unboundedness witness for this frozen pair. This
+    function is not a certified classifier and its result must be reported as OPEN, not as readiness.
     """
     angles1 = wedge_boundary_angles_deg(spec["theta_hat_1_deg"], spec["delta_deg"])
     angles2 = wedge_boundary_angles_deg(spec["theta_hat_2_deg"], spec["delta_deg"])

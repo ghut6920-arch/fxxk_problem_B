@@ -25,7 +25,8 @@
   },
   "truth": {
     "note": "the coincidence point (0,0) is a P_4 lattice point and is not coverage evidence",
-    "plan_section": "§5.1"
+    "plan_section": "§5.1",
+    "tr012_f4": "OPEN hold. The catalog requests a heading perturbation while defining epsilon_d in metres (an upstream dimensional ambiguity). This distance-perturbation realisation of the same visibility boundary is retained unchanged pending a recorded clarification that supplies the heading unit and numeric instance; no fixture number or expected label was substituted. No catalog or SPEC edit is made here."
   },
   "expected_evaluator": {
     "P_3_count": 9,

@@ -147,5 +147,163 @@ class IndependenceTest(unittest.TestCase):
         )
 
 
+class Tr012RegressionTest(unittest.TestCase):
+    """Focused regressions for the five bounded TR-012 repairs (F1, F2, F5, F6, F7).
+
+    These exercise the evaluator only; they are not the G/T candidate property suite and they do not
+    establish P1-A property passage.
+    """
+
+    # --- F1: the closed directional half-plane boundary must be visible ------------------------
+
+    def test_closed_cardinal_boundary_is_visible(self):
+        # TR-012 F1 reproduction: exact normal (0,1) and sensor on the line y = 700 (dot product 0).
+        for p in ([0, 700], [100, 700], [1400, 700], [2000, 700]):
+            with self.subTest(sensor=p):
+                self.assertEqual(
+                    predicates.observation(
+                        {"g": [700, 700], "R_c": 1500, "kind": "directional", "phi_deg": 90},
+                        p,
+                    ),
+                    "direction",
+                )
+
+    def test_cardinal_normals_are_exact(self):
+        for phi, expected in ((0, (1, 0)), (90, (0, 1)), (180, (-1, 0)), (270, (0, -1)), (-90, (0, -1))):
+            with self.subTest(phi=phi):
+                nx, ny, exact = predicates.normal_vector(phi)
+                self.assertTrue(exact)
+                self.assertEqual((int(nx), int(ny)), expected)
+
+    def test_just_outside_the_closed_boundary_is_not_visible(self):
+        # phi=90 -> normal (0,1): visible iff p_y >= 700. One metre is ~0.08 deg at 700 m, far
+        # above float noise, so these are genuine sign decisions and not boundary ties.
+        self.assertFalse(predicates.visibility("directional", 90, [0, 699], [700, 700]))
+        self.assertTrue(predicates.visibility("directional", 90, [0, 700], [700, 700]))
+        self.assertTrue(predicates.visibility("directional", 90, [0, 701], [700, 700]))
+        # phi=270 -> normal (0,-1): the opposite closed half-plane.
+        self.assertTrue(predicates.visibility("directional", 270, [0, 699], [700, 700]))
+        self.assertTrue(predicates.visibility("directional", 270, [0, 700], [700, 700]))
+        self.assertFalse(predicates.visibility("directional", 270, [0, 701], [700, 700]))
+
+    def test_generic_angle_uses_the_equivalent_closed_predicate(self):
+        # p=(0,0), g=(1,1) has arg(g-p)=45 deg, so n(phi).(p-g) >= 0 iff |wrap(phi-45)| >= 90.
+        for phi, visible in (
+            (0, False), (45, False), (134, False), (135, True), (136, True),
+            (-45, True), (-46, True), (225, True), (270, True),
+        ):
+            with self.subTest(phi=phi):
+                self.assertEqual(predicates.visibility("directional", phi, [0, 0], [1, 1]), visible)
+
+    def test_generic_path_agrees_with_cos_sin_dot_reference(self):
+        # Independent reference: the classical dot product with math.cos/math.sin. Away from the
+        # closed boundary (>= 0.5 deg) the two must agree; the tolerance band is only reported here.
+        import math as _math
+
+        for phi in (0.0, 10.0, 40.0, 80.0, 120.0, 170.0, 200.0, 260.0, 300.0, 350.0):
+            for g in ([1, 1], [3, -2], [-5, 4], [0, 7]):
+                p = [0, 0]
+                dot = _math.cos(_math.radians(phi)) * (p[0] - g[0]) + _math.sin(
+                    _math.radians(phi)
+                ) * (p[1] - g[1])
+                scale = _math.hypot(g[0], g[1])
+                if abs(dot) / max(scale, 1e-12) < _math.sin(_math.radians(0.5)):
+                    continue  # too close to the boundary for a float dot reference
+                with self.subTest(phi=phi, g=g):
+                    self.assertEqual(
+                        predicates.visibility("directional", phi, p, g), dot > 0.0
+                    )
+
+    def test_g14_back_side_remains_no_signal(self):
+        self.assertEqual(
+            predicates.observation(
+                {"g": [1000, 0], "R_c": 1500, "kind": "directional", "phi_deg": 0}, [0, 0]
+            ),
+            "no_signal",
+        )
+
+    # --- F2: non-finite values must never pass a finite comparison -----------------------------
+
+    def test_nan_never_matches_a_finite_expectation(self):
+        self.assertTrue(selfcheck.compare(1.0, float("nan")))
+        self.assertTrue(selfcheck.compare(0.0, float("nan")))
+        self.assertTrue(selfcheck.compare([1.0, 2.0], [1.0, float("nan")]))
+        self.assertTrue(selfcheck.compare({"r": 1.0}, {"r": float("nan")}))
+
+    def test_infinity_never_matches_a_finite_expectation(self):
+        self.assertTrue(selfcheck.compare(1.0, float("inf")))
+        self.assertTrue(selfcheck.compare(1.0, float("-inf")))
+
+    def test_non_finite_matches_only_the_same_kind(self):
+        self.assertEqual(selfcheck.compare(float("nan"), float("nan")), [])
+        self.assertEqual(selfcheck.compare(float("inf"), float("inf")), [])
+        self.assertEqual(selfcheck.compare(float("-inf"), float("-inf")), [])
+        self.assertTrue(selfcheck.compare(float("inf"), float("-inf")))
+
+    # --- F5: fixture JSON bytes must be protected from checkout conversion ---------------------
+
+    def test_scoped_gitattributes_protects_fixture_json_bytes(self):
+        attributes = os.path.join(HERE, ".gitattributes")
+        self.assertTrue(os.path.isfile(attributes), "tests/p1a/.gitattributes must exist")
+        with open(attributes, "r", encoding="utf-8") as handle:
+            text = handle.read()
+        rules = [
+            line.strip()
+            for line in text.splitlines()
+            if line.strip() and not line.strip().startswith("#")
+        ]
+        self.assertIn("fixtures/*.json -text", rules)
+
+    def test_no_fixture_file_contains_crlf_on_disk(self):
+        for name in sorted(os.listdir(FIXTURES_DIR)):
+            with self.subTest(fixture=name):
+                with open(os.path.join(FIXTURES_DIR, name), "rb") as handle:
+                    self.assertNotIn(b"\r\n", handle.read())
+
+    # --- F6: the misleading partial A_1 helper must not be exposed -----------------------------
+
+    def test_partial_a1_helper_is_not_exposed(self):
+        self.assertFalse(
+            hasattr(predicates, "in_a1"),
+            "the partial A_1 helper was removed by TR-012 F6; it must not return as a full A1 oracle",
+        )
+
+    # --- F7: an inconsistent duplicate-success ledger must be flagged, not silently accepted ---
+
+    def test_duplicate_success_ledger_is_flagged(self):
+        fixture = selfcheck.load_fixture(FIXTURES_DIR, "T04")
+        script = fixture["inputs"]["two_success_script"]
+        ledger = predicates.ledger_totals(script, p0=(0.0, 0.0), b0=1)
+        self.assertFalse(ledger["consistent"])
+        self.assertTrue(ledger["inconsistencies"])
+        self.assertEqual(ledger["K"], 1)                 # single-count check retained
+        self.assertEqual(ledger["N_clear"], 2)
+        self.assertAlmostEqual(ledger["sum_delta_t"], 10.0)
+        self.assertAlmostEqual(ledger["T"], 8.0)
+        with self.assertRaises(predicates.InconsistentLedgerError):
+            predicates.ledger_totals(script, p0=(0.0, 0.0), b0=1, strict=True)
+
+    def test_consistent_ledger_satisfies_the_totals_identity(self):
+        script = [
+            {"seq": 1, "action": "clear", "x": [0, 0], "c": 1, "s": 1},
+            {"seq": 2, "action": "clear", "x": [0, 0], "c": 2, "s": 1},
+        ]
+        ledger = predicates.ledger_totals(script, p0=(0.0, 0.0), b0=1, strict=True)
+        self.assertTrue(ledger["consistent"])
+        self.assertEqual(ledger["K"], 2)
+        self.assertAlmostEqual(ledger["sum_delta_t"], ledger["T"])
+
+    def test_frozen_t08_script_is_consistent(self):
+        fixture = selfcheck.load_fixture(FIXTURES_DIR, "T08")
+        ledger = predicates.ledger_totals(
+            fixture["inputs"]["script"],
+            p0=fixture["inputs"]["initial_state"]["p"],
+            b0=fixture["inputs"]["initial_state"]["b"],
+            strict=True,
+        )
+        self.assertTrue(ledger["consistent"])
+        self.assertAlmostEqual(ledger["sum_delta_t"], ledger["T"])
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
