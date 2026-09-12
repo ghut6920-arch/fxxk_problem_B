@@ -106,6 +106,22 @@ Scope: `configuration` (process waiver) plus P1-B/P3-practice implementation aut
 
 Reopen: user retracts the guarantee; a practice run shows unknown accepts or unexplained deadline failure; request to treat this as formal qualification.
 
+### D-007 User-authorized repaired-C0 baseline and bounded 150/49 research
+
+Date: 2026-09-13
+
+Question: May Technical Lead stage repaired-C0 end-to-end verification and, **after that gate**, finite research of 225→150 clear centres and Q4 81→49 scan, without reopening C1/C2 or formal slots?
+
+Decision: Yes. This **modifies SR-002 resource allocation only** for those two deterministic cover variants as later phases. It does **not** reopen C1, C2, P5, invented-clock C1-SIM, formal `/enter`, or model selection. Phase 1 verifies frozen `d675831` with 9/81/225 unchanged. Phases 2+ wait on Phase 1 gates and remaining time before 2026-09-13 17:30 Beijing **new-test start** cutoff. If time cannot finish both an optimization arm **and** a named-version qualification pack, drop optimization and keep repaired C0 (label B).
+
+Evidence: User 2026-09-13 multi-phase instruction; SR-002; RT-005; TR-022 Phase 0.
+
+Rejected: treating 150/49 as already selected; starting C1; pairing new practices with `a48c77c` as snake-repair speedup; skipping Phase 1.
+
+Scope: `configuration` (contest allocation). Cover variants, if later implemented, are `model-variant` of C0, not `model-family`.
+
+Reopen: official-rule change; Phase 1 failure that changes C0 mathematics; request to implement C1; new-test cutoff making live Phase 5 impossible.
+
 ## Decision Template
 
 ### D-TODO
