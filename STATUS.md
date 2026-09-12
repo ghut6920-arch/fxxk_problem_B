@@ -43,10 +43,10 @@ None. `MODEL_SPEC.md` is intentionally absent.
 - `WI-014` is `COMPLETE` for evaluator/fixtures at `1ae791b8055690fd9d1239d0e864819865b58f6b`, locally merged onto `main` as `61465c5513c5bdc3d593d3fd389f6866d8339721`. Author conclusion remains `EVALUATOR_FIXTURES_OPEN`. Evaluator author remains barred from `src/candidate/`.
 - `WI-015` is `COMPLETE` for implementation at `e4ee8febfc8ff89e927eba436e81e2ae7759af1c` (TR-014 PASS; RT-004; TR-015). Isolation is **not** claimed (D-004 / RT4-F1). Unmerged, unpushed.
 - `WI-016` is `COMPLETE` at `761c0f7788ed773d2a132b92caaa9e1378b22c88` (TR-016 PASS). Author and independent rerun: `P1A_PROPERTIES_PASS` (26/26). Wording: same-model internal fixture agreement, not independent evaluation. Independent challenge of this run commit is recorded absent. Unmerged, unpushed.
-- `WI-017` is `COMPLETE` at `a48c77cc0d46a81b96aa56f54197b8837c4c735c` (TR-018). Live Q3/Q4 practice both `COMPLETE` with `K=12`, unknown-accept 0, loopback wall ~26 s / ~48 s. `N` not UI-revealed. Unmerged, unpushed.
+- `WI-017` is `COMPLETE` at `a48c77cc0d46a81b96aa56f54197b8837c4c735c` (TR-018). Live Q3/Q4 practice both `COMPLETE` with `K=12`. Operator UI: Q3 `N=12` all omni; Q4 `N=12` (2 omni, 10 directional). Unknown-accept 0, loopback wall ~26 s / ~48 s. Unmerged, unpushed.
 
 - No active collaboration issue authorizes history rewriting, branch deletion, object pruning, or remote publication.
 
 ## Blockers
 
-- WI-017 practice observations accepted. Do not open C1 or a formal slot. `RT-002` F1 still requires repeated stressed evidence for formal readiness; extra quiet practices are optional, not sufficient. Check rehearsal UI for true `N` if still visible. Independent challenge of `761c0f7` / `a48c77c` remains absent unless later targeted.
+- WI-017 practice observations accepted; operator UI `N=K=12` on those two cases. Do not open C1 or a formal slot. `RT-002` F1 still requires repeated stressed evidence for formal readiness. Independent challenge of `761c0f7` / `a48c77c` remains absent unless later targeted.
