@@ -2,7 +2,7 @@
 
 ## Competition Stage
 
-Official inputs are verified. The complete mathematical plan (WI-009), staged experiment design (WI-010), P0 static review (WI-012 / EXP-001), and P1-A specification (WI-013 / EXP-002) are on `main`. User D-001 accepted the SPEC. WI-014 fixed result a49cc64827cc398c44a41d4094776edddb41f79f received Technical Review TR-012: FIX. Evaluator self-checks pass, but confirmed defects and G07/G15 interpretation issues block acceptance. No candidate implementation, simulator run, model selection, or `MODEL_SPEC.md` is authorized.
+Official inputs and prior plan/design remain as recorded below. WI-014 latest evaluator a8401fc2bf53375610b29f96f1c332d09738975e passes 35 self-tests; RT-003 recheck at 6831fed64472bc97e71f2a6e985d688c971d230e confirms F1/F2/F5/F7 repaired, F6 partial. External Strategist SR-001 / D-002 resolves G07/G15 interpretation. Technical Lead revised SPEC/catalog; implementation and targeted recheck remain pending. Model routes unchanged; no candidate or formal readiness authorized.
 
 ## Verified Facts
 
@@ -40,9 +40,10 @@ None. `MODEL_SPEC.md` is intentionally absent.
 - `WI-011` is `COMPLETE`; `TR-010` passed Executor result `49db3ae1c57c4aa0fd4c321569c9fcbd748fd528` with conclusion `INPUTS_PRESENT_NOT_APPROVED`. The inventory is on `main` as `evidence/prerequisites/P0_INPUT_AUDIT.md`.
 - `WI-012` is `COMPLETE`; `TR-011` passed Executor result `beb2651cd0289df7b22f8fc8b643c30c794a328d` with conclusion `P0_PREMISES_CLEAR`. The P0 record is on `main` as `evidence/experiments/EXP-001/P0_STATIC_REVIEW.md` (byte-identical to that result). That PASS authorized drafting a P1-A SPEC, not implementation.
 - `WI-013` is `COMPLETE` by user authorization D-001 (SPEC usable); not an independent TR-012 PASS. `experiments/EXP-002/SPEC.md` remains the P1-A freeze.
-- `WI-014` is `FIX_REQUIRED`: TR-012 reviews fixed result `a49cc64827cc398c44a41d4094776edddb41f79f`. Eleven self-checks and 26 committed hashes pass; boundary rejection, NaN acceptance, checkout bytes, incomplete A1 helper and duplicate-success ledger disposition need local repair. G07/G15 interpretation needs targeted external clarification. Red Team challenge is recommended, not yet assigned. The evaluator author remains barred from candidate work. No result integration or P1-A property passage.
+- `WI-014` remains `FIX_REQUIRED`, now for implementing the resolved SR-001 / D-002 definitions. G07b requires an UNBOUNDED ray certificate; G15 requires the independent angle perturbation triple and mirror/coverage/serialization checks. RT-003 is retrieved byte-identical to its fixed review commit. No candidate implementation or integration is authorized.
+
 - No active collaboration issue authorizes history rewriting, branch deletion, object pruning, or remote publication.
 
 ## Blockers
 
-- TR-012 blocks WI-014 acceptance; G07/G15 interpretation holds affect those items only. Bounded evaluator repairs can proceed under the repair assignment. External Strategist clarification and a separately assigned Red Team challenge are requested/recommended, not completed. `RT-002` F1 remains open. Candidate work, P1-B and push remain unauthorized.
+- No further Strategist wait for current G07/G15 definitions. Implement their recorded correction and obtain technical/Red Team recheck before WI-014 acceptance. RT-003 F6 remains partial; RT-002 remains open. No P1-A candidate passage, selection, candidate WI or remote publication is authorized by this correction.

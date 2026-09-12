@@ -91,7 +91,7 @@ Later fixture construction must instantiate the design tables. Each group may in
 | G04 | Degenerate to a segment; analytic endpoints | Segment diameter, endpoint-circle cover | §3 |
 | G05 | Known rectangle; analytic diagonal and centre | Vertex dedup, diameter, covering circle | §3 |
 | G06 | Unit-side equilateral triangle as covering-circle submodule input | Diameter 1; radius $1/2$ does not cover; minimal cover radius $1/\sqrt3$ | §3 |
-| G07 | Parallel and near-collinear bearing boundaries | Exact/interval reference; `NUMERICAL_UNCERTAIN` if uncertifiable; no fake finite solution | §3 numerical rule |
+| G07 | Parallel and near-collinear bearing boundaries | Exact/interval reference; fixed G07b has analytic ray q=(2000,0), d=(1,0), expected UNBOUNDED; verify recession. General NUMERICAL_UNCERTAIN remains an unresolved abstention, not a G07b pass (SR-001) | §3 numerical rule |
 | G08 | Bearing across 0/360°; equivalent input after a global rotation | Periodic consistency; internal angle arithmetic separate from two-decimal display | §3; §2 $\delta$ |
 | G09 | Q2 omnidirectional first observation at true distances $5+\varepsilon_d$, 1000, 1500 | Inner-domain certificate and valid receive for the six submitted points; truth not given to the optimizer | §4.1 |
 | G10 | First-direction error endpoints and disk boundary; receive radius at allowed endpoints | True position retained; inner-domain applicability not omitted | §4.1–§4.2 |
@@ -99,7 +99,7 @@ Later fixture construction must instantiate the design tables. Each group may in
 | G12 | Candidate on a certified boundary, rechecked after coordinate serialization | Output point still certifiable; otherwise reject that point; do not prove safety with an unsubmitted ideal point | §4.3; §5.2 1 m bound |
 | G13 | `near` and `direction` on both sides of 5 m; feedback angle-interval seams | Actual successor containment; interval full cover; `near` score 0 is not position variance 0 | §4.2 |
 | G14 | Q4 same candidate on the directional back side or closed half-plane boundary | Keep `no_signal`; do not apply Q2 omnidirectional guaranteed-receive | §2 visibility; §4.2 $A_2^{\rm no}$ |
-| G15 | 9/81 scan lattices at disk edge, grid line, grid point; heading boundary and $\varepsilon_d$ perturbation | Independent per-source visible-point set nonempty; directional coincidence point not used as coverage evidence | §5.1 |
+| G15 | 9/81 scan lattices at disk edge, grid line, grid point; heading boundary and angle $\varepsilon_\phi$ perturbation (SR-001) | Independent per-source visible-point set nonempty; directional coincidence point not used as coverage evidence | §5.1 |
 | G16 | 225-point clear rectangle at corner, cell edge, cell vertex; 20 m both sides | Mathematical-centre cover; $\\|x_{\rm submit}-x_{\rm exact}\\|_2\le1$ m certification; adjacent points $\le22$ m | §5.2 |
 
 ### T01–T10 (P1-A). T11–T12 are P1-B and excluded.
@@ -126,7 +126,7 @@ The P1-A wall-clock cap is exactly 16 geometry groups + 10 trajectories, 10 seco
 In-budget coverage required when fixtures are later built:
 
 - G08: at least two inputs that differ by a 360° wrap and one globally rotated equivalent.
-- G15: disk edge, grid line, and grid point for both $P_3$ and $P_4$; one heading-boundary case and one $\varepsilon_d$ perturbation.
+- G15: disk edge, grid line, and grid point for both $P_3$ and $P_4$; the frozen heading triple with $\varepsilon_\phi=\arctan(10^{-6}/700)$ radians, mirror closed boundary, JSON distinction, and directional P4 nonempty check in the revised catalog (SR-001). Position perturbation remains separately named.
 - G16: rectangle corner, cell edge, cell vertex; distances $20-\varepsilon_d$, $20$, $20+\varepsilon_d$; at least one submitted centre with Euclidean error equal to the 1 m certification bound.
 - T01: both $\pm1^\circ$ endpoints.
 - T04: the three distances named above.

@@ -1,15 +1,15 @@
 # Primary Integration Goal
 
-Goal: Repair and re-review WI-014 evaluator and fixtures under TR-012, without candidate work or model-route changes.
+Implement SR-001 / D-002 corrections to WI-014 G07/G15 evaluator and fixtures.
 
 ## Acceptance Criteria
 
-- Preserve fixed historical result `a49cc64827cc398c44a41d4094776edddb41f79f` and its failure evidence.
-- Executor repairs bounded implementation/configuration defects F1/F2/F5/F6/F7 in the original authorized paths; returns a new fixed commit and required checks.
-- G07/G15 interpretation (F3/F4) remains OPEN until external advisor/user clarification is recorded by Technical Lead; Executor must not edit frozen catalog meaning.
-- Technical Lead rechecks actual evidence before acceptance. Red Team challenge is recommended now but has not been assigned or completed.
-- No candidate WI, simulator, P1-B, RT-002 closure, model selection, merge or push.
+- G07b verifies q=(2000,0), d=(1,0) and returns UNBOUNDED; no disk/radius truncation or feedback-bin precision shortcut.
+- G15 follows revised catalog angle triple, mirror closed boundary, JSON distinction and full P4 visible-set checks; position perturbation is separate.
+- Original regressions and all required WI tests/hashes remain verified; retain failure history.
+- New fixed result receives Technical Review and targeted Red Team recheck; no automatic overall acceptance or P1-A passage.
+- No C0 WI, candidate code, simulator, model-route change, RT-002 closure or push.
 
-Status: FIX_REQUIRED — TR-012; bounded repairs may proceed, affected catalog interpretations await clarification.
+Status: FIX_REQUIRED — interpretation resolved by SR-001; preparation of the amended execution contract precedes Executor dispatch.
 
-Owner Role: Technical Lead (coordination/review), Executor (bounded repairs); external advisor/user (catalog interpretation).
+Owner: Technical Lead (preparation/review); original evaluator Executor (bounded repair); Red Team (subsequent independent recheck).
