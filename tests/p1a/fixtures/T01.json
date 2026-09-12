@@ -1,0 +1,22 @@
+{
+  "id": "T01",
+  "phase_checks": ["evaluator_now"],
+  "candidate_later_checks": [
+    "true position / true type tag not deleted from the candidate outer approximation"
+  ],
+  "inputs": {
+    "world": {"g": [200, 0], "kind": "omni", "R_c": 1500, "channel": 1},
+    "p": [0, 0],
+    "theta_hat_deg": [1.0, -1.0],
+    "delta_deg": 1.0
+  },
+  "truth": {
+    "true_bearing_deg": 0.0,
+    "note": "both +/-1 degree endpoints sit exactly on the delta contract for this source",
+    "plan_section": "design §4.3 T01"
+  },
+  "expected_evaluator": {
+    "observation": ["direction", "direction"],
+    "direction_contract_ok": [true, true]
+  }
+}

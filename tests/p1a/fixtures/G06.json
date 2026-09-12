@@ -1,0 +1,22 @@
+{
+  "id": "G06",
+  "phase_checks": ["evaluator_now"],
+  "candidate_later_checks": [
+    "candidate covering-circle submodule: the radius 1/2 circle about the circumcentre must not cover"
+  ],
+  "inputs": {
+    "vertices": [[0, 0], [1, 0], [0.5, 0.8660254037844386]],
+    "side_length": 1.0,
+    "note": "unit equilateral triangle; vertex 3 is (0.5, sqrt(3)/2)"
+  },
+  "truth": {
+    "analytic": "diameter 1; circumradius 1/sqrt(3) > 1/2",
+    "plan_section": "§3"
+  },
+  "expected_evaluator": {
+    "diameter": 1.0,
+    "circumradius": 0.5773502691896258,
+    "circumcenter": [0.5, 0.28867513459481287],
+    "half_radius_covers_vertices": false
+  }
+}

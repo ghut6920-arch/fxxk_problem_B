@@ -1,0 +1,23 @@
+{
+  "id": "G12",
+  "phase_checks": ["evaluator_now"],
+  "candidate_later_checks": [
+    "same boundary check on candidate output points after coordinate serialization"
+  ],
+  "inputs": {
+    "S": [0, 0],
+    "theta_hat_deg": 0.0,
+    "p": [1000, 0],
+    "serialization": {"format": "json", "raw": "[1000, 0]"},
+    "note": "p lies on the ||q|| = 1000 piece of C_in"
+  },
+  "truth": {
+    "analytic": "the deserialized point must still be accepted, otherwise the point is rejected",
+    "plan_section": "§4.3; §5.2 1 m bound"
+  },
+  "expected_evaluator": {
+    "c_in_original": true,
+    "c_in_deserialized": true,
+    "deserialized_point": [1000.0, 0.0]
+  }
+}

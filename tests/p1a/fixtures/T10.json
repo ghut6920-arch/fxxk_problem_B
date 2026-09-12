@@ -1,0 +1,23 @@
+{
+  "id": "T10",
+  "phase_checks": ["evaluator_now"],
+  "candidate_later_checks": [
+    "budget accept/reject must match the all-feedback certificate, not only a favourable realised feedback"
+  ],
+  "inputs": {
+    "initial_state": {"p": [0, 0], "b": 1},
+    "measure": {"x": [0, 0], "c": 1},
+    "epsilon_d": 1e-06,
+    "remainders": [5, 4.999999],
+    "note": "one measure on the same channel costs 5; remainder 5 is exactly enough, 5 - eps_d is short"
+  },
+  "truth": {
+    "note": "the accept/reject decision itself is candidate_later; the evaluator_now content is the measure Delta T",
+    "plan_section": "§2; §7.3; design §4.3 T10"
+  },
+  "expected_evaluator": {
+    "measure_delta_t": 5.0,
+    "remainder_5_sufficient": true,
+    "remainder_5_minus_eps_sufficient": false
+  }
+}

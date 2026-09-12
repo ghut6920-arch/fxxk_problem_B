@@ -1,0 +1,31 @@
+{
+  "id": "T06",
+  "phase_checks": ["evaluator_now"],
+  "candidate_later_checks": [
+    "history / fixed-error bookkeeping; distinct coordinates must not be merged by a coarse tolerance"
+  ],
+  "inputs": {
+    "repeat": {"p": [100, 100], "channel": 1, "R_c": 1500, "g": [105.0005, 100], "kind": "omni"},
+    "json_equivalent": {"a": [100, 100], "b_raw": "[1.00e2, 100.0]"},
+    "nearby_distinct": {
+      "p_a": [100, 100],
+      "p_b": [100.001, 100],
+      "channel": 1,
+      "R_c": 1500,
+      "g": [105.0005, 100],
+      "kind": "omni",
+      "note": "0.001 m apart; the 5 m threshold is crossed, so the two observations differ and must stay distinct"
+    },
+    "epsilon_d": 1e-06
+  },
+  "truth": {
+    "note": "100.0 and 1.00e2 are the same canonical float point; 100 and 100.001 are not",
+    "plan_section": "§6"
+  },
+  "expected_evaluator": {
+    "repeat_observations_equal": true,
+    "json_point_keys_equal": true,
+    "nearby_point_keys_distinct": true,
+    "nearby_observations": ["direction", "near"]
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "id": "G07",
+  "phase_checks": ["evaluator_now"],
+  "candidate_later_checks": [
+    "candidate near-collinear wedge geometry must classify feasibility then recession and report UNBOUNDED for this frozen pair; a finite solution/diameter claim, CONFLICT or NUMERICAL_UNCERTAIN fails (SR-001)"
+  ],
+  "inputs": {
+    "convention": "a*x + b*y + c >= 0",
+    "g07a_parallel_strip": {
+      "half_planes": [
+        {"a": 0, "b": 1, "c": 0, "text": "y >= 0"},
+        {"a": 0, "b": -1, "c": 1, "text": "y <= 1"}
+      ]
+    },
+    "g07b_near_collinear": {
+      "S1": [0, 0],
+      "theta_hat_1_deg": 0.0,
+      "S2": [1000, 0],
+      "theta_hat_2_deg": 0.01,
+      "delta_deg": 1.0,
+      "note": "pure wedge P: no disk and no receive-radius cap is applied here (SR-001)"
+    },
+    "g07b_ray_certificate": {
+      "q": [2000, 0],
+      "d": [1, 0],
+      "t_min": 0,
+      "note": "q + t*d stays inside both wedges for every t >= 0; certificate checked on the exact wedge rows"
+    }
+  },
+  "truth": {
+    "g07a_analytic": "unbounded parallel strip; a finite diameter is forbidden",
+    "g07b_analytic": "pure intersection of two 2-degree forward wedges whose axes differ by 0.01 degrees; feasible with a nonzero recession ray q=(2000,0)+t(1,0), so UNBOUNDED",
+    "plan_section": "§3 steps 1-2",
+    "sr001": "SR-001 / D-002: G07b is UNBOUNDED and NUMERICAL_UNCERTAIN is an unresolved abstention, not a passing reference; feedback-bin width is not a geometric precision limit; do not intersect this submodule input with D or a receive-radius cap"
+  },
+  "expected_evaluator": {
+    "g07a_state": "UNBOUNDED",
+    "g07b_state": "UNBOUNDED",
+    "g07b_feasible": true,
+    "g07b_recession_nontrivial": true,
+    "g07b_ray_certificate": true,
+    "g07b_finite_diameter_reported": false
+  }
+}

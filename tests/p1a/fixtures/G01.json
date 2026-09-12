@@ -1,0 +1,21 @@
+{
+  "id": "G01",
+  "phase_checks": ["evaluator_now"],
+  "candidate_later_checks": [
+    "candidate half-plane intersection must return CONFLICT/EMPTY; an empty set is never successful completion"
+  ],
+  "inputs": {
+    "convention": "a*x + b*y + c >= 0",
+    "half_planes": [
+      {"a": 1, "b": 0, "c": -1, "text": "x >= 1"},
+      {"a": -1, "b": 0, "c": 0, "text": "x <= 0"}
+    ]
+  },
+  "truth": {
+    "analytic": "empty: x >= 1 and x <= 0 cannot both hold",
+    "plan_section": "§3 step 1"
+  },
+  "expected_evaluator": {
+    "halfplane_state": "CONFLICT"
+  }
+}

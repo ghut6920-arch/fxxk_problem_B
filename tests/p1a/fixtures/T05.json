@@ -1,0 +1,24 @@
+{
+  "id": "T05",
+  "phase_checks": ["evaluator_now"],
+  "candidate_later_checks": [
+    "candidate quadtree: at the 4096-leaf / depth-8 cap keep a coarse cell that still contains g",
+    "must not delete a true cell to meet the cap; record peak memory / leaf count"
+  ],
+  "inputs": {
+    "g": [100, 100],
+    "initial_outer_box": [[-1800, -1800], [1800, 1800]],
+    "leaf_cap": 4096,
+    "depth_cap": 8,
+    "note": "no candidate quadtree exists in WI-014; the evaluator only records the truth point and the reference caps"
+  },
+  "truth": {
+    "note": "g lies inside the initial outer box [-1800,1800]^2",
+    "plan_section": "§6; design §4.3 T05"
+  },
+  "expected_evaluator": {
+    "candidate_g": [100, 100],
+    "leaf_cap": 4096,
+    "depth_cap": 8
+  }
+}

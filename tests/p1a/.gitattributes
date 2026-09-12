@@ -1,0 +1,8 @@
+# TR-012 F5 — protect frozen fixture bytes from end-of-line conversion.
+#
+# tests/p1a/fixtures/manifest.json records SHA-256 over the exact committed bytes of each fixture.
+# This worktree runs with core.autocrlf=true and the repository has no root .gitattributes, so a
+# checkout would otherwise rewrite LF to CRLF and change the on-disk bytes relative to the manifest.
+# "-text" disables all end-of-line conversion for the fixture JSON files only; it is a scoped,
+# repository-local rule (no root attribute file and no global Git configuration is changed).
+fixtures/*.json -text
