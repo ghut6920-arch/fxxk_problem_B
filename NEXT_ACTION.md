@@ -1,15 +1,15 @@
 # Primary Integration Goal
 
-Goal: Design the smallest staged validation program for C0/C1/C2, with fair comparators, adversarial cases, metrics, resource budgets, stopping rules, and formal-test protection, without running experiments or implementing models.
+Goal: Complete the P0 static source-and-premise review for the frozen mathematical plan and experiment-design versions, without implementing models, running a simulator, or creating P1-A code.
 
 ## Acceptance Criteria
 
-- Map every unresolved mathematical or operational claim to a minimal future validation and decision consequence.
-- Separate analytic/property, offline, protocol, rehearsal, and formal-readiness stages.
-- Define common C0/C1/C2 comparators, adversarial cases, metrics, evidence capture, budgets, and stop conditions.
-- Protect formal opportunities from debugging or tuning and gate C2 behind evidence of material value.
-- Do not create an EXP specification, run a simulator/experiment, implement code, make a final selection, or create `MODEL_SPEC.md`.
+- Pin official hashes, mathematical-plan commit, experiment-design commit, and record that candidate-implementation and evaluator commits are currently absent.
+- Locate the four proof-chain premises in `modeling/COMPLETE_MODEL_PLAN.md` by section, without inventing new mathematics.
+- Define the independent virtual-ledger fields that a later evaluator must recompute, without sharing a future candidate timer.
+- Conclude `P0_PREMISES_CLEAR` or `P0_PREMISES_OPEN` with explicit unresolved premises.
+- Do not implement code, run the simulator, draft P1-A fixtures, select a model, create `MODEL_SPEC.md`, close `RT-002`, integrate design branches, or push.
 
-Status: FIX_REQUIRED — `TR-009`/`RT-002` require bounded experiment-roadmap corrections at fixed result `e3db435226eb5b2454b4d2a728c57464e8649e53`; experiment execution remains forbidden
+Status: READY — WI-012 / `experiments/EXP-001/SPEC.md`; execution requires the Technical Lead-supplied Execution Start Commit
 
-Owner Role: Strategist
+Owner Role: Implementation Engineer
