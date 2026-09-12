@@ -1,14 +1,13 @@
 # Primary Integration Goal
 
-Execute WI-016: full C0 P1-A property run of frozen candidate `e4ee8febfc8ff89e927eba436e81e2ae7759af1c` against the frozen evaluator.
+Hold C0 after a same-model P1-A finite-fixture PASS at `761c0f7788ed773d2a132b92caaa9e1378b22c88`. Do not open C1 or a formal slot.
 
 ## Acceptance Criteria
 
-- Every G01–G16 and T01–T10 item is attempted; 10 s / 4 min 20 s caps recorded.
-- Conclusion is exactly one of `P1A_PROPERTIES_PASS` / `FAIL` / `UNRESOLVED`.
-- D-004/SR-002 wording: same-model internal check, not independent evaluation.
-- No edits to `src/candidate/`, `src/evaluator/`, or fixtures. No C1, P1-B, formal slot, merge, or push.
+- Paper/status wording stays inside SR-002: fixture agreement, not independent evaluation.
+- `RT-002` stays open. Independent challenge of run `761c0f7` is recorded as absent unless a later Red Team targets that commit.
+- No C1/C2/P4/P5, no figure-only reruns, no merge/push without a new named authorization.
 
-Status: IN_PROGRESS — WI-016 issued; waiting for Executor.
+Status: WAITING_FOR_USER_AUTHORIZATION — WI-016 COMPLETE; P1-B and formal gates unmet.
 
-Owner: Implementation Engineer; Technical Lead reviews the fixed run report.
+Owner: User (retrieve report / optional MINOR repair / later P1-B); Technical Lead issues the named WI only after that.
