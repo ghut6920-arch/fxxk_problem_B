@@ -26,7 +26,7 @@ git status --short --branch
 git worktree list
 ```
 
-期望 toplevel = `.../题目/B题`，branch = `main`，HEAD = `b1b4dfe…`。  
+期望 toplevel = `.../题目/B题`，branch = `main`，HEAD = `b1b4dfe…`。
 主仓工作区可能有未提交的 `prompts/execute_task.md` 和本交接文件；不要当成无关脏文件清掉。若 HEAD 不对，先停，不要自己 reset。
 
 ---
