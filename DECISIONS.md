@@ -80,7 +80,7 @@ Reopen Conditions: Formal promotion or `P1A_PROPERTIES_*` acceptance that assert
 
 Date: 2026-09-13. Source: user-delivered external Strategist note recorded in `audits/strategic/SR-002.md`.
 
-Decision: KEEP C0/C1/C2 routes and the C0 analytic cover; MODIFY near-term execution to C0-only necessary verification; REJECT current independent-evaluation and formal-readiness claims; REJECT C2/P4/P5 spend in this window only. Not a selection. Paper claim ladder and P1-A failure grades in SR-002 are now binding for later WIs and wording. C1 stays closed until every listed qualification holds.
+Decision: KEEP C0/C1/C2 as surviving candidate routes; KEEP C0 as this-round default paper/contest **resource** path (not selection); MODIFY evidence promotion so D-004 results are same-model internal checks; REJECT live C1, C1 formal slots, and favourable invented clocks; REJECT C2/P4/P5 and non-essential performance experiments in this window; REJECT claiming formal-test qualification while RT-002 F1 is open. Not a selection. Full claim ladder, failure grades, and wording in SR-002 bind later WIs.
 
 Evidence/scope: SR-002; TR-014 PASS of `e4ee8febfc8ff89e927eba436e81e2ae7759af1c`; D-004; RT-002 F1 still open. Configuration and contest allocation, not model-family failure.
 
@@ -88,7 +88,7 @@ Rejected: treating TR-014 or a later P1-A self-check as independent evaluation; 
 
 Affected stages: no C1/C2/P4/P5 WIs from this note; any later P1-A run WI must be the full C0 suite; formal slots stay unused; paper claims must use the five evidence kinds without substitution. Figures must not skip unfinished correctness checks.
 
-Reopen: SR-002 tables. Official-rule change, reviewed theoretical counterexample, or C1 meeting every listed qualification.
+Reopen: official-rule change; reviewed theoretical counterexample; a named model-variant still violating its core mechanism after two substantive repairs; or the SR-002 real-time qualifications. A single self-test failure does not fail C0 analytic geometry or the whole candidate family.
 
 ## Decision Template
 
