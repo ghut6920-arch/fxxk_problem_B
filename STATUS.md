@@ -44,10 +44,10 @@ None. `MODEL_SPEC.md` is intentionally absent.
 - `WI-015` is `COMPLETE` for implementation at `e4ee8febfc8ff89e927eba436e81e2ae7759af1c` (TR-014 PASS; RT-004; TR-015). Isolation is **not** claimed (D-004 / RT4-F1). Unmerged, unpushed.
 - `WI-016` is `COMPLETE` at `761c0f7788ed773d2a132b92caaa9e1378b22c88` (TR-016 PASS). Author and independent rerun: `P1A_PROPERTIES_PASS` (26/26). Wording: same-model internal fixture agreement, not independent evaluation. Independent challenge of this run commit is recorded absent. Unmerged, unpushed.
 - `WI-017` is `COMPLETE` at `a48c77cc0d46a81b96aa56f54197b8837c4c735c` (TR-018). Live Q3/Q4 practice both `COMPLETE` with `K=12`. Operator UI: Q3 `N=12` all omni; Q4 `N=12` (2 omni, 10 directional). Unknown-accept 0, loopback wall ~26 s / ~48 s. Unmerged, unpushed.
-- `WI-018` is `READY` / issued: restore local snake for 225 clear centres (TR-019 FIX, implementation). Not started in this Technical Lead session.
+- `WI-018` is `COMPLETE` at `d675831695d705ea8c4ffcb74fe8c83277847daf` (TR-020 PASS). Local snake restored; 225-set unchanged. Red Team of `a48c77c` vs this commit pending. Unmerged, unpushed.
 
 - No active collaboration issue authorizes history rewriting, branch deletion, object pruning, or remote publication.
 
 ## Blockers
 
-- WI-018 waits for Executor. Do not open C1, shrink 225/81, or consume a formal slot. Practice `K=N=12` and 225-point cover are not reopened by this repair. Independent Red Team of the old snake and the repair commit follows the result.
+- WI-018 repair accepted technically. Next is independent Red Team of `a48c77c` and `d675831`. Do not open C1, shrink 225/81, or consume a formal slot.
