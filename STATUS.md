@@ -45,10 +45,10 @@ None. `MODEL_SPEC.md` is intentionally absent.
 - `WI-016` is `COMPLETE` at `761c0f7788ed773d2a132b92caaa9e1378b22c88` (TR-016 PASS). Author and independent rerun: `P1A_PROPERTIES_PASS` (26/26). Wording: same-model internal fixture agreement, not independent evaluation. Independent challenge of this run commit is recorded absent. Unmerged, unpushed.
 - `WI-017` is `COMPLETE` at `a48c77cc0d46a81b96aa56f54197b8837c4c735c` (TR-018). Live Q3/Q4 practice both `COMPLETE` with `K=12`. Operator UI: Q3 `N=12` all omni; Q4 `N=12` (2 omni, 10 directional). Unknown-accept 0, loopback wall ~26 s / ~48 s. Unmerged, unpushed.
 - `WI-018` is `COMPLETE` at `d675831695d705ea8c4ffcb74fe8c83277847daf` (TR-020 PASS). Local snake restored; 225-set unchanged. Unmerged, unpushed.
-- `WI-019` is `READY` / issued: Red Team RT-005 on `a48c77c` vs `d675831`. Not started as a Git-contracted write in this Technical Lead session.
+- `WI-019` is `COMPLETE` at `08bf26a2ae0e3873ad742ff1c977b860b16973e8` (TR-021). RT-005: old path-cost MAJOR; repair no MAJOR/CRITICAL residual in scope. Unpushed.
 
 - No active collaboration issue authorizes history rewriting, branch deletion, object pruning, or remote publication.
 
 ## Blockers
 
-- WI-019 is issued so Red Team can file RT-005 (session already computed A–D read-only; Git contract was missing). Do not merge/push/C1/formal from that filing.
+- RT-005 archived. Do not cite \(224\cdot22\) on `a48c77c` clear order. Use `d675831` for sequence-bound language. Do not open C1 or a formal slot. Strategist not required for this repair.

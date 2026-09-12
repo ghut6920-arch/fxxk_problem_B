@@ -1,13 +1,12 @@
 # Primary Integration Goal
 
-Execute WI-019: Red Team files `audits/redteam/RT-005.md` on `a48c77c` vs `d675831`.
+Hold C0 at repair `d675831695d705ea8c4ffcb74fe8c83277847daf` for clear-rectangle **order**. Do not apply \(224\cdot22\) to unrepaired `a48c77c` logs. Do not open C1 or a formal slot.
 
 ## Acceptance Criteria
 
-- Only `audits/redteam/RT-005.md` is written, on `review/RV-005-wi018-snake`.
-- Independent numbers for the 45° long-step defect and the repair; RT-002 stays open.
-- Repair author does not execute this WI.
+- Paper/status wording follows RT-005 / SR-002: practice `K=N=12` stands; path-cost proof only for the repaired sequence.
+- `RT-002` stays open. No merge/push without a new named authorization.
 
-Status: IN_PROGRESS — WI-019 issued; waiting for Red Team.
+Status: WAITING_FOR_USER — WI-019 COMPLETE; Strategist not required for the snake item.
 
-Owner: Red Team; Technical Lead after the RT-005 commit.
+Owner: User (paper / optional push); Technical Lead issues later WIs only after authorization.
