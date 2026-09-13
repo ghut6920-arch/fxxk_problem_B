@@ -1,12 +1,13 @@
 # Primary Integration Goal
 
-Hold repaired C0 (B) as the **legal-world** baseline. Do not patch COMPLETE. Do not implement 150/49 until a new implementation WI is authorized.
+Execute WI-023: implement BASE/CLEAR150/SCAN49/COMBINED on tree `7cbeda` and offline-compare within 90 minutes. Keep BASE. No live `/enter`.
 
 ## Acceptance Criteria
 
-- Paper: Q3 practice `K/N=14/14`; Q4 `16/16`. No Q3 miss.
-- `RT-002` open. No C1, no formal `/enter`, no push without a new named authorization.
+- 20×30 clears; `P_4'` keeps exterior points; 20 channels; no C1; no cap raise.
+- Tests check sequences and counts. Compare table or honest NOT_RUN if the 90 min cap hits.
+- No push, no formal, no 130-grid.
 
-Status: WAITING_FOR_USER — WI-022 COMPLETE.
+Status: IN_PROGRESS — WI-023 issued.
 
-Owner: User (Phase 3 150/49 implementation WI vs pack B vs optional RT of the diagnosis).
+Owner: Executor; Technical Lead after the result; Red Team of that result next.
