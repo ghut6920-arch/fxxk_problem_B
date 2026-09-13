@@ -1,11 +1,11 @@
 # Primary Integration Goal
 
-Execute WI-029: short Red Team recheck that worlds hash is `f00b1718…` and SCAN49 cannot be a 5×5 lattice. Q2 WI-028 continues on `B题-q2`.
+Two short Red Team rechecks: WI-029 (worlds hash, `B题-redteam`) and WI-030 (Q2 F1 wording, `B题-redteam-q2`). Do not mix.
 
 ## Acceptance Criteria
 
-- Append to `audits/redteam/RT-007.md` only. No 36-track rerun. No selection. No push.
+- Append-only RT-007 / RT-008. No `src/` edits. No CLAIMS. No selection. No push.
 
-Status: IN_PROGRESS — WI-027 COMPLETE; WI-029 issued.
+Status: IN_PROGRESS — WI-027 and WI-028 COMPLETE pending rechecks.
 
-Owner: Red Team on `B题-redteam`; Q2 Executor on `B题-q2`.
+Owner: two Red Team worktrees; Technical Lead after each append.

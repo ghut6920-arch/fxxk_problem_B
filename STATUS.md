@@ -55,10 +55,11 @@ None. `MODEL_SPEC.md` is intentionally absent.
 - `WI-026` is `COMPLETE` at `4fd42dfc1091bcfcc68502f4f599cddb5176b310` (TR-031). RT8-F1 MAJOR wording.
 - `WI-027` is `COMPLETE` at `9de8b67d32382e5c3767823e468894e436a7a3eb` (TR-032). Hash bound to `f00b1718…`.
 - `WI-029` is `READY` / issued: RT7-F1/F2 recheck.
-- `WI-028` is `READY` / issued: Q2 wording on `B题-q2`.
+- `WI-028` is `COMPLETE` at `067f4ca057857840b24444f5ff50c9604db696d2` (TR-033).
+- `WI-030` is `READY` / issued: RT8-F1 wording recheck.
 
 - No active collaboration issue authorizes history rewriting, branch deletion, object pruning, or remote publication.
 
 ## Blockers
 
-- Screens may be cited as research after WI-029 recheck; still not selection. RT8-F1 Q2 wording still open. C1 暂不需要. No formal enter.
+- Screens await WI-029 recheck. Q2 chapter awaits WI-030 F1 recheck. Neither is selection. C1 暂不需要. No formal enter.
