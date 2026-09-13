@@ -4,7 +4,7 @@ Hold repaired C0 (B) as the **legal-world** baseline. Do not patch COMPLETE. Do 
 
 ## Acceptance Criteria
 
-- Paper: Q3 practice `K/N=14/16` is an observation under a possible off-contract world, not a P3 counterexample.
+- Paper: Q3 practice `K/N=14/14`; Q4 `16/16`. No Q3 miss.
 - `RT-002` open. No C1, no formal `/enter`, no push without a new named authorization.
 
 Status: WAITING_FOR_USER — WI-022 COMPLETE.

@@ -46,12 +46,12 @@ None. `MODEL_SPEC.md` is intentionally absent.
 - `WI-017` is `COMPLETE` at `a48c77cc0d46a81b96aa56f54197b8837c4c735c` (TR-018). Live Q3/Q4 practice both `COMPLETE` with `K=12`. Operator UI: Q3 `N=12` all omni; Q4 `N=12` (2 omni, 10 directional). Unknown-accept 0, loopback wall ~26 s / ~48 s. Unmerged, unpushed.
 - `WI-018` is `COMPLETE` at `d675831695d705ea8c4ffcb74fe8c83277847daf` (TR-020 PASS). Local snake restored; 225-set unchanged. Unmerged, unpushed.
 - `WI-019` is `COMPLETE` at `08bf26a2ae0e3873ad742ff1c977b860b16973e8` (TR-021). RT-005: old path-cost MAJOR; repair no MAJOR/CRITICAL residual in scope. Unpushed.
-- `WI-020` is `COMPLETE` at `7f4dfba66a1467da865e411c2aa03bbec2203843` (TR-023). Offline mocks OK. Live: Q3 **K/N=14/16** (UI: 16 omni — two misses despite `COMPLETE`); Q4 **16/16** (UI: 5 omni + 11 dir). Unmerged, unpushed.
+- `WI-020` is `COMPLETE` at `7f4dfba66a1467da865e411c2aa03bbec2203843` (TR-023). Live: Q3 **K/N=14/14** (operator correction; not 16); Q4 **16/16** (5 omni + 11 dir). Unmerged, unpushed.
 - `WI-021` is `COMPLETE` at `5a707f5e3ba331b39fa399b2ee3b6eb3260932d2` (TR-024). RT-006 **KEEP** 150/49 **math**. Unpushed.
-- `WI-022` is `COMPLETE` at `7cbeda3723e43d40623e0d0eaff5b634fb2ae36a` (TR-025). Encrypted jlog not readable for `R_c`. Matching local `result.json` has `jammer_count=14` omni, equal to K=14 (conflicts with operator `N=16`). Unpushed.
+- `WI-022` is `COMPLETE` at `7cbeda3723e43d40623e0d0eaff5b634fb2ae36a` (TR-025). Q3 miss hypothesis withdrawn after N correction. Unpushed.
 
 - No active collaboration issue authorizes history rewriting, branch deletion, object pruning, or remote publication.
 
 ## Blockers
 
-- Q3 14/16 does not reopen C0 geometry. 150/49 code still needs a separate WI after this diagnosis. C1/formal still closed. Optional operator check: rehearsal UI radii of the two missed sources.
+- Live B practices complete: Q3 14/14, Q4 16/16. 150/49 code still needs a separate WI. C1/formal still closed.
