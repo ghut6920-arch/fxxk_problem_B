@@ -50,11 +50,12 @@ None. `MODEL_SPEC.md` is intentionally absent.
 - `WI-021` is `COMPLETE` at `5a707f5e3ba331b39fa399b2ee3b6eb3260932d2` (TR-024). RT-006 **KEEP** 150/49 **math**. Unpushed.
 - `WI-022` is `COMPLETE` at `7cbeda3723e43d40623e0d0eaff5b634fb2ae36a` (TR-025). Q3 miss hypothesis withdrawn after N correction. Unpushed.
 - `WI-023` is `COMPLETE` at `5390c53a3a81d6c1b27f9b043f271382cdf065ed` (TR-028). Unmerged, unpushed.
-- `WI-024` Q2 wrap-up in progress on `B题-q2`.
-- `WI-025` is `READY` / issued: RT of `5390c53`.
+- `WI-024` is `COMPLETE` at `882ba6fe3fd84459c64e2121e872a51cee35304a` (TR-029). Unmerged, unpushed.
+- `WI-025` Red Team of `5390c53` on `B题-redteam`.
+- `WI-026` is `READY` / issued: Red Team of `882ba6f` on `B题-redteam-q2`.
 
 - No active collaboration issue authorizes history rewriting, branch deletion, object pruning, or remote publication.
 
 ## Blockers
 
-- WI-023 COMPLETE at `5390c53` (TR-028): CLEAR150 screen fail; SCAN49/COMBINED screen pass; BASE default. Not on `main`. WI-025 Red Team issued. WI-024 Q2 parallel on `B题-q2`. C1 暂不需要 this round.
+- WI-023 COMPLETE `5390c53` (TR-028). WI-024 COMPLETE `882ba6f` (TR-029). Neither on `main`. WI-025 and WI-026 Red Teams issued on **separate** worktrees. C1 暂不需要.

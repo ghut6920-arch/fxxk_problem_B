@@ -1,12 +1,13 @@
 # Primary Integration Goal
 
-Execute WI-025: Red Team of cover-variant commit `5390c53a3a81d6c1b27f9b043f271382cdf065ed`. WI-024 Q2 continues separately on `B题-q2`.
+Two independent Red Teams: WI-025 (`5390c53` cover variants, `B题-redteam`) and WI-026 (`882ba6f` Q2, `B题-redteam-q2`). Do not mix worktrees.
 
 ## Acceptance Criteria
 
-- Only `audits/redteam/RT-007.md`. No `src/` edits. No selection. No live enter.
-- BASE stays default until a later named freeze.
+- Each RT writes only its `audits/redteam/RT-00N.md`.
+- BASE remains default until a later freeze. Q2 draft is not CLAIMS.
+- No push, no formal enter, no C1.
 
-Status: IN_PROGRESS — WI-023 COMPLETE (screens); WI-025 issued; WI-024 parallel.
+Status: IN_PROGRESS — WI-023 and WI-024 COMPLETE pending RT.
 
-Owner: Red Team (WI-025); Q2 Executor (WI-024); Technical Lead after each.
+Owner: Red Team (two worktrees); Technical Lead after each RT file.
