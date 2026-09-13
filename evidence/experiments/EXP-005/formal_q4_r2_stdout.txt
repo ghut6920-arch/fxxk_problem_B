@@ -1,0 +1,20 @@
+C0 practice run: problem=Q4 mode=formal url=http://127.0.0.1:2026
+  resolved tag            : SCAN49 (requested Q4, q4_base_fallback=False)
+  planned scan/clear      : 49 points / 225 clear centres (exterior pts 28)
+  planned bounds          : measures=980 switches=979 requests=4580 budget=71794.5696961967s
+  invariant match         : True 
+  emitted (from wire log) : measures=980 distinct scan points=49 switches=979 clear requests=1075 successes=16 max clear attempts/channel=120
+  aggregate screen        : True (counts only, not the proof) 
+  exact scan sequence     : True len=980 expected 6707a1750045f8a6... emitted 6707a1750045f8a6...
+  exact action proof      : True (scan True, clear True) 
+  clear prefixes          : 16 channels, all legal prefixes
+  outcome                 : COMPLETED
+  stop_reason             : None
+  accepted_actions        : 2055
+  unknown_accept_count    : 0
+  adaptive_actions        : 0 (adaptive_enabled=False)
+  virtual_time_s          : 27055.391859
+  max_ledger_residual_s   : 4.1452915411355207e-07
+  enter remaining real s  : 1200.0
+  completion              : COMPLETE success=16
+  note                    : MODE OVERRIDE: entering a non-practice session under explicit user authorization

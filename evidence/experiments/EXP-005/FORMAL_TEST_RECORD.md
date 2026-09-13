@@ -36,10 +36,28 @@ PYTHONPATH=src python scripts/run_c0_practice.py --problem Q4 --mode formal \
 |---|---|---|---|---|---|---|---|---|---|
 | 1 | Q3 | 17:27:37 | 16 s | **0** | **COMPLETED / `COMPLETE`** | **15** | 180 measures, 984 clears | 0 | 0 |
 | 2 | Q4 | 17:28:01 | 0 s | **1** | **`STOPPED_UNKNOWN_ACCEPT`** | — | **0 (no measure, no clear)** | 3 same-id `/enter` attempts | **1** |
+| 3 | Q4 | 17:28:57 | 27 s | **0** | **COMPLETED / `COMPLETE`** | **16** | 980 measures, 1075 clears | 0 | 0 |
 
-Rounds 3-6 (Q3 r2/r3, Q4 r2/r3) were **not run**: attempt 2 showed no Q4 session was open, and the
-official rule forbids starting a new test after `2026-09-13 17:30` Beijing (`problem/RULES.md` §36).
-Recorded as **`NOT_STARTED_AFTER_CUTOFF`** for the remaining four sessions.
+Attempt 2 failed closed because no Q4 session was open; the operator then opened one and attempt 3
+succeeded. Rounds 4-6 (Q3 r2/r3, Q4 r3) were **not started**: the official rule forbids starting a new
+test after `2026-09-13 17:30` Beijing (`problem/RULES.md` §36), and attempt 3 finished at 17:29:24.
+The remaining sessions are recorded as **`NOT_STARTED_AFTER_CUTOFF`**, not as successes.
+
+## 4b. Attempt 3 — Q4 formal, succeeded
+
+| Field | Value |
+|---|---|
+| Mode / endpoint | `formal` (operator-declared) / `http://127.0.0.1:2026` |
+| Resolved tag | **`SCAN49`** (named Q4 configuration, all 28 exterior points) |
+| Named invariant | match (49 / 980 / 979 / 225) |
+| Emitted | 980 measures, 49 distinct points, 979 switches, 1075 clear requests, **16** successes, max clear attempts/channel 120 |
+| **Exact scan proof** | **True** — expected = observed digest `6707a1750045f8a6` |
+| **Exact clear proof** | **True** — **16/16 legal prefixes** of the same plan's per-channel clear sequence |
+| Outcome / certificate | **COMPLETED** / **`COMPLETE`**, K = **16** (= the rule maximum N = 16) |
+| Session | accepted 2055, unknown-accept **0**, adaptive actions **0**, stop reason `None` |
+| Virtual time | **Tv = 27055.391859 s**; ledger residual 4.15e-07; ledger agrees with the independent decomposition |
+| Wire | 0 retried actions; exit reason `user_exit` |
+| Started / finished | 17:28:57 / 17:29:24 — started **before** the 17:30 cutoff |
 
 ## 4. Attempt 1 — Q3 formal, succeeded
 
