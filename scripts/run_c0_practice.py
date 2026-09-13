@@ -581,8 +581,20 @@ def run(args):
         confirmation = SessionConfirmation(args.confirm_session_problem, args.mode,
                                            args.robot_id, args.base_url)
         report["session_confirmation"] = confirmation.to_dict()
+    if args.confirm_formal:
+        report["mode_override"] = {
+            "authorized_by": "user (explicit, out-of-band)",
+            "mode": args.mode,
+            "effect": "practice-only guard released for this run",
+            "provenance_caveat": "these changes are an unreviewed local edit made under direct "
+                                 "user authorization; the fixed version identity no longer "
+                                 "covers this run",
+        }
+        report["notes"].append(
+            "MODE OVERRIDE: entering a non-practice session under explicit user authorization")
     session = PracticeSession(client, margin_s=args.time_margin_s, mode=args.mode,
-                              require_practice_confirmation=True, confirmation=confirmation)
+                              require_practice_confirmation=True, confirmation=confirmation,
+                              allow_non_practice=args.confirm_formal)
     env = ProtocolEnv(session)
     runner = None
     entered = False
@@ -687,6 +699,10 @@ def build_parser():
                         help="the session mode the operator sees; formal aborts before /enter")
     parser.add_argument("--confirm-practice", action="store_true",
                         help="operator confirmation that the open session is a practice/演练 run")
+    parser.add_argument("--confirm-formal", action="store_true",
+                        help="EXPLICIT user authorization to enter a NON-practice (official/正式) "
+                             "session; overrides the practice-only guard and is recorded in the "
+                             "report as an override with its provenance caveat")
     parser.add_argument("--confirm-session-problem", choices=("Q3", "Q4"), default=None,
                         help="the problem number the operator sees for the OPEN session; "
                              "must match --problem (WI-020 requires a fresh per-session check)")
@@ -717,9 +733,10 @@ def _parse_args(argv=None, parser=None):
         parser.error("refusing to run: --q4-base-fallback is defined for Q4 only")
     if args.problem == "Q3" and NAMED_TAG["Q3"] != "BASE":
         parser.error("refusing to run: Q3 must use the named BASE configuration")
-    if not args.mock and args.mode != "practice":
-        parser.error("refusing to run: the indicated mode is formal/正式; this WI may not enter it")
-    if not args.mock and not args.confirm_practice:
+    if not args.mock and args.mode != "practice" and not args.confirm_formal:
+        parser.error("refusing to run: the indicated mode is formal/正式; pass --confirm-formal "
+                     "only with explicit user authorization to enter an official session")
+    if not args.mock and not (args.confirm_practice or args.confirm_formal):
         parser.error("refusing to send /enter: pass --confirm-practice only after checking that the "
                      "open session in the simulator UI is a practice/演练 run")
     if not args.mock:

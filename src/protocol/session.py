@@ -76,9 +76,9 @@ class SessionConfirmation:
         self.robot_id = robot_id
         self.base_url = base_url
 
-    def mismatches(self, *, problem, mode, robot_id, base_url):
+    def mismatches(self, *, problem, mode, robot_id, base_url, allow_non_practice=False):
         problems = []
-        if mode != "practice":
+        if mode != "practice" and not allow_non_practice:
             problems.append(f"mode is {mode!r}, not 'practice'")
         if self.mode != mode:
             problems.append(f"confirmed mode {self.mode!r} != run mode {mode!r}")
@@ -99,12 +99,16 @@ class PracticeSession:
     """Sequential C0 practice session over a :class:`~protocol.client.RobotClient`."""
 
     def __init__(self, client, margin_s=1.0, clock=time.monotonic, mode="practice",
-                 require_practice_confirmation=True, confirmation=None):
+                 require_practice_confirmation=True, confirmation=None,
+                 allow_non_practice=False):
         self.client = client
         self.clock = clock
         self.mode = mode
         self.confirmation = confirmation
         self.require_practice_confirmation = require_practice_confirmation
+        #: explicit operator authorization to enter a NON-practice (formal/official)
+        #: session.  Off by default; set only from an explicit --confirm-formal flag.
+        self.allow_non_practice = allow_non_practice
         self.margin_s = float(margin_s)
         self.tracker = mapping.LedgerTracker()
         self.guard = None
@@ -120,12 +124,14 @@ class PracticeSession:
 
     # -- lifecycle ----------------------------------------------------------
     def enter(self, problem=None):
-        if self.require_practice_confirmation and self.mode != "practice":
+        if (self.require_practice_confirmation and self.mode != "practice"
+                and not self.allow_non_practice):
             raise ProtocolStop("mode_not_practice", f"mode={self.mode}; refusing to send /enter")
         if self.confirmation is not None:
             problems = self.confirmation.mismatches(
                 problem=problem, mode=self.mode, robot_id=self.client.robot_id,
-                base_url=self.client.base_url)
+                base_url=self.client.base_url,
+                allow_non_practice=self.allow_non_practice)
             if problems:
                 raise ProtocolStop("session_not_confirmed", "; ".join(problems))
         response = self.client.enter()

@@ -1,0 +1,16 @@
+C0 practice run: problem=Q4 mode=formal url=http://127.0.0.1:2026
+  resolved tag            : SCAN49 (requested Q4, q4_base_fallback=False)
+  planned scan/clear      : 49 points / 225 clear centres (exterior pts 28)
+  planned bounds          : measures=980 switches=979 requests=4580 budget=71794.5696961967s
+  invariant match         : True 
+  emitted (from wire log) : measures=0 distinct scan points=0 switches=0 clear requests=0 successes=0 max clear attempts/channel=0
+  aggregate screen        : False (counts only, not the proof) ['scan_points: plan 49, emitted 0', 'measures: plan 980, emitted 0', 'switches: plan 979, emitted 0', 'no /measure was emitted']
+  outcome                 : STOPPED_UNKNOWN_ACCEPT
+  stop_reason             : unknown_accept
+  accepted_actions        : 0
+  unknown_accept_count    : 1
+  adaptive_actions        : 0 (adaptive_enabled=False)
+  virtual_time_s          : None
+  max_ledger_residual_s   : 0.0
+  note                    : MODE OVERRIDE: entering a non-practice session under explicit user authorization
+  note                    : unknown acceptance state, stopped without a new request_id: /enter c0-enter-1: acceptance unknown after 3 attempt(s); last error: URLError: <urlopen error [WinError 10053] 你的主机中的软件中止了一个已建立的连接。>

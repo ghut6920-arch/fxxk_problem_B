@@ -1,0 +1,227 @@
+{
+  "problem": "Q4",
+  "mode": "formal",
+  "base_url": "http://127.0.0.1:2026",
+  "robot_id": "202619007369",
+  "started_at": "2026-09-13T17:28:01",
+  "outcome": "STOPPED_UNKNOWN_ACCEPT",
+  "notes": [
+    "MODE OVERRIDE: entering a non-practice session under explicit user authorization",
+    "unknown acceptance state, stopped without a new request_id: /enter c0-enter-1: acceptance unknown after 3 attempt(s); last error: URLError: <urlopen error [WinError 10053] 你的主机中的软件中止了一个已建立的连接。>"
+  ],
+  "resolved_tag": "SCAN49",
+  "configuration": {
+    "requested_problem": "Q4",
+    "requested_mode": "formal",
+    "requested_q4_base_fallback": false,
+    "resolved_tag": "SCAN49",
+    "selectable_tags": [
+      "BASE",
+      "SCAN49"
+    ],
+    "identity": {
+      "src/candidate/variants.py_sha256": "bac29edc79b2fa8cbe6cf067303cce1c32a73e3e585e42a50e8bf054b0f98d8a",
+      "src/candidate/scan.py_sha256": "4a494b96f66b140f9aee593511c1f8dcbdc5047ebbf8c8b4f863f83914bcc8ee",
+      "src/candidate/model.py_sha256": "549a2590e251d7c3a04057cf9be31fc9da2f24999cca775c333e53327fe8a767",
+      "python": "3.12.3",
+      "git_HEAD": "1b87443a0bda118999a4ee241fce14b5739bc22e"
+    },
+    "planned": {
+      "scan_points": 49,
+      "scan_exterior_points_outside_1800": 28,
+      "clear_count": 225,
+      "measures": 980,
+      "switches": 979,
+      "request_bound": 4580,
+      "budget_s": 71794.5696961967,
+      "scan_route_length_m": 36569.8484809835,
+      "ideal_clear_path_m": 4480.0,
+      "submitted_clear_path_m": 4928.0,
+      "channels": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20
+      ]
+    },
+    "invariants": {
+      "expected": {
+        "scan_points": 49,
+        "measures": 980,
+        "switches": 979,
+        "clear_count": 225
+      },
+      "observed": {
+        "scan_points": 49,
+        "measures": 980,
+        "switches": 979,
+        "clear_count": 225
+      },
+      "matches": true,
+      "mismatches": []
+    },
+    "emitted_verification": {
+      "expected": {
+        "scan_points": 49,
+        "measures": 980,
+        "switches": 979,
+        "clear_count": 225
+      },
+      "observed": {
+        "scan_points": 0,
+        "measures": 0,
+        "switches": 0,
+        "clear_count": null
+      },
+      "mismatches": [
+        "scan_points: plan 49, emitted 0",
+        "measures: plan 980, emitted 0",
+        "switches: plan 979, emitted 0",
+        "no /measure was emitted"
+      ],
+      "matches": false,
+      "proof": false,
+      "note": "aggregate screen only; exact verification is verify_scan_sequence/verify_clear_sequence"
+    }
+  },
+  "scan_points": 49,
+  "planned_measures": 980,
+  "enter": null,
+  "completion": null,
+  "emitted": {
+    "measure_requests": 0,
+    "clear_requests": 0,
+    "distinct_scan_points": 0,
+    "distinct_channels_measured": 0,
+    "switches": 0,
+    "clear_successes": 0,
+    "max_clear_attempts_per_channel": 0,
+    "clear_attempts_per_channel": {}
+  },
+  "cost": {
+    "question": "Q4",
+    "counts": {
+      "actions": 0,
+      "measure": 0,
+      "clear": 0,
+      "clear_fail": 0,
+      "k_success": 0,
+      "switch": 0
+    },
+    "moves_m": {
+      "origin_to_first_measure": 0.0,
+      "scan": 0.0,
+      "intra_clear": 0.0,
+      "inter_channel_connect": 0.0,
+      "total": 0.0
+    },
+    "seconds": {
+      "origin": 0.0,
+      "scan": 0.0,
+      "intra_clear": 0.0,
+      "inter_channel": 0.0,
+      "switch": 0.0,
+      "measure": 0.0,
+      "clear_base": 0.0,
+      "clear_success": 0.0,
+      "total": 0.0
+    },
+    "extremes_m": {
+      "max_intra_clear_step": 0.0,
+      "max_inter_channel_connect": 0.0,
+      "max_scan_step": 0.0
+    },
+    "attempts_per_channel": {},
+    "success_channel_order": [],
+    "ledger_agrees_with_decomposition": true,
+    "tv_over_k": null
+  },
+  "requests": [
+    {
+      "seq": 1,
+      "path": "/enter",
+      "request_id": "c0-enter-1",
+      "body": {
+        "arena_id": "default",
+        "robot_id": "202619007369",
+        "request_id": "c0-enter-1"
+      },
+      "attempts": 3,
+      "send_monotonic_s": [
+        222498.593,
+        222498.64,
+        222498.656
+      ],
+      "recv_monotonic_s": [],
+      "http_status": null,
+      "accepted": null,
+      "outcome": "unknown_accept",
+      "virtual_time_s": null,
+      "raw_response": null,
+      "detail": "URLError: <urlopen error [WinError 10053] 你的主机中的软件中止了一个已建立的连接。>"
+    }
+  ],
+  "ledger": {
+    "candidate_total": 0.0,
+    "max_residual_s": 0.0
+  },
+  "session": {
+    "mode": "formal",
+    "session_confirmation": {
+      "problem": "Q4",
+      "mode": "formal",
+      "robot_id": "202619007369",
+      "base_url": "http://127.0.0.1:2026",
+      "source": "operator-confirmed, current session"
+    },
+    "stop_reason": "unknown_accept",
+    "adaptive_enabled": false,
+    "adaptive_status": "REALTIME_UNCERTIFIED",
+    "adaptive_reasons": [
+      "no evidenced per-request end-to-end duration upper bound l_max",
+      "no evidenced fallback computation duration upper bound",
+      "no evidenced decision computation duration upper bound"
+    ],
+    "adaptive_actions": 0,
+    "accepted_actions": 0,
+    "unknown_accept_count": 1,
+    "virtual_time_s": null,
+    "candidate_ledger_total": 0.0,
+    "max_ledger_residual_s": 0.0,
+    "worst_ledger_residual_s": null,
+    "real_time": null,
+    "enter_remaining_real_duration_s": null,
+    "max_virtual_duration_s": null,
+    "virtual_remaining_s": null
+  },
+  "mock_state": null,
+  "session_confirmation": {
+    "problem": "Q4",
+    "mode": "formal",
+    "robot_id": "202619007369",
+    "base_url": "http://127.0.0.1:2026",
+    "source": "operator-confirmed, current session"
+  },
+  "mode_override": {
+    "authorized_by": "user (explicit, out-of-band)",
+    "mode": "formal",
+    "effect": "practice-only guard released for this run",
+    "provenance_caveat": "these changes are an unreviewed local edit made under direct user authorization; the fixed version identity no longer covers this run"
+  }
+}
