@@ -51,11 +51,12 @@ None. `MODEL_SPEC.md` is intentionally absent.
 - `WI-022` is `COMPLETE` at `7cbeda3723e43d40623e0d0eaff5b634fb2ae36a` (TR-025). Q3 miss hypothesis withdrawn after N correction. Unpushed.
 - `WI-023` is `COMPLETE` at `5390c53a3a81d6c1b27f9b043f271382cdf065ed` (TR-028). Unmerged, unpushed.
 - `WI-024` is `COMPLETE` at `882ba6fe3fd84459c64e2121e872a51cee35304a` (TR-029). Unmerged, unpushed.
-- `WI-025` Red Team of `5390c53` on `B题-redteam`.
-- `WI-026` is `READY` / issued: Red Team of `882ba6f` on `B题-redteam-q2`.
+- `WI-025` is `COMPLETE` at `ee2fc7ded5a3fe6be00a9ec3839b4574dc987360`. RT-007 retrieved.
+- `WI-026` Red Team of `882ba6f` on `B题-redteam-q2` (unchanged).
+- `WI-027` is `READY` / issued: hash bind + SCAN49 test.
 
 - No active collaboration issue authorizes history rewriting, branch deletion, object pruning, or remote publication.
 
 ## Blockers
 
-- WI-023 COMPLETE `5390c53` (TR-028). WI-024 COMPLETE `882ba6f` (TR-029). Neither on `main`. WI-025 and WI-026 Red Teams issued on **separate** worktrees. C1 暂不需要.
+- RT7-F1: do not cite 36-track save % until WI-027 binds `f00b1718…`. BASE default. WI-026 Q2 RT still open. C1 暂不需要. No formal enter.

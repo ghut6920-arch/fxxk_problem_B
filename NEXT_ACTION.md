@@ -1,13 +1,12 @@
 # Primary Integration Goal
 
-Two independent Red Teams: WI-025 (`5390c53` cover variants, `B题-redteam`) and WI-026 (`882ba6f` Q2, `B题-redteam-q2`). Do not mix worktrees.
+Execute WI-027: bind `worlds.json` SHA-256 `f00b1718…` into the WI-023 report and fix the SCAN49 exterior unit test. WI-026 Q2 Red Team remains on `B题-redteam-q2`.
 
 ## Acceptance Criteria
 
-- Each RT writes only its `audits/redteam/RT-00N.md`.
-- BASE remains default until a later freeze. Q2 draft is not CLAIMS.
-- No push, no formal enter, no C1.
+- Recorded hash equals `git show 5390c53:evidence/experiments/EXP-005/worlds.json` digest.
+- A 25-point lattice cannot pass as SCAN49. No `src/` geometry edits. No 36-track rerun. No push.
 
-Status: IN_PROGRESS — WI-023 and WI-024 COMPLETE pending RT.
+Status: IN_PROGRESS — WI-025 COMPLETE; WI-027 issued.
 
-Owner: Red Team (two worktrees); Technical Lead after each RT file.
+Owner: Executor on `feat/WI-027-worlds-hash-bind`; Q2 RT separate; Technical Lead after hash bind.
