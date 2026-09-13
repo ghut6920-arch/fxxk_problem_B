@@ -387,11 +387,21 @@ fixed inputs above. No WI-037 hash is invented or embedded.
 
 | Check | Result |
 |---|---|
-| `PYTHONPATH=src python -m unittest tests/p1b.test_practice_configuration -q` | **OK — 43 tests** (42 + the new one) |
+| `PYTHONPATH=src python -m unittest tests.p1b.test_practice_configuration -q` | **OK — 43 tests** (42 + the new one); replayed once in WI-038, 38.0 s |
 | Evidence search for generic no-`/enter` wording, every hit inspected | 7 retained statements are refusal-path or already live-qualified; 4 generic claims corrected (§12.3) |
 | WI-036 placeholder removed / identity present | verified by search: no unresolved result-commit placeholder token remains anywhere in this file (WI-036 identity `0f4fcb303b76b183a439cb5240606d1e445a13f7` present; WI-034 identity `b205b024d6a828bc7352de877d6ef8ea8cda8ada` present) |
 | `git diff --check` over both changed paths | clean |
 | Third path changed? | none — only the two authorized paths |
+
+> **Superseded command transcription (WI-038 / TR-041, MINOR, fixed).** The WI-037 commit
+> `6c5053e5f9f1a27704ad7b1a06c0446428834a08` recorded this row's command as
+> `~~PYTHONPATH=src python -m unittest tests/p1b.test_practice_configuration -q~~`, mixing a
+> path separator with a dotted module name. That form is **invalid**: it raises
+> `ModuleNotFoundError` and therefore cannot have produced the 43 passing tests, as TR-041
+> found (fixed object `d30fab53f75d1fb55770c1e514360b16ddbb8fd5`) and independently replayed.
+> The corrected dotted command now in the row above was re-run once under WI-038 and returned
+> **43 tests, OK** in 38.0 s. The failed transcription is retained here rather than deleted or
+> relabelled. No test, count, digest, outcome or other value changed.
 
 ### 12.6 Remaining gaps
 
