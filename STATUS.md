@@ -48,7 +48,7 @@ None. `MODEL_SPEC.md` is intentionally absent.
 - `WI-019` is `COMPLETE` at `08bf26a2ae0e3873ad742ff1c977b860b16973e8` (TR-021). RT-005: old path-cost MAJOR; repair no MAJOR/CRITICAL residual in scope. Unpushed.
 - `WI-020` is `COMPLETE` at `7f4dfba66a1467da865e411c2aa03bbec2203843` (TR-023). Offline mocks OK. Live: Q3 **K/N=14/16** (UI: 16 omni — two misses despite `COMPLETE`); Q4 **16/16** (UI: 5 omni + 11 dir). Unmerged, unpushed.
 - `WI-021` is `COMPLETE` at `5a707f5e3ba331b39fa399b2ee3b6eb3260932d2` (TR-024). RT-006 **KEEP** 150/49 **math**. Unpushed.
-- `WI-022` is `COMPLETE` at `7cbeda3723e43d40623e0d0eaff5b634fb2ae36a` (TR-025). Miss explained as full-scan silence → plan no-source → COMPLETE; no P3 hole; no patch. Unpushed.
+- `WI-022` is `COMPLETE` at `7cbeda3723e43d40623e0d0eaff5b634fb2ae36a` (TR-025). Encrypted jlog not readable for `R_c`. Matching local `result.json` has `jammer_count=14` omni, equal to K=14 (conflicts with operator `N=16`). Unpushed.
 
 - No active collaboration issue authorizes history rewriting, branch deletion, object pruning, or remote publication.
 
