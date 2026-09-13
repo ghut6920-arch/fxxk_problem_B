@@ -1,11 +1,11 @@
 # Primary Integration Goal
 
-Two short Red Team rechecks: WI-029 (worlds hash, `B题-redteam`) and WI-030 (Q2 F1 wording, `B题-redteam-q2`). Do not mix.
+Finish WI-030 (Q2 F1 wording recheck on `B题-redteam-q2`). Cover-variant RT7-F1/F2 are closed. BASE remains default.
 
 ## Acceptance Criteria
 
-- Append-only RT-007 / RT-008. No `src/` edits. No CLAIMS. No selection. No push.
+- Append-only RT-008 recheck. No CLAIMS. No COMBINED selection. No formal enter. No push without a new named authorization.
 
-Status: IN_PROGRESS — WI-027 and WI-028 COMPLETE pending rechecks.
+Status: IN_PROGRESS — WI-029 COMPLETE; WI-030 still issued.
 
-Owner: two Red Team worktrees; Technical Lead after each append.
+Owner: Q2 Red Team (`B题-redteam-q2`); Technical Lead after that append.

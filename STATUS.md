@@ -54,7 +54,7 @@ None. `MODEL_SPEC.md` is intentionally absent.
 - `WI-025` is `COMPLETE` at `ee2fc7ded5a3fe6be00a9ec3839b4574dc987360`. RT-007 retrieved.
 - `WI-026` is `COMPLETE` at `4fd42dfc1091bcfcc68502f4f599cddb5176b310` (TR-031). RT8-F1 MAJOR wording.
 - `WI-027` is `COMPLETE` at `9de8b67d32382e5c3767823e468894e436a7a3eb` (TR-032). Hash bound to `f00b1718…`.
-- `WI-029` is `READY` / issued: RT7-F1/F2 recheck.
+- `WI-029` is `COMPLETE` at `3a573c323e733ce2e181f1dce64803cddf14ce23` (TR-034). RT7-F1/F2 closed.
 - `WI-028` is `COMPLETE` at `067f4ca057857840b24444f5ff50c9604db696d2` (TR-033).
 - `WI-030` is `READY` / issued: RT8-F1 wording recheck.
 
@@ -62,4 +62,4 @@ None. `MODEL_SPEC.md` is intentionally absent.
 
 ## Blockers
 
-- Screens await WI-029 recheck. Q2 chapter awaits WI-030 F1 recheck. Neither is selection. C1 暂不需要. No formal enter.
+- Cover-variant screens bound to `f00b1718…` as research only; BASE default. Q2 chapter awaits WI-030. C1 暂不需要. No formal enter. `main` and feature results not pushed.
