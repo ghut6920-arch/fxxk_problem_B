@@ -2,7 +2,7 @@
 
 ## Competition Stage
 
-Q2 finite-construction closeout is authorized by SR-003 / D-008: retain `C_in`, the finite six-point route and conservative quality upper bound; correct statement fidelity and add only the named analytic lower-bound checks. WI-031 is issued for Executor wording/evidence/claim registration, followed by independent Red Team WI-032. C1/C2, OPEN-2, formal work, model selection, merge and push remain closed.
+Q2 finite-construction closeout is authorized by SR-003 / D-008: retain `C_in`, the finite six-point route and conservative quality upper bound; correct statement fidelity and add only the named analytic lower-bound checks. WI-031 completed at `53285abb737291b34ccfc7a5f5e64f396a1c9540` and passed bounded authoring review in TR-036; its five claims remain `PENDING_RED_TEAM`. WI-032 is now issued for independent review of that fixed result. C1/C2, OPEN-2, formal work, model selection, merge and push remain closed.
 
 ## Verified Facts
 
@@ -58,10 +58,11 @@ None. `MODEL_SPEC.md` is intentionally absent.
 - `WI-029` is `COMPLETE` at `3a573c323e733ce2e181f1dce64803cddf14ce23` (TR-034). RT7-F1/F2 closed.
 - `WI-028` is `COMPLETE` at `067f4ca057857840b24444f5ff50c9604db696d2` (TR-033).
 - `WI-030` is `COMPLETE` at `b13daeb6bd12ab0a3b9c6be4f359fee38b09e371` (TR-035). RT8-F1 no longer applies to the repaired wording at `067f4ca`; F2/F3 and RT-002 are not closed by WI-030.
-- `WI-031` is `READY`: bounded Q2 statement/proof/evidence/CLAIMS closeout on a new Executor branch from fixed base `067f4ca`; no `q2.py` change or search.
+- `WI-031` is `COMPLETE` at `53285abb737291b34ccfc7a5f5e64f396a1c9540` (TR-036 PASS for bounded authoring/evidence scope). The result corrects Q2 semantics/candidate accounting and records the named analytic bounds without changing `q2.py`, candidates, caps, JSON, or selection rules. Five claims remain `PENDING_RED_TEAM`; unmerged and unpushed.
+- `WI-032` is `READY`: independent Red Team review of fixed target `53285abb`, including the new semantics/proofs/upper-bound trace and targeted RT8-F2/F3 recheck. It may write only RT-009 and an append-only RT-008 cross-reference.
 
 - No active collaboration issue authorizes history rewriting, branch deletion, object pruning, or remote publication.
 
 ## Blockers
 
-- Q2 chapter is not frozen until WI-031 result, independent WI-032 Red Team and final Technical Review. OPEN-1/3 remain unresolved; OPEN-2 unstarted; RT-002 open. Cover-variant screens remain research only; BASE default. C1 暂不需要. No formal enter. `main` and feature results not pushed.
+- Q2 chapter is not frozen until WI-032 independent Red Team and final Technical Review of the fixed WI-031 result. OPEN-1/3 remain unresolved; OPEN-2 unstarted; RT-002 open. Cover-variant screens remain research only; BASE default. C1 暂不需要. No formal enter. `main` and feature results not pushed.
