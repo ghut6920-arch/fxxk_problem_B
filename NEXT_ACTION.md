@@ -1,12 +1,11 @@
 # Primary Integration Goal
 
-Two **separate** Executor repairs: WI-027 (worlds hash, `B题-executor`) and WI-028 (Q2 wording, `B题-q2`). Do not mix worktrees.
+Execute WI-029: short Red Team recheck that worlds hash is `f00b1718…` and SCAN49 cannot be a 5×5 lattice. Q2 WI-028 continues on `B题-q2`.
 
 ## Acceptance Criteria
 
-- WI-027: recorded hash `f00b1718…`; SCAN49 exterior test.
-- WI-028: F1 sentences repaired; no \(J_2\) ranking claim; no CLAIMS; no cap raise.
+- Append to `audits/redteam/RT-007.md` only. No 36-track rerun. No selection. No push.
 
-Status: IN_PROGRESS — RT-007 and RT-008 retrieved; wording/hash repairs issued.
+Status: IN_PROGRESS — WI-027 COMPLETE; WI-029 issued.
 
-Owner: two Executors; Technical Lead after each; F1 recheck is Red Team later, not Strategist.
+Owner: Red Team on `B题-redteam`; Q2 Executor on `B题-q2`.

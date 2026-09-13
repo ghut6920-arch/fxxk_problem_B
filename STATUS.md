@@ -53,11 +53,12 @@ None. `MODEL_SPEC.md` is intentionally absent.
 - `WI-024` is `COMPLETE` at `882ba6fe3fd84459c64e2121e872a51cee35304a` (TR-029). Unmerged, unpushed.
 - `WI-025` is `COMPLETE` at `ee2fc7ded5a3fe6be00a9ec3839b4574dc987360`. RT-007 retrieved.
 - `WI-026` is `COMPLETE` at `4fd42dfc1091bcfcc68502f4f599cddb5176b310` (TR-031). RT8-F1 MAJOR wording.
-- `WI-027` hash bind on `B题-executor` (issued).
+- `WI-027` is `COMPLETE` at `9de8b67d32382e5c3767823e468894e436a7a3eb` (TR-032). Hash bound to `f00b1718…`.
+- `WI-029` is `READY` / issued: RT7-F1/F2 recheck.
 - `WI-028` is `READY` / issued: Q2 wording on `B题-q2`.
 
 - No active collaboration issue authorizes history rewriting, branch deletion, object pruning, or remote publication.
 
 ## Blockers
 
-- RT7-F1: do not cite 36-track save % until WI-027. RT8-F1: do not close Q2 chapter until wording repair. Strategist not required for F1. C1 暂不需要. No formal enter.
+- Screens may be cited as research after WI-029 recheck; still not selection. RT8-F1 Q2 wording still open. C1 暂不需要. No formal enter.
