@@ -1,11 +1,18 @@
 #!/usr/bin/env python3
-"""C0 practice client for the official robot interface (WI-017).
+"""C0 practice client for the official robot interface (WI-017, WI-034).
 
 Drives the **frozen C0** policy (``src/candidate/``) through the P1-B adapter
-(``src/protocol/``).  Q3 scans ``P_3`` (9 points), Q4 scans ``P_4`` (81 points);
-channels 1..20 are measured at every point in snake order, then each discovered
-channel is cleared with its 225-point rectangle (``near`` clears at the saved
-point).
+(``src/protocol/``) using the **named practice configuration** of WI-034 / SR-004 /
+D-009:
+
+* **Q3 -> ``BASE``** -- ``P_3`` (9 points), 225-point clear rectangle;
+* **Q4 -> ``SCAN49``** -- the complete ``P_4' = {700(i, j) : i, j = -3..3}`` lattice
+  (49 points, all 28 exterior points kept), 225-point clear rectangle;
+* **Q4 BASE fallback** -- explicit, fail-closed opt-in (``--q4-base-fallback``) that
+  selects the repaired BASE 81-point scan; nothing else is reachable from this entry.
+
+CLEAR150, COMBINED and C1 are **not** selectable here, and this script is deliberately
+not a general variant selector: :data:`SELECTABLE_TAGS` is the closed set.
 
 Safety rules enforced here:
 
@@ -16,7 +23,9 @@ Safety rules enforced here:
 * stop on an unknown acceptance state (never send a new ``request_id``), on a
   protocol/ledger inconsistency, and when the real-time budget is spent;
 * C1 is closed: no adaptive action is ever taken (``adaptive_actions == 0``);
-* simulator internals (``JammersSimulatorData`` and friends) are never read.
+* simulator internals (``JammersSimulatorData`` and friends) are never read;
+* the logged configuration is the *resolved plan*, and it is reported together with
+  actual action-derived counts plus a match verdict -- a label alone is not evidence.
 
 Examples::
 
@@ -32,9 +41,11 @@ Examples::
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import math
 import pathlib
+import subprocess
 import sys
 import time
 
@@ -45,9 +56,23 @@ if str(REPO) not in sys.path:
 from candidate import model as candidate_model          # noqa: E402
 from candidate import observe as candidate_observe      # noqa: E402
 from candidate import scan as candidate_scan            # noqa: E402
+from candidate import variants as candidate_variants    # noqa: E402
 from protocol.client import DEFAULT_BASE_URL, RobotClient  # noqa: E402
 from protocol.errors import ProtocolError, UnknownAcceptError  # noqa: E402
 from protocol.session import PracticeSession, SessionConfirmation  # noqa: E402
+
+#: the named configuration (WI-034 / SR-004 / D-009)
+NAMED_TAG = {"Q3": "BASE", "Q4": "SCAN49"}
+#: the only fallback this entry may offer, and only for Q4
+FALLBACK_Q4_TAG = "BASE"
+#: closed set: no CLEAR150, no COMBINED, no general selector
+SELECTABLE_TAGS = ("BASE", "SCAN49")
+#: mechanically checkable invariants: (problem, tag) -> scan/measure/switch/clear
+NAMED_INVARIANTS = {
+    ("Q3", "BASE"): {"scan_points": 9, "measures": 180, "switches": 179, "clear_count": 225},
+    ("Q4", "SCAN49"): {"scan_points": 49, "measures": 980, "switches": 979, "clear_count": 225},
+    ("Q4", "BASE"): {"scan_points": 81, "measures": 1620, "switches": 1619, "clear_count": 225},
+}
 
 #: read the mock only in --mock mode; it lives with the P1-B tests
 MOCK_DIR = REPO / "tests" / "p1b"
@@ -55,6 +80,174 @@ MOCK_DIR = REPO / "tests" / "p1b"
 COSTING_DIR = REPO / "tests"
 if str(COSTING_DIR) not in sys.path:
     sys.path.insert(0, str(COSTING_DIR))
+
+
+def resolve_plan(problem, q4_base_fallback=False):
+    """Resolve the named configuration for the practice entry (fail-closed).
+
+    Returns ``(tag, plan)``.  Only the two named tags and the explicit Q4 BASE
+    fallback can resolve; anything else raises, so CLEAR150/COMBINED are unreachable
+    from this entry and the Q3 configuration cannot be deflected.
+    """
+    if problem not in NAMED_TAG:
+        raise ValueError(f"unknown problem {problem!r}; expected one of {tuple(NAMED_TAG)}")
+    if q4_base_fallback:
+        if problem != "Q4":
+            raise ValueError("the BASE fallback is defined for Q4 only")
+        tag = FALLBACK_Q4_TAG
+    else:
+        tag = NAMED_TAG[problem]
+    if tag not in SELECTABLE_TAGS:
+        raise ValueError(f"refusing unresolved configuration {tag!r} for {problem}")
+    if problem == "Q3" and tag != "BASE":
+        raise ValueError("Q3 must use BASE (9-point scan, 225-point clear)")
+    plan = candidate_variants.plan_for(tag)
+    return tag, plan
+
+
+def _file_sha256(path):
+    try:
+        return hashlib.sha256(pathlib.Path(path).read_bytes()).hexdigest()
+    except OSError:
+        return None
+
+
+def _git_head():
+    try:
+        out = subprocess.run(["git", "rev-parse", "HEAD"], cwd=str(REPO),
+                             capture_output=True, timeout=10)
+        return out.stdout.decode().strip() or None if out.returncode == 0 else None
+    except Exception:
+        return None
+
+
+def source_identity():
+    """Runtime identity of the modules that define the resolved configuration."""
+    import candidate.model as model_mod
+    import candidate.scan as scan_mod
+    import candidate.variants as variants_mod
+
+    identity = {
+        "src/candidate/variants.py_sha256": _file_sha256(variants_mod.__file__),
+        "src/candidate/scan.py_sha256": _file_sha256(scan_mod.__file__),
+        "src/candidate/model.py_sha256": _file_sha256(model_mod.__file__),
+        "python": sys.version.split()[0],
+    }
+    head = _git_head()
+    if head:
+        identity["git_HEAD"] = head
+    return identity
+
+
+def check_named_invariants(problem, tag, plan):
+    """Compare the resolved plan against the WI-034 invariants (mechanical).
+
+    Returns ``{"expected": ..., "observed": ..., "matches": bool, "mismatches": [...]}``.
+    """
+    key = (problem, tag)
+    if key not in NAMED_INVARIANTS:
+        return {"expected": None, "observed": None, "matches": False,
+                "mismatches": [f"no invariant registered for {problem}/{tag}"]}
+    points = plan.scan_point_count(problem)
+    observed = {
+        "scan_points": points,
+        "measures": plan.measure_count(problem),
+        "switches": plan.switch_count(problem),
+        "clear_count": plan.clear_count,
+    }
+    expected = dict(NAMED_INVARIANTS[key])
+    mismatches = [f"{field}: expected {expected[field]}, observed {observed[field]}"
+                  for field in expected if expected[field] != observed[field]]
+    return {"expected": expected, "observed": observed,
+            "matches": not mismatches, "mismatches": mismatches}
+
+
+def configuration_record(problem, tag, plan, mode, q4_base_fallback):
+    """The full resolved configuration written into the run report."""
+    points = plan.scan_points(problem)
+    exterior = sum(1 for p in points if math.hypot(p[0], p[1]) > 1800.0)
+    return {
+        "requested_problem": problem,
+        "requested_mode": mode,
+        "requested_q4_base_fallback": bool(q4_base_fallback),
+        "resolved_tag": tag,
+        "selectable_tags": list(SELECTABLE_TAGS),
+        "identity": source_identity(),
+        "planned": {
+            "scan_points": len(points),
+            "scan_exterior_points_outside_1800": exterior,
+            "clear_count": plan.clear_count,
+            "measures": plan.measure_count(problem),
+            "switches": plan.switch_count(problem),
+            "request_bound": plan.total_request_bound(problem),
+            "budget_s": plan.budget(problem),
+            "scan_route_length_m": plan.scan_route_length(problem),
+            "ideal_clear_path_m": plan.describe()["ideal_clear_path_m"],
+            "submitted_clear_path_m": plan.describe()["submitted_clear_path_m"],
+            "channels": list(candidate_scan.Q3_Q4_CHANNELS),
+        },
+    }
+
+
+def emitted_counts(requests):
+    """Actual action-derived counts from the emitted request log.
+
+    Derived from the wire log itself — not from a label, and not from the plan — so
+    the comparison in :func:`verify_emitted_configuration` is non-trivial.
+    """
+    measures, clears = [], []
+    for entry in requests:
+        body = entry["body"]
+        if entry["path"] == "/measure":
+            measures.append((round(body["position"]["x"], 6), round(body["position"]["y"], 6),
+                             body["channel"]))
+        elif entry["path"] == "/clear":
+            response = entry.get("raw_response") or {}
+            clears.append((body["channel"], response.get("clear_result") == "success"))
+    points = {(x, y) for x, y, _c in measures}
+    switches = sum(1 for k in range(1, len(measures)) if measures[k][2] != measures[k - 1][2])
+    attempts = {}
+    for channel, _success in clears:
+        attempts[channel] = attempts.get(channel, 0) + 1
+    return {
+        "measure_requests": len(measures),
+        "clear_requests": len(clears),
+        "distinct_scan_points": len(points),
+        "distinct_channels_measured": len({c for _x, _y, c in measures}),
+        "switches": switches,
+        "clear_successes": sum(1 for _c, success in clears if success),
+        "max_clear_attempts_per_channel": max(attempts.values()) if attempts else 0,
+        "clear_attempts_per_channel": {str(k): v for k, v in sorted(attempts.items())},
+    }
+
+
+def verify_emitted_configuration(problem, tag, plan, emitted):
+    """Check the emitted actions against the resolved plan (not against a label)."""
+    expected = {
+        "scan_points": plan.scan_point_count(problem),
+        "measures": plan.measure_count(problem),
+        "switches": plan.switch_count(problem),
+        "clear_count": plan.clear_count,
+    }
+    observed = {
+        "scan_points": emitted["distinct_scan_points"],
+        "measures": emitted["measure_requests"],
+        "switches": emitted["switches"],
+        "clear_count": None,
+    }
+    mismatches = []
+    for field in ("scan_points", "measures", "switches"):
+        if observed[field] != expected[field]:
+            mismatches.append(f"{field}: plan {expected[field]}, emitted {observed[field]}")
+    if emitted["measure_requests"] == 0:
+        mismatches.append("no /measure was emitted")
+    if emitted["clear_requests"] and emitted["max_clear_attempts_per_channel"] > plan.clear_count:
+        mismatches.append("a clear walk exceeded the plan's clear_count")
+    if not emitted["clear_requests"] and emitted["clear_successes"] != 0:
+        mismatches.append("successes reported without a clear request")
+    return {"expected": expected, "observed": observed, "mismatches": mismatches,
+            "matches": not mismatches}
+
 
 
 def itemized_cost(question, requests):
@@ -152,9 +345,22 @@ def run(args):
     session = PracticeSession(client, margin_s=args.time_margin_s, mode=args.mode,
                               require_practice_confirmation=True, confirmation=confirmation)
     env = ProtocolEnv(session)
-    points = candidate_scan.P3() if args.problem == "Q3" else candidate_scan.P4()
+
+    # -- named configuration resolution (WI-034); fail-closed before /enter --------
+    tag, plan = resolve_plan(args.problem, q4_base_fallback=args.q4_base_fallback)
+    report["resolved_tag"] = tag
+    report["configuration"] = configuration_record(args.problem, tag, plan,
+                                                   report["mode"], args.q4_base_fallback)
+    invariants = check_named_invariants(args.problem, tag, plan)
+    report["configuration"]["invariants"] = invariants
+    if not invariants["matches"]:
+        report["outcome"] = "STOPPED_CONFIGURATION_INVARIANT"
+        report["notes"].append("resolved plan violates the named invariant: "
+                               + "; ".join(invariants["mismatches"]))
+        return report
+    points = plan.scan_points(args.problem)
     report["scan_points"] = len(points)
-    report["planned_measures"] = len(points) * len(candidate_scan.Q3_Q4_CHANNELS)
+    report["planned_measures"] = plan.measure_count(args.problem)
 
     try:
         enter = session.enter(problem=args.problem)
@@ -164,7 +370,7 @@ def run(args):
             "max_virtual_duration_s": enter.max_virtual_duration_s,
             "max_real_duration_s": enter.max_real_duration_s,
         }
-        runner = candidate_model.C0Runner(env, channels=candidate_scan.Q3_Q4_CHANNELS)
+        runner = candidate_model.C0Runner(env, channels=candidate_scan.Q3_Q4_CHANNELS, plan=plan)
         runner.run_scan(points, question=args.problem)
         report["scan_completed"] = True
         runner.run_clears()
@@ -190,6 +396,10 @@ def run(args):
             "max_residual_s": session.tracker.max_residual,
         }
         report["requests"] = client.log()
+        emitted = emitted_counts(report["requests"])
+        report["emitted"] = emitted
+        report["configuration"]["emitted_verification"] = verify_emitted_configuration(
+            args.problem, tag, plan, emitted)
         cost = itemized_cost(args.problem, report["requests"])
         report["cost"] = cost.to_dict()
         report["cost"]["ledger_agrees_with_decomposition"] = (
@@ -210,8 +420,12 @@ def run(args):
 
 
 def main(argv=None):
-    parser = argparse.ArgumentParser(description="C0 practice client (WI-017)")
+    parser = argparse.ArgumentParser(description="C0 practice client (WI-017, named entry WI-034)")
     parser.add_argument("--problem", choices=("Q3", "Q4"), default="Q3")
+    parser.add_argument("--q4-base-fallback", action="store_true",
+                        help="explicit fail-closed opt-in: run Q4 with the repaired BASE "
+                             "81-point scan instead of the named SCAN49 configuration "
+                             "(Q4 only; CLEAR150/COMBINED are not selectable)")
     parser.add_argument("--base-url", default=DEFAULT_BASE_URL)
     parser.add_argument("--robot-id", default=None, help="logged-in team identifier (参赛队号)")
     parser.add_argument("--mode", choices=("practice", "formal"), default="practice",
@@ -235,6 +449,10 @@ def main(argv=None):
 
     if not args.robot_id:
         parser.error("--robot-id is required (must byte-equal the logged-in team identifier)")
+    if args.q4_base_fallback and args.problem != "Q4":
+        parser.error("refusing to run: --q4-base-fallback is defined for Q4 only")
+    if args.problem == "Q3" and NAMED_TAG["Q3"] != "BASE":
+        parser.error("refusing to run: Q3 must use the named BASE configuration")
     if not args.mock and args.mode != "practice":
         parser.error("refusing to run: the indicated mode is formal/正式; this WI may not enter it")
     if not args.mock and not args.confirm_practice:
@@ -256,6 +474,29 @@ def main(argv=None):
         print(payload)
     else:
         print(f"C0 practice run: problem={report['problem']} mode={report['mode']} url={report['base_url']}")
+        config = report.get("configuration") or {}
+        planned = config.get("planned") or {}
+        invariants = config.get("invariants") or {}
+        verification = config.get("emitted_verification") or {}
+        print(f"  resolved tag            : {config.get('resolved_tag')} "
+              f"(requested {config.get('requested_problem')}, "
+              f"q4_base_fallback={config.get('requested_q4_base_fallback')})")
+        print(f"  planned scan/clear      : {planned.get('scan_points')} points / "
+              f"{planned.get('clear_count')} clear centres "
+              f"(exterior pts {planned.get('scan_exterior_points_outside_1800')})")
+        print(f"  planned bounds          : measures={planned.get('measures')} "
+              f"switches={planned.get('switches')} requests={planned.get('request_bound')} "
+              f"budget={planned.get('budget_s')}s")
+        print(f"  invariant match         : {invariants.get('matches')} "
+              f"{invariants.get('mismatches') or ''}")
+        emitted = report.get("emitted") or {}
+        print(f"  emitted (from wire log) : measures={emitted.get('measure_requests')} "
+              f"distinct scan points={emitted.get('distinct_scan_points')} "
+              f"switches={emitted.get('switches')} clear requests={emitted.get('clear_requests')} "
+              f"successes={emitted.get('clear_successes')} "
+              f"max clear attempts/channel={emitted.get('max_clear_attempts_per_channel')}")
+        print(f"  emitted vs plan         : {verification.get('matches')} "
+              f"{verification.get('mismatches') or ''}")
         session_info = report["session"]
         print(f"  outcome                 : {report['outcome']}")
         print(f"  stop_reason             : {session_info['stop_reason']}")
