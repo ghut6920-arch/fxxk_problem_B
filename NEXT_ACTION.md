@@ -1,13 +1,12 @@
 # Primary Integration Goal
 
-Execute WI-023: implement BASE/CLEAR150/SCAN49/COMBINED on tree `7cbeda` and offline-compare within 90 minutes. Keep BASE. No live `/enter`.
+Execute WI-027: bind `worlds.json` SHA-256 `f00b1718…` into the WI-023 report and fix the SCAN49 exterior unit test. WI-026 Q2 Red Team remains on `B题-redteam-q2`.
 
 ## Acceptance Criteria
 
-- 20×30 clears; `P_4'` keeps exterior points; 20 channels; no C1; no cap raise.
-- Tests check sequences and counts. Compare table or honest NOT_RUN if the 90 min cap hits.
-- No push, no formal, no 130-grid.
+- Recorded hash equals `git show 5390c53:evidence/experiments/EXP-005/worlds.json` digest.
+- A 25-point lattice cannot pass as SCAN49. No `src/` geometry edits. No 36-track rerun. No push.
 
-Status: IN_PROGRESS — WI-023 issued.
+Status: IN_PROGRESS — WI-025 COMPLETE; WI-027 issued.
 
-Owner: Executor; Technical Lead after the result; Red Team of that result next.
+Owner: Executor on `feat/WI-027-worlds-hash-bind`; Q2 RT separate; Technical Lead after hash bind.

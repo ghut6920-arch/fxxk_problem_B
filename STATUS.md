@@ -49,10 +49,14 @@ None. `MODEL_SPEC.md` is intentionally absent.
 - `WI-020` is `COMPLETE` at `7f4dfba66a1467da865e411c2aa03bbec2203843` (TR-023). Live: Q3 **K/N=14/14** (operator correction; not 16); Q4 **16/16** (5 omni + 11 dir). Unmerged, unpushed.
 - `WI-021` is `COMPLETE` at `5a707f5e3ba331b39fa399b2ee3b6eb3260932d2` (TR-024). RT-006 **KEEP** 150/49 **math**. Unpushed.
 - `WI-022` is `COMPLETE` at `7cbeda3723e43d40623e0d0eaff5b634fb2ae36a` (TR-025). Q3 miss hypothesis withdrawn after N correction. Unpushed.
-- `WI-023` is `READY` / issued: BASE/CLEAR150/SCAN49/COMBINED. Not started in this session.
+- `WI-023` is `COMPLETE` at `5390c53a3a81d6c1b27f9b043f271382cdf065ed` (TR-028). Unmerged, unpushed.
+- `WI-024` is `COMPLETE` at `882ba6fe3fd84459c64e2121e872a51cee35304a` (TR-029). Unmerged, unpushed.
+- `WI-025` is `COMPLETE` at `ee2fc7ded5a3fe6be00a9ec3839b4574dc987360`. RT-007 retrieved.
+- `WI-026` Red Team of `882ba6f` on `B题-redteam-q2` (unchanged).
+- `WI-027` is `READY` / issued: hash bind + SCAN49 test.
 
 - No active collaboration issue authorizes history rewriting, branch deletion, object pruning, or remote publication.
 
 ## Blockers
 
-- WI-023 waits for Executor (90 min research cap). Do not start C1 or live tests in this WI. Red Team of the implementation comes after the result.
+- RT7-F1: do not cite 36-track save % until WI-027 binds `f00b1718…`. BASE default. WI-026 Q2 RT still open. C1 暂不需要. No formal enter.
