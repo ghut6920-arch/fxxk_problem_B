@@ -1,13 +1,13 @@
 # Primary Integration Goal
 
-Execute WI-022: diagnose Q3 practice `K/N=14/16` COMPLETE. Do not implement 150/49.
+Execute WI-023: implement BASE/CLEAR150/SCAN49/COMBINED on tree `7cbeda` and offline-compare within 90 minutes. Keep BASE. No live `/enter`.
 
 ## Acceptance Criteria
 
-- Mechanism from frozen `q3_practice.json`; test that would catch the miss if it is control-flow.
-- `scan.py` blob unchanged unless a documented implementation patch.
-- No 150/49, C1, live sim, or push.
+- 20×30 clears; `P_4'` keeps exterior points; 20 channels; no C1; no cap raise.
+- Tests check sequences and counts. Compare table or honest NOT_RUN if the 90 min cap hits.
+- No push, no formal, no 130-grid.
 
-Status: IN_PROGRESS — WI-022 issued; WI-021 COMPLETE (KEEP math only).
+Status: IN_PROGRESS — WI-023 issued.
 
-Owner: Executor; Technical Lead after the result.
+Owner: Executor; Technical Lead after the result; Red Team of that result next.

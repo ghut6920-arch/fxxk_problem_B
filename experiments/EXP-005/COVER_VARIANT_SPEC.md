@@ -1,8 +1,8 @@
 # EXP-005 — Deterministic C0 cover variants (math only)
 
-Date: 2026-09-13. Status: **spec for independent challenge**; not implemented; not a result.
+Date: 2026-09-13. Status: **math KEEP (RT-006)**; implementation authorized as WI-023 with run labels BASE / CLEAR150 / SCAN49 / COMBINED. Not a score sheet.
 
-Baseline B: `d675831695d705ea8c4ffcb74fe8c83277847daf` (9/81/225). Plan blob `407b5e9f0bf001663bee4f9b9d4b21e601c4bbe4`.
+Baseline **BASE** (do not call this “B” in run tables): `d675831695d705ea8c4ffcb74fe8c83277847daf` geometry; full tree `7cbeda3723e43d40623e0d0eaff5b634fb2ae36a` (includes WI-020 adapter). Plan blob `407b5e9f0bf001663bee4f9b9d4b21e601c4bbe4`.
 
 This file is the Phase 2 object. Do not treat the numeric upper bounds as scores or per-case speedups.
 
@@ -37,6 +37,19 @@ If 20 channels still scanned fully: 980 measures, 979 switches; scan length \(70
 ## Combined analytic envelope (not a score)
 
 Q4 \(T\le 13192.97+16\times 3109.6\approx 62946.57\) s; business requests \(\le 980+16\times 150=3380\).
+
+## Label map (implementation)
+
+| Run tag | Scan | Clears | Problems |
+|---|---|---|---|
+| BASE | 9 / 81 | 225 | Q3, Q4 |
+| CLEAR150 | 9 / 81 | 150 (20×30 cells, y=±15) | Q3, Q4 |
+| SCAN49 | Q4: 49 (`P_4'`) | 225 | Q4 only |
+| COMBINED | Q4: 49 | 150 | Q4 only |
+
+## Steelman correction (does not reopen RT-006)
+
+RT-006 Steelman item 1 said 150-point cells have a **strictly smaller** half-diagonal than \(10\sqrt{2}\). That clause is **false**: \(\sqrt{10^2+15^2}=\sqrt{325}>\sqrt{200}=10\sqrt{2}\). Cover still holds because \(\sqrt{325}+1<20\). RT-006 KEEP of A/B identities is unchanged. Do not rerun the same math challenge.
 
 ## Out of scope
 
