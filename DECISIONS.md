@@ -122,6 +122,22 @@ Scope: `configuration` (contest allocation). Cover variants, if later implemente
 
 Reopen: official-rule change; Phase 1 failure that changes C0 mathematics; request to implement C1; new-test cutoff making live Phase 5 impossible.
 
+### D-008 External Q2 finite-closeout strategy
+
+Date: 2026-09-13. Source: user-delivered external strategy opinion recorded in `audits/strategic/SR-003.md`.
+
+Decision: KEEP the analytic `C_in`, finite-candidate, conservative-quality-upper-bound Q2 route. MODIFY official-semantic wording, candidate-set accounting, and conclusion wording; add one bounded proof/review cycle for the named `A_1` and fixed-forward lower bounds. Freeze the chapter after evidence-consistent completion and independent review; do not use “find a better point” as a stopping condition.
+
+Evidence/scope: fixed repaired target `067f4ca057857840b24444f5ff50c9604db696d2`; RT8-F1 recheck `b13daeb6bd12ab0a3b9c6be4f359fee38b09e371`; `q2.py` blob `00320497e0936d570d4a164b729e43543714ff07`; official rules; SR-003. Statement fidelity and bounded proof/claim scope, not model-family replacement or final selection.
+
+Required independent check: witnesses `(6,0)/(1500,0)` for `r(A_1)≥747`, `(506,0)/(1500,0)` after forward `(500,0)` for `J_2(p_f)≥497`, and version applicability of `J_2(p*)≤88.939059...≤89`. Advisor-proposed deductions are not established until the fixed Red Team review is accepted.
+
+Rejected: OPEN-2; candidate/cap/parameter search; changing the six-point rule or `q2.py` silently; treating 1500 m as universal receive guarantee; treating `near` as measurement-point separation; treating `epsilon_d` as official uncertainty; actual-error, lateral-superiority, global-optimum, two-measure-clear, stable-10-second, formal-readiness, or RT-002 closure claims.
+
+Affected stages: WI-031 Executor text/evidence/claim registration; WI-032 independent Red Team; Technical Lead final chapter-freeze review. No C1/C2, simulator, formal result, merge, or push.
+
+Reopen: official-rule conflict; failed witness or bound-version check; a required code/selection-rule change; later change to Q2 chapter, implementation blob, caps, evidence, or claim scope.
+
 ## Decision Template
 
 ### D-TODO

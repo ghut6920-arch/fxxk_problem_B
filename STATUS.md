@@ -2,7 +2,7 @@
 
 ## Competition Stage
 
-Official inputs and prior plan/design remain as recorded below. WI-023 issued: 150/49 **code** on repaired C0 tree `7cbeda`. RT-006 KEEP is math only. C1/formal still closed. New-test start cutoff 2026-09-13 17:30 Beijing (~6.6 h at WI-023 issuance 10:55).
+Q2 finite-construction closeout is authorized by SR-003 / D-008: retain `C_in`, the finite six-point route and conservative quality upper bound; correct statement fidelity and add only the named analytic lower-bound checks. WI-031 is issued for Executor wording/evidence/claim registration, followed by independent Red Team WI-032. C1/C2, OPEN-2, formal work, model selection, merge and push remain closed.
 
 ## Verified Facts
 
@@ -26,6 +26,7 @@ None. `MODEL_SPEC.md` is intentionally absent.
 ## Recent Major Decisions
 
 - Historical 2026-09-12 strategy note authorized 2–3 candidate mathematical routes with a simple baseline. Experiment **design** later completed under WI-010. User D-001 accepted the P1-A SPEC and authorized the evaluator WI only. User D-003 later authorized local evaluator integration and a C0 P1-A candidate WI; D-004 waived same-model authorship without creating isolation. User-delivered SR-002 / D-005 KEEP the three routes, set C0 as the contest-default **execution** path, reject current independent-evaluation and formal-readiness claims, and keep C1/C2/P4/P5 closed in this window. That is not final selection and not `MODEL_SPEC.md`.
+- User-delivered external SR-003 / D-008 KEEP the Q2 `C_in` + finite candidates + conservative upper-bound route and MODIFY only statement fidelity, candidate accounting and a bounded analytic lower-bound proof/review cycle. Chapter completion is evidence consistency, not finding a better point. This is not final selection or formal promotion.
 
 ## Collaboration State
 
@@ -56,10 +57,11 @@ None. `MODEL_SPEC.md` is intentionally absent.
 - `WI-027` is `COMPLETE` at `9de8b67d32382e5c3767823e468894e436a7a3eb` (TR-032). Hash bound to `f00b1718…`.
 - `WI-029` is `COMPLETE` at `3a573c323e733ce2e181f1dce64803cddf14ce23` (TR-034). RT7-F1/F2 closed.
 - `WI-028` is `COMPLETE` at `067f4ca057857840b24444f5ff50c9604db696d2` (TR-033).
-- `WI-030` is `READY` / issued: RT8-F1 wording recheck.
+- `WI-030` is `COMPLETE` at `b13daeb6bd12ab0a3b9c6be4f359fee38b09e371` (TR-035). RT8-F1 no longer applies to the repaired wording at `067f4ca`; F2/F3 and RT-002 are not closed by WI-030.
+- `WI-031` is `READY`: bounded Q2 statement/proof/evidence/CLAIMS closeout on a new Executor branch from fixed base `067f4ca`; no `q2.py` change or search.
 
 - No active collaboration issue authorizes history rewriting, branch deletion, object pruning, or remote publication.
 
 ## Blockers
 
-- Cover-variant screens bound to `f00b1718…` as research only; BASE default. Q2 chapter awaits WI-030. C1 暂不需要. No formal enter. `main` and feature results not pushed.
+- Q2 chapter is not frozen until WI-031 result, independent WI-032 Red Team and final Technical Review. OPEN-1/3 remain unresolved; OPEN-2 unstarted; RT-002 open. Cover-variant screens remain research only; BASE default. C1 暂不需要. No formal enter. `main` and feature results not pushed.
