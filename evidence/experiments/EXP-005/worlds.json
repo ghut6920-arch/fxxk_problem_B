@@ -1,0 +1,1642 @@
+{
+ "seed": 20260913,
+ "generator": "scripts/make_cover_worlds.py",
+ "domain": {
+  "target_radius_m": 1800.0,
+  "r_c_m": [
+   1000.0,
+   1500.0
+  ],
+  "min_separation_m": 120.0
+ },
+ "worlds": [
+  {
+   "id": "Q3-dev-1",
+   "question": "Q3",
+   "split": "dev",
+   "n_sources": 10,
+   "bearing_error_deg": -1.0,
+   "sources": {
+    "1": {
+     "g": [
+      -1133.632,
+      -1093.114
+     ],
+     "R": 1453.5,
+     "directional": false,
+     "phi_deg": 292.96,
+     "cleared": false
+    },
+    "2": {
+     "g": [
+      804.534,
+      -1376.122
+     ],
+     "R": 1187.8,
+     "directional": false,
+     "phi_deg": 119.62,
+     "cleared": false
+    },
+    "3": {
+     "g": [
+      -1079.818,
+      1233.472
+     ],
+     "R": 1460.9,
+     "directional": false,
+     "phi_deg": 248.11,
+     "cleared": false
+    },
+    "4": {
+     "g": [
+      -284.956,
+      -698.517
+     ],
+     "R": 1028.4,
+     "directional": false,
+     "phi_deg": 179.52,
+     "cleared": false
+    },
+    "5": {
+     "g": [
+      1094.671,
+      -614.329
+     ],
+     "R": 1061.5,
+     "directional": false,
+     "phi_deg": 92.78,
+     "cleared": false
+    },
+    "6": {
+     "g": [
+      645.907,
+      -1305.632
+     ],
+     "R": 1185.9,
+     "directional": false,
+     "phi_deg": 350.26,
+     "cleared": false
+    },
+    "7": {
+     "g": [
+      -814.246,
+      217.361
+     ],
+     "R": 1265.2,
+     "directional": false,
+     "phi_deg": 210.51,
+     "cleared": false
+    },
+    "8": {
+     "g": [
+      -307.213,
+      -1619.918
+     ],
+     "R": 1227.0,
+     "directional": false,
+     "phi_deg": 314.91,
+     "cleared": false
+    },
+    "9": {
+     "g": [
+      1256.529,
+      -11.883
+     ],
+     "R": 1023.0,
+     "directional": false,
+     "phi_deg": 345.83,
+     "cleared": false
+    },
+    "10": {
+     "g": [
+      57.898,
+      -784.298
+     ],
+     "R": 1437.2,
+     "directional": false,
+     "phi_deg": 264.3,
+     "cleared": false
+    }
+   }
+  },
+  {
+   "id": "Q3-dev-2",
+   "question": "Q3",
+   "split": "dev",
+   "n_sources": 13,
+   "bearing_error_deg": -1.0,
+   "sources": {
+    "1": {
+     "g": [
+      97.369,
+      -698.815
+     ],
+     "R": 1026.2,
+     "directional": false,
+     "phi_deg": 233.74,
+     "cleared": false
+    },
+    "2": {
+     "g": [
+      108.631,
+      550.711
+     ],
+     "R": 1422.3,
+     "directional": false,
+     "phi_deg": 203.52,
+     "cleared": false
+    },
+    "3": {
+     "g": [
+      -503.1,
+      1565.354
+     ],
+     "R": 1357.6,
+     "directional": false,
+     "phi_deg": 292.04,
+     "cleared": false
+    },
+    "4": {
+     "g": [
+      -1124.387,
+      -97.531
+     ],
+     "R": 1377.8,
+     "directional": false,
+     "phi_deg": 313.6,
+     "cleared": false
+    },
+    "5": {
+     "g": [
+      -372.623,
+      -1451.147
+     ],
+     "R": 1296.0,
+     "directional": false,
+     "phi_deg": 189.66,
+     "cleared": false
+    },
+    "6": {
+     "g": [
+      -235.796,
+      -1327.373
+     ],
+     "R": 1279.8,
+     "directional": false,
+     "phi_deg": 36.28,
+     "cleared": false
+    },
+    "7": {
+     "g": [
+      -232.934,
+      -247.879
+     ],
+     "R": 1234.1,
+     "directional": false,
+     "phi_deg": 203.43,
+     "cleared": false
+    },
+    "8": {
+     "g": [
+      1134.289,
+      -1296.24
+     ],
+     "R": 1058.1,
+     "directional": false,
+     "phi_deg": 47.54,
+     "cleared": false
+    },
+    "9": {
+     "g": [
+      1127.508,
+      112.699
+     ],
+     "R": 1188.4,
+     "directional": false,
+     "phi_deg": 43.16,
+     "cleared": false
+    },
+    "10": {
+     "g": [
+      116.797,
+      1241.862
+     ],
+     "R": 1155.4,
+     "directional": false,
+     "phi_deg": 14.99,
+     "cleared": false
+    },
+    "11": {
+     "g": [
+      1269.838,
+      33.226
+     ],
+     "R": 1295.5,
+     "directional": false,
+     "phi_deg": 261.4,
+     "cleared": false
+    },
+    "12": {
+     "g": [
+      658.683,
+      -443.654
+     ],
+     "R": 1051.3,
+     "directional": false,
+     "phi_deg": 17.5,
+     "cleared": false
+    },
+    "13": {
+     "g": [
+      395.97,
+      -1689.194
+     ],
+     "R": 1190.8,
+     "directional": false,
+     "phi_deg": 71.02,
+     "cleared": false
+    }
+   }
+  },
+  {
+   "id": "Q3-dev-3",
+   "question": "Q3",
+   "split": "dev",
+   "n_sources": 14,
+   "bearing_error_deg": 1.0,
+   "sources": {
+    "1": {
+     "g": [
+      930.518,
+      1238.958
+     ],
+     "R": 1225.2,
+     "directional": false,
+     "phi_deg": 0.62,
+     "cleared": false
+    },
+    "2": {
+     "g": [
+      1646.789,
+      -387.239
+     ],
+     "R": 1252.5,
+     "directional": false,
+     "phi_deg": 130.14,
+     "cleared": false
+    },
+    "3": {
+     "g": [
+      1426.998,
+      -979.58
+     ],
+     "R": 1381.9,
+     "directional": false,
+     "phi_deg": 201.49,
+     "cleared": false
+    },
+    "4": {
+     "g": [
+      -508.811,
+      -425.926
+     ],
+     "R": 1449.8,
+     "directional": false,
+     "phi_deg": 78.61,
+     "cleared": false
+    },
+    "5": {
+     "g": [
+      -243.33,
+      -657.415
+     ],
+     "R": 1244.2,
+     "directional": false,
+     "phi_deg": 56.72,
+     "cleared": false
+    },
+    "6": {
+     "g": [
+      -58.964,
+      -1459.011
+     ],
+     "R": 1227.9,
+     "directional": false,
+     "phi_deg": 160.21,
+     "cleared": false
+    },
+    "7": {
+     "g": [
+      -632.767,
+      -384.403
+     ],
+     "R": 1163.4,
+     "directional": false,
+     "phi_deg": 343.06,
+     "cleared": false
+    },
+    "8": {
+     "g": [
+      -1252.692,
+      -411.621
+     ],
+     "R": 1412.5,
+     "directional": false,
+     "phi_deg": 264.19,
+     "cleared": false
+    },
+    "9": {
+     "g": [
+      1529.172,
+      171.499
+     ],
+     "R": 1182.4,
+     "directional": false,
+     "phi_deg": 50.26,
+     "cleared": false
+    },
+    "10": {
+     "g": [
+      -1486.103,
+      914.024
+     ],
+     "R": 1081.0,
+     "directional": false,
+     "phi_deg": 134.16,
+     "cleared": false
+    },
+    "11": {
+     "g": [
+      933.301,
+      -950.042
+     ],
+     "R": 1395.5,
+     "directional": false,
+     "phi_deg": 106.15,
+     "cleared": false
+    },
+    "12": {
+     "g": [
+      209.499,
+      1710.663
+     ],
+     "R": 1250.7,
+     "directional": false,
+     "phi_deg": 206.8,
+     "cleared": false
+    },
+    "13": {
+     "g": [
+      -1261.884,
+      1144.736
+     ],
+     "R": 1417.2,
+     "directional": false,
+     "phi_deg": 78.59,
+     "cleared": false
+    },
+    "14": {
+     "g": [
+      -233.815,
+      -1518.369
+     ],
+     "R": 1078.7,
+     "directional": false,
+     "phi_deg": 183.57,
+     "cleared": false
+    }
+   }
+  },
+  {
+   "id": "Q3-hold-4",
+   "question": "Q3",
+   "split": "holdout",
+   "n_sources": 14,
+   "bearing_error_deg": -1.0,
+   "sources": {
+    "1": {
+     "g": [
+      726.878,
+      1552.015
+     ],
+     "R": 1294.1,
+     "directional": false,
+     "phi_deg": 306.81,
+     "cleared": false
+    },
+    "2": {
+     "g": [
+      -691.324,
+      162.127
+     ],
+     "R": 1013.6,
+     "directional": false,
+     "phi_deg": 289.98,
+     "cleared": false
+    },
+    "3": {
+     "g": [
+      908.897,
+      -444.95
+     ],
+     "R": 1159.8,
+     "directional": false,
+     "phi_deg": 345.02,
+     "cleared": false
+    },
+    "4": {
+     "g": [
+      1595.612,
+      731.404
+     ],
+     "R": 1215.5,
+     "directional": false,
+     "phi_deg": 184.89,
+     "cleared": false
+    },
+    "5": {
+     "g": [
+      383.999,
+      1151.56
+     ],
+     "R": 1142.4,
+     "directional": false,
+     "phi_deg": 349.0,
+     "cleared": false
+    },
+    "6": {
+     "g": [
+      950.148,
+      151.389
+     ],
+     "R": 1145.9,
+     "directional": false,
+     "phi_deg": 213.22,
+     "cleared": false
+    },
+    "7": {
+     "g": [
+      1183.37,
+      -210.712
+     ],
+     "R": 1438.9,
+     "directional": false,
+     "phi_deg": 309.29,
+     "cleared": false
+    },
+    "8": {
+     "g": [
+      785.074,
+      -24.023
+     ],
+     "R": 1268.0,
+     "directional": false,
+     "phi_deg": 94.76,
+     "cleared": false
+    },
+    "9": {
+     "g": [
+      1116.667,
+      -678.393
+     ],
+     "R": 1233.5,
+     "directional": false,
+     "phi_deg": 96.69,
+     "cleared": false
+    },
+    "10": {
+     "g": [
+      224.74,
+      465.538
+     ],
+     "R": 1384.3,
+     "directional": false,
+     "phi_deg": 85.35,
+     "cleared": false
+    },
+    "11": {
+     "g": [
+      -522.341,
+      1457.654
+     ],
+     "R": 1287.3,
+     "directional": false,
+     "phi_deg": 98.99,
+     "cleared": false
+    },
+    "12": {
+     "g": [
+      433.239,
+      -1226.227
+     ],
+     "R": 1200.0,
+     "directional": false,
+     "phi_deg": 78.9,
+     "cleared": false
+    },
+    "13": {
+     "g": [
+      -249.438,
+      523.971
+     ],
+     "R": 1089.1,
+     "directional": false,
+     "phi_deg": 36.7,
+     "cleared": false
+    },
+    "14": {
+     "g": [
+      -1158.405,
+      24.729
+     ],
+     "R": 1316.8,
+     "directional": false,
+     "phi_deg": 176.16,
+     "cleared": false
+    }
+   }
+  },
+  {
+   "id": "Q3-hold-5",
+   "question": "Q3",
+   "split": "holdout",
+   "n_sources": 10,
+   "bearing_error_deg": 1.0,
+   "sources": {
+    "1": {
+     "g": [
+      -1474.089,
+      -250.908
+     ],
+     "R": 1387.5,
+     "directional": false,
+     "phi_deg": 194.14,
+     "cleared": false
+    },
+    "2": {
+     "g": [
+      -191.547,
+      -446.073
+     ],
+     "R": 1184.9,
+     "directional": false,
+     "phi_deg": 161.07,
+     "cleared": false
+    },
+    "3": {
+     "g": [
+      -138.736,
+      821.756
+     ],
+     "R": 1269.6,
+     "directional": false,
+     "phi_deg": 31.34,
+     "cleared": false
+    },
+    "4": {
+     "g": [
+      -1462.975,
+      -50.527
+     ],
+     "R": 1085.8,
+     "directional": false,
+     "phi_deg": 298.36,
+     "cleared": false
+    },
+    "5": {
+     "g": [
+      1278.258,
+      341.274
+     ],
+     "R": 1347.7,
+     "directional": false,
+     "phi_deg": 272.09,
+     "cleared": false
+    },
+    "6": {
+     "g": [
+      -315.804,
+      1723.582
+     ],
+     "R": 1243.1,
+     "directional": false,
+     "phi_deg": 149.91,
+     "cleared": false
+    },
+    "7": {
+     "g": [
+      264.54,
+      261.396
+     ],
+     "R": 1001.1,
+     "directional": false,
+     "phi_deg": 100.53,
+     "cleared": false
+    },
+    "8": {
+     "g": [
+      336.68,
+      1267.167
+     ],
+     "R": 1157.9,
+     "directional": false,
+     "phi_deg": 140.85,
+     "cleared": false
+    },
+    "9": {
+     "g": [
+      1451.459,
+      899.27
+     ],
+     "R": 1201.2,
+     "directional": false,
+     "phi_deg": 228.51,
+     "cleared": false
+    },
+    "10": {
+     "g": [
+      544.954,
+      -85.563
+     ],
+     "R": 1047.9,
+     "directional": false,
+     "phi_deg": 180.31,
+     "cleared": false
+    }
+   }
+  },
+  {
+   "id": "Q3-hold-6",
+   "question": "Q3",
+   "split": "holdout",
+   "n_sources": 16,
+   "bearing_error_deg": 0.5,
+   "sources": {
+    "1": {
+     "g": [
+      682.907,
+      -25.816
+     ],
+     "R": 1092.5,
+     "directional": false,
+     "phi_deg": 277.34,
+     "cleared": false
+    },
+    "2": {
+     "g": [
+      48.005,
+      613.697
+     ],
+     "R": 1456.4,
+     "directional": false,
+     "phi_deg": 295.36,
+     "cleared": false
+    },
+    "3": {
+     "g": [
+      -302.641,
+      -968.131
+     ],
+     "R": 1394.5,
+     "directional": false,
+     "phi_deg": 190.21,
+     "cleared": false
+    },
+    "4": {
+     "g": [
+      -1725.839,
+      135.621
+     ],
+     "R": 1058.0,
+     "directional": false,
+     "phi_deg": 177.86,
+     "cleared": false
+    },
+    "5": {
+     "g": [
+      -427.102,
+      789.655
+     ],
+     "R": 1209.1,
+     "directional": false,
+     "phi_deg": 342.6,
+     "cleared": false
+    },
+    "6": {
+     "g": [
+      439.012,
+      723.423
+     ],
+     "R": 1294.1,
+     "directional": false,
+     "phi_deg": 253.7,
+     "cleared": false
+    },
+    "7": {
+     "g": [
+      -1334.568,
+      -1053.377
+     ],
+     "R": 1108.4,
+     "directional": false,
+     "phi_deg": 108.39,
+     "cleared": false
+    },
+    "8": {
+     "g": [
+      475.631,
+      -135.275
+     ],
+     "R": 1328.5,
+     "directional": false,
+     "phi_deg": 277.57,
+     "cleared": false
+    },
+    "9": {
+     "g": [
+      -876.686,
+      -80.044
+     ],
+     "R": 1015.0,
+     "directional": false,
+     "phi_deg": 336.64,
+     "cleared": false
+    },
+    "10": {
+     "g": [
+      1280.686,
+      656.844
+     ],
+     "R": 1011.7,
+     "directional": false,
+     "phi_deg": 246.15,
+     "cleared": false
+    },
+    "11": {
+     "g": [
+      -272.343,
+      602.197
+     ],
+     "R": 1337.3,
+     "directional": false,
+     "phi_deg": 107.72,
+     "cleared": false
+    },
+    "12": {
+     "g": [
+      -243.607,
+      -585.036
+     ],
+     "R": 1164.9,
+     "directional": false,
+     "phi_deg": 267.15,
+     "cleared": false
+    },
+    "13": {
+     "g": [
+      267.425,
+      729.84
+     ],
+     "R": 1314.5,
+     "directional": false,
+     "phi_deg": 282.7,
+     "cleared": false
+    },
+    "14": {
+     "g": [
+      -385.913,
+      -704.945
+     ],
+     "R": 1343.8,
+     "directional": false,
+     "phi_deg": 92.27,
+     "cleared": false
+    },
+    "15": {
+     "g": [
+      -432.591,
+      1473.758
+     ],
+     "R": 1100.3,
+     "directional": false,
+     "phi_deg": 113.17,
+     "cleared": false
+    },
+    "16": {
+     "g": [
+      -1639.513,
+      -320.293
+     ],
+     "R": 1023.0,
+     "directional": false,
+     "phi_deg": 253.72,
+     "cleared": false
+    }
+   }
+  },
+  {
+   "id": "Q4-dev-1",
+   "question": "Q4",
+   "split": "dev",
+   "n_sources": 11,
+   "bearing_error_deg": -1.0,
+   "sources": {
+    "1": {
+     "g": [
+      -1223.621,
+      -822.217
+     ],
+     "R": 1203.0,
+     "directional": false,
+     "phi_deg": 180.39,
+     "cleared": false
+    },
+    "2": {
+     "g": [
+      -780.423,
+      1331.173
+     ],
+     "R": 1084.5,
+     "directional": false,
+     "phi_deg": 196.18,
+     "cleared": false
+    },
+    "3": {
+     "g": [
+      -1255.511,
+      1122.207
+     ],
+     "R": 1266.2,
+     "directional": true,
+     "phi_deg": 186.42,
+     "cleared": false
+    },
+    "4": {
+     "g": [
+      -995.119,
+      531.088
+     ],
+     "R": 1072.7,
+     "directional": false,
+     "phi_deg": 281.97,
+     "cleared": false
+    },
+    "5": {
+     "g": [
+      -705.158,
+      -421.239
+     ],
+     "R": 1425.0,
+     "directional": false,
+     "phi_deg": 301.0,
+     "cleared": false
+    },
+    "6": {
+     "g": [
+      -836.909,
+      -658.283
+     ],
+     "R": 1396.2,
+     "directional": true,
+     "phi_deg": 304.06,
+     "cleared": false
+    },
+    "7": {
+     "g": [
+      -46.916,
+      -1162.173
+     ],
+     "R": 1012.2,
+     "directional": false,
+     "phi_deg": 244.25,
+     "cleared": false
+    },
+    "8": {
+     "g": [
+      -1359.788,
+      -130.551
+     ],
+     "R": 1396.5,
+     "directional": false,
+     "phi_deg": 132.25,
+     "cleared": false
+    },
+    "9": {
+     "g": [
+      108.34,
+      548.671
+     ],
+     "R": 1076.7,
+     "directional": true,
+     "phi_deg": 233.87,
+     "cleared": false
+    },
+    "10": {
+     "g": [
+      -395.243,
+      -347.02
+     ],
+     "R": 1377.4,
+     "directional": false,
+     "phi_deg": 136.28,
+     "cleared": false
+    },
+    "11": {
+     "g": [
+      -312.105,
+      1673.88
+     ],
+     "R": 1486.9,
+     "directional": false,
+     "phi_deg": 204.32,
+     "cleared": false
+    }
+   }
+  },
+  {
+   "id": "Q4-dev-2",
+   "question": "Q4",
+   "split": "dev",
+   "n_sources": 10,
+   "bearing_error_deg": -0.5,
+   "sources": {
+    "1": {
+     "g": [
+      1220.024,
+      1183.88
+     ],
+     "R": 1133.9,
+     "directional": false,
+     "phi_deg": 187.21,
+     "cleared": false
+    },
+    "2": {
+     "g": [
+      -255.061,
+      1066.048
+     ],
+     "R": 1065.0,
+     "directional": false,
+     "phi_deg": 210.81,
+     "cleared": false
+    },
+    "3": {
+     "g": [
+      1393.313,
+      842.955
+     ],
+     "R": 1457.9,
+     "directional": true,
+     "phi_deg": 217.76,
+     "cleared": false
+    },
+    "4": {
+     "g": [
+      -485.73,
+      962.942
+     ],
+     "R": 1001.5,
+     "directional": false,
+     "phi_deg": 215.03,
+     "cleared": false
+    },
+    "5": {
+     "g": [
+      -687.571,
+      -311.865
+     ],
+     "R": 1410.8,
+     "directional": false,
+     "phi_deg": 253.64,
+     "cleared": false
+    },
+    "6": {
+     "g": [
+      170.665,
+      919.493
+     ],
+     "R": 1090.5,
+     "directional": true,
+     "phi_deg": 118.06,
+     "cleared": false
+    },
+    "7": {
+     "g": [
+      -1355.198,
+      65.751
+     ],
+     "R": 1383.9,
+     "directional": false,
+     "phi_deg": 41.71,
+     "cleared": false
+    },
+    "8": {
+     "g": [
+      -1092.534,
+      -172.892
+     ],
+     "R": 1491.9,
+     "directional": false,
+     "phi_deg": 28.75,
+     "cleared": false
+    },
+    "9": {
+     "g": [
+      17.497,
+      -1334.052
+     ],
+     "R": 1255.4,
+     "directional": true,
+     "phi_deg": 60.89,
+     "cleared": false
+    },
+    "10": {
+     "g": [
+      -307.359,
+      817.806
+     ],
+     "R": 1273.2,
+     "directional": false,
+     "phi_deg": 326.95,
+     "cleared": false
+    }
+   }
+  },
+  {
+   "id": "Q4-dev-3",
+   "question": "Q4",
+   "split": "dev",
+   "n_sources": 16,
+   "bearing_error_deg": 0.5,
+   "sources": {
+    "1": {
+     "g": [
+      -1020.16,
+      -1110.466
+     ],
+     "R": 1495.8,
+     "directional": false,
+     "phi_deg": 136.05,
+     "cleared": false
+    },
+    "2": {
+     "g": [
+      569.408,
+      -1399.954
+     ],
+     "R": 1310.9,
+     "directional": false,
+     "phi_deg": 294.53,
+     "cleared": false
+    },
+    "3": {
+     "g": [
+      -1221.796,
+      737.817
+     ],
+     "R": 1018.5,
+     "directional": true,
+     "phi_deg": 41.1,
+     "cleared": false
+    },
+    "4": {
+     "g": [
+      -318.464,
+      -1310.56
+     ],
+     "R": 1067.2,
+     "directional": false,
+     "phi_deg": 334.29,
+     "cleared": false
+    },
+    "5": {
+     "g": [
+      -672.483,
+      -426.648
+     ],
+     "R": 1358.6,
+     "directional": false,
+     "phi_deg": 267.61,
+     "cleared": false
+    },
+    "6": {
+     "g": [
+      153.385,
+      1435.775
+     ],
+     "R": 1179.5,
+     "directional": true,
+     "phi_deg": 262.78,
+     "cleared": false
+    },
+    "7": {
+     "g": [
+      -1151.114,
+      -333.822
+     ],
+     "R": 1002.0,
+     "directional": false,
+     "phi_deg": 50.28,
+     "cleared": false
+    },
+    "8": {
+     "g": [
+      -1387.761,
+      215.919
+     ],
+     "R": 1127.2,
+     "directional": false,
+     "phi_deg": 305.45,
+     "cleared": false
+    },
+    "9": {
+     "g": [
+      -239.657,
+      -1553.911
+     ],
+     "R": 1087.0,
+     "directional": true,
+     "phi_deg": 207.7,
+     "cleared": false
+    },
+    "10": {
+     "g": [
+      702.391,
+      684.552
+     ],
+     "R": 1264.7,
+     "directional": false,
+     "phi_deg": 99.26,
+     "cleared": false
+    },
+    "11": {
+     "g": [
+      843.004,
+      942.629
+     ],
+     "R": 1186.4,
+     "directional": false,
+     "phi_deg": 52.35,
+     "cleared": false
+    },
+    "12": {
+     "g": [
+      148.215,
+      -1726.932
+     ],
+     "R": 1208.3,
+     "directional": true,
+     "phi_deg": 195.0,
+     "cleared": false
+    },
+    "13": {
+     "g": [
+      893.187,
+      -986.596
+     ],
+     "R": 1328.1,
+     "directional": false,
+     "phi_deg": 156.63,
+     "cleared": false
+    },
+    "14": {
+     "g": [
+      -681.585,
+      462.041
+     ],
+     "R": 1352.5,
+     "directional": false,
+     "phi_deg": 223.2,
+     "cleared": false
+    },
+    "15": {
+     "g": [
+      1509.739,
+      -725.356
+     ],
+     "R": 1294.9,
+     "directional": true,
+     "phi_deg": 160.84,
+     "cleared": false
+    },
+    "16": {
+     "g": [
+      419.933,
+      -1623.86
+     ],
+     "R": 1412.5,
+     "directional": false,
+     "phi_deg": 94.29,
+     "cleared": false
+    }
+   }
+  },
+  {
+   "id": "Q4-hold-4",
+   "question": "Q4",
+   "split": "holdout",
+   "n_sources": 15,
+   "bearing_error_deg": -0.5,
+   "sources": {
+    "1": {
+     "g": [
+      0.351,
+      -257.887
+     ],
+     "R": 1076.1,
+     "directional": false,
+     "phi_deg": 40.66,
+     "cleared": false
+    },
+    "2": {
+     "g": [
+      288.243,
+      672.138
+     ],
+     "R": 1482.5,
+     "directional": false,
+     "phi_deg": 313.61,
+     "cleared": false
+    },
+    "3": {
+     "g": [
+      -873.101,
+      -1418.522
+     ],
+     "R": 1121.4,
+     "directional": true,
+     "phi_deg": 234.33,
+     "cleared": false
+    },
+    "4": {
+     "g": [
+      16.97,
+      -626.097
+     ],
+     "R": 1436.0,
+     "directional": false,
+     "phi_deg": 259.4,
+     "cleared": false
+    },
+    "5": {
+     "g": [
+      1426.467,
+      905.887
+     ],
+     "R": 1421.0,
+     "directional": false,
+     "phi_deg": 328.17,
+     "cleared": false
+    },
+    "6": {
+     "g": [
+      375.453,
+      1656.947
+     ],
+     "R": 1361.9,
+     "directional": true,
+     "phi_deg": 335.07,
+     "cleared": false
+    },
+    "7": {
+     "g": [
+      -879.689,
+      1156.29
+     ],
+     "R": 1305.5,
+     "directional": false,
+     "phi_deg": 185.57,
+     "cleared": false
+    },
+    "8": {
+     "g": [
+      -733.078,
+      -1547.648
+     ],
+     "R": 1255.8,
+     "directional": false,
+     "phi_deg": 352.39,
+     "cleared": false
+    },
+    "9": {
+     "g": [
+      243.151,
+      -960.426
+     ],
+     "R": 1138.1,
+     "directional": true,
+     "phi_deg": 82.44,
+     "cleared": false
+    },
+    "10": {
+     "g": [
+      -768.968,
+      713.686
+     ],
+     "R": 1259.9,
+     "directional": false,
+     "phi_deg": 144.0,
+     "cleared": false
+    },
+    "11": {
+     "g": [
+      576.891,
+      -227.729
+     ],
+     "R": 1437.5,
+     "directional": false,
+     "phi_deg": 52.12,
+     "cleared": false
+    },
+    "12": {
+     "g": [
+      673.781,
+      -598.715
+     ],
+     "R": 1135.6,
+     "directional": true,
+     "phi_deg": 265.74,
+     "cleared": false
+    },
+    "13": {
+     "g": [
+      1342.558,
+      -1033.689
+     ],
+     "R": 1156.6,
+     "directional": false,
+     "phi_deg": 84.6,
+     "cleared": false
+    },
+    "14": {
+     "g": [
+      387.352,
+      937.099
+     ],
+     "R": 1279.7,
+     "directional": false,
+     "phi_deg": 202.93,
+     "cleared": false
+    },
+    "15": {
+     "g": [
+      1690.315,
+      -6.088
+     ],
+     "R": 1039.3,
+     "directional": true,
+     "phi_deg": 356.32,
+     "cleared": false
+    }
+   }
+  },
+  {
+   "id": "Q4-hold-5",
+   "question": "Q4",
+   "split": "holdout",
+   "n_sources": 11,
+   "bearing_error_deg": -1.0,
+   "sources": {
+    "1": {
+     "g": [
+      -468.347,
+      -462.953
+     ],
+     "R": 1105.3,
+     "directional": false,
+     "phi_deg": 267.59,
+     "cleared": false
+    },
+    "2": {
+     "g": [
+      1409.367,
+      -621.296
+     ],
+     "R": 1026.8,
+     "directional": false,
+     "phi_deg": 312.97,
+     "cleared": false
+    },
+    "3": {
+     "g": [
+      -1580.562,
+      684.741
+     ],
+     "R": 1351.9,
+     "directional": true,
+     "phi_deg": 232.91,
+     "cleared": false
+    },
+    "4": {
+     "g": [
+      660.635,
+      648.923
+     ],
+     "R": 1145.3,
+     "directional": false,
+     "phi_deg": 48.86,
+     "cleared": false
+    },
+    "5": {
+     "g": [
+      -806.298,
+      -827.173
+     ],
+     "R": 1242.4,
+     "directional": false,
+     "phi_deg": 14.91,
+     "cleared": false
+    },
+    "6": {
+     "g": [
+      -1732.09,
+      -11.349
+     ],
+     "R": 1496.6,
+     "directional": true,
+     "phi_deg": 161.6,
+     "cleared": false
+    },
+    "7": {
+     "g": [
+      285.59,
+      -1423.216
+     ],
+     "R": 1072.8,
+     "directional": false,
+     "phi_deg": 168.99,
+     "cleared": false
+    },
+    "8": {
+     "g": [
+      -745.465,
+      -1528.646
+     ],
+     "R": 1119.4,
+     "directional": false,
+     "phi_deg": 150.2,
+     "cleared": false
+    },
+    "9": {
+     "g": [
+      62.232,
+      1284.583
+     ],
+     "R": 1043.1,
+     "directional": true,
+     "phi_deg": 215.58,
+     "cleared": false
+    },
+    "10": {
+     "g": [
+      -1026.539,
+      265.381
+     ],
+     "R": 1057.5,
+     "directional": false,
+     "phi_deg": 134.38,
+     "cleared": false
+    },
+    "11": {
+     "g": [
+      1192.598,
+      900.201
+     ],
+     "R": 1429.1,
+     "directional": false,
+     "phi_deg": 23.59,
+     "cleared": false
+    }
+   }
+  },
+  {
+   "id": "Q4-hold-6",
+   "question": "Q4",
+   "split": "holdout",
+   "n_sources": 12,
+   "bearing_error_deg": 1.0,
+   "sources": {
+    "1": {
+     "g": [
+      -170.271,
+      -658.906
+     ],
+     "R": 1062.6,
+     "directional": false,
+     "phi_deg": 69.82,
+     "cleared": false
+    },
+    "2": {
+     "g": [
+      -632.524,
+      853.316
+     ],
+     "R": 1281.7,
+     "directional": false,
+     "phi_deg": 230.5,
+     "cleared": false
+    },
+    "3": {
+     "g": [
+      169.4,
+      -1759.043
+     ],
+     "R": 1089.7,
+     "directional": true,
+     "phi_deg": 117.05,
+     "cleared": false
+    },
+    "4": {
+     "g": [
+      -400.434,
+      -1070.136
+     ],
+     "R": 1088.6,
+     "directional": false,
+     "phi_deg": 214.86,
+     "cleared": false
+    },
+    "5": {
+     "g": [
+      1505.361,
+      -886.396
+     ],
+     "R": 1283.9,
+     "directional": false,
+     "phi_deg": 71.27,
+     "cleared": false
+    },
+    "6": {
+     "g": [
+      -614.294,
+      -363.572
+     ],
+     "R": 1310.0,
+     "directional": true,
+     "phi_deg": 111.27,
+     "cleared": false
+    },
+    "7": {
+     "g": [
+      -334.127,
+      1486.389
+     ],
+     "R": 1058.0,
+     "directional": false,
+     "phi_deg": 28.41,
+     "cleared": false
+    },
+    "8": {
+     "g": [
+      -514.972,
+      105.548
+     ],
+     "R": 1169.9,
+     "directional": false,
+     "phi_deg": 253.66,
+     "cleared": false
+    },
+    "9": {
+     "g": [
+      -129.329,
+      -301.788
+     ],
+     "R": 1016.6,
+     "directional": true,
+     "phi_deg": 4.48,
+     "cleared": false
+    },
+    "10": {
+     "g": [
+      739.674,
+      -205.451
+     ],
+     "R": 1497.2,
+     "directional": false,
+     "phi_deg": 15.19,
+     "cleared": false
+    },
+    "11": {
+     "g": [
+      -1702.45,
+      -364.277
+     ],
+     "R": 1231.9,
+     "directional": false,
+     "phi_deg": 261.0,
+     "cleared": false
+    },
+    "12": {
+     "g": [
+      -1651.285,
+      178.514
+     ],
+     "R": 1099.8,
+     "directional": true,
+     "phi_deg": 25.52,
+     "cleared": false
+    }
+   }
+  }
+ ]
+}

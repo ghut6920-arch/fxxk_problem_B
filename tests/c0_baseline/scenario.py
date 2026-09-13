@@ -63,10 +63,13 @@ class ScriptedEnv:
     emission order, which is what the cost accountant decomposes.
     """
 
-    def __init__(self, script, origin=(0.0, 0.0), total_stages=None):
+    def __init__(self, script, origin=(0.0, 0.0), total_stages=None, scan_points=None):
         self.script = {s.channel: s for s in script}
         self.origin = (float(origin[0]), float(origin[1]))
         self.total_stages = total_stages
+        #: the lattice actually being scanned (WI-023 tags are not only P3/P4)
+        self.scan_points = None if scan_points is None else [(float(p[0]), float(p[1]))
+                                                             for p in scan_points]
         self.actions = []
         self.clear_attempts = {}
         self.measure_calls = 0
@@ -131,6 +134,8 @@ class ScriptedEnv:
         return {"accepted": True, "success": success}
 
     def _default_discovery_point(self):
+        if self.scan_points:
+            return scan.snake_order(self.scan_points)[0]
         points = scan.snake_order(scan.P3() if self.total_stages == 9 else scan.P4())
         return points[0]
 

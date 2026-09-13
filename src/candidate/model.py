@@ -115,7 +115,7 @@ class C0Runner:
     responses, which keeps the candidate free of oracle logic.
     """
 
-    def __init__(self, env, channels=scan.Q3_Q4_CHANNELS, channel_types=None):
+    def __init__(self, env, channels=scan.Q3_Q4_CHANNELS, channel_types=None, plan=None):
         self.env = env
         self.store = StateStore(channels, channel_types)
         self.ledger = Ledger()
@@ -126,13 +126,24 @@ class C0Runner:
         self.queue = None
         self.scan_results = []
         self.clear_results = []
+        #: ``None`` keeps the frozen BASE generators; a cover plan switches the
+        #: scan/clear budget and the clear-centre generator (WI-023 variants).
+        self.plan = plan
+
+    def _budget(self, question):
+        return c0_budget_certificate(question) if self.plan is None else self.plan.budget(question)
+
+    def _clear_plan(self, s, theta, first_observation):
+        if self.plan is None:
+            return scan.clear_plan(s, theta, first_observation)
+        return self.plan.clear_plan(s, theta, first_observation)
 
     # -- C0 pseudocode ------------------------------------------------------
     def run_scan(self, points, question="Q3"):
         """Fixed snake scan of ``points`` measuring channels 1..20 everywhere."""
         sequence = scan.scan_sequence(points, self.store.channels)
         self.queue = FallbackManager(sequence)
-        self.certificates.install(c0_budget_certificate(question), "C0 closed form", step=0)
+        self.certificates.install(self._budget(question), "C0 closed form", step=0)
         for p, c in sequence:
             resp = self.env.measure(p, c)
             accepted = bool(resp.get("accepted", True))
@@ -159,7 +170,7 @@ class C0Runner:
             st = self.store.channels[c]
             fp = st.first_positive
             theta = fp.get("theta_hat") or 0.0
-            points = scan.clear_plan(fp["point"], theta, fp["observation"])
+            points = self._clear_plan(fp["point"], theta, fp["observation"])
             if not points:
                 raise ConflictError(f"channel {c}: no usable clear plan for {fp['observation']}")
             for x in points:

@@ -23,6 +23,7 @@ class FlowResult:
     question: str
     env: ScriptedEnv = None
     runner: object = None
+    tag: str = "BASE"
     certificate: dict = field(default_factory=dict)
     cost: costing.CostBreakdown = None
     ledger_total: float = 0.0
@@ -65,8 +66,12 @@ class FlowResult:
 
 
 def run_flow(question, specs, inject_unknown_accept_at=None, inject_deadline_at=None,
-             do_exit=True):
+             do_exit=True, tag=None):
     """Drive the frozen C0 runner over one scripted scenario.
+
+    ``tag=None`` uses the frozen BASE generators through the default code path; a
+    WI-023 tag (``"BASE"``, ``"CLEAR150"``, ``"SCAN49"`` or ``"COMBINED"``) binds the
+    runner to that cover plan instead.
 
     ``inject_*`` places a fail-closed fault at an exact 1-based action index.  The
     driver mirrors the session rules: an unknown acceptance state or a spent real
@@ -74,13 +79,19 @@ def run_flow(question, specs, inject_unknown_accept_at=None, inject_deadline_at=
     certificate may be produced afterwards.
     """
     points = scan.P3() if question == "Q3" else scan.P4()
-    env = ScriptedEnv(specs, total_stages=len(points))
+    plan = None
+    if tag is not None:
+        from candidate import variants as candidate_variants
+        plan = candidate_variants.plan_for(tag)
+        points = plan.scan_points(question)
+    env = ScriptedEnv(specs, total_stages=len(points), scan_points=points)
     if inject_unknown_accept_at is not None:
         env.inject_unknown_accept_at(inject_unknown_accept_at)
     if inject_deadline_at is not None:
         env.inject_deadline_at(inject_deadline_at)
-    runner = candidate_model.C0Runner(env, channels=scan.Q3_Q4_CHANNELS)
+    runner = candidate_model.C0Runner(env, channels=scan.Q3_Q4_CHANNELS, plan=plan)
     result = FlowResult(question=question, env=env, runner=runner)
+    result.tag = tag or "BASE"
 
     runner.ledger.enter()
     try:
