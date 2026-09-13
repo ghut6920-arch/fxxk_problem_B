@@ -2,7 +2,7 @@
 
 ## Competition Stage
 
-Official inputs and prior plan/design remain as recorded below. WI-023 issued: 150/49 **code** on repaired C0 tree `7cbeda`. RT-006 KEEP is math only. C1/formal still closed. New-test start cutoff 2026-09-13 17:30 Beijing (~6.6 h at WI-023 issuance 10:55).
+SR-004 / D-009 freeze the one contest configuration to validate as C0 with Q3 BASE (9 scan / 225 clear) and Q4 SCAN49 (49 scan / 225 clear). This is prospective: fixed result `9de8b67` has the variant implementation but its real practice entry still runs BASE for both questions, so WI-034 is issued for minimal entry binding before any new rehearsal. Q2 WI-032 remains an independent, non-overlapping review gate. C1/C2, COMBINED adoption, extra search, formal work, model selection, merge and push remain closed.
 
 ## Verified Facts
 
@@ -26,6 +26,7 @@ None. `MODEL_SPEC.md` is intentionally absent.
 ## Recent Major Decisions
 
 - Historical 2026-09-12 strategy note authorized 2–3 candidate mathematical routes with a simple baseline. Experiment **design** later completed under WI-010. User D-001 accepted the P1-A SPEC and authorized the evaluator WI only. User D-003 later authorized local evaluator integration and a C0 P1-A candidate WI; D-004 waived same-model authorship without creating isolation. User-delivered SR-002 / D-005 KEEP the three routes, set C0 as the contest-default **execution** path, reject current independent-evaluation and formal-readiness claims, and keep C1/C2/P4/P5 closed in this window. That is not final selection and not `MODEL_SPEC.md`.
+- User-delivered external SR-003 / D-008 KEEP the Q2 `C_in` + finite candidates + conservative upper-bound route and MODIFY only statement fidelity, candidate accounting and a bounded analytic lower-bound proof/review cycle. Chapter completion is evidence consistency, not finding a better point. This is not final selection or formal promotion.
 
 ## Collaboration State
 
@@ -52,11 +53,18 @@ None. `MODEL_SPEC.md` is intentionally absent.
 - `WI-023` is `COMPLETE` at `5390c53a3a81d6c1b27f9b043f271382cdf065ed` (TR-028). Unmerged, unpushed.
 - `WI-024` is `COMPLETE` at `882ba6fe3fd84459c64e2121e872a51cee35304a` (TR-029). Unmerged, unpushed.
 - `WI-025` is `COMPLETE` at `ee2fc7ded5a3fe6be00a9ec3839b4574dc987360`. RT-007 retrieved.
-- `WI-026` Red Team of `882ba6f` on `B题-redteam-q2` (unchanged).
-- `WI-027` is `READY` / issued: hash bind + SCAN49 test.
+- `WI-026` is `COMPLETE` at `4fd42dfc1091bcfcc68502f4f599cddb5176b310` (TR-031). RT8-F1 MAJOR wording.
+- `WI-027` is `COMPLETE` at `9de8b67d32382e5c3767823e468894e436a7a3eb` (TR-032). Hash bound to `f00b1718…`.
+- `WI-029` is `COMPLETE` at `3a573c323e733ce2e181f1dce64803cddf14ce23` (TR-034). RT7-F1/F2 closed.
+- `WI-028` is `COMPLETE` at `067f4ca057857840b24444f5ff50c9604db696d2` (TR-033).
+- `WI-030` is `COMPLETE` at `b13daeb6bd12ab0a3b9c6be4f359fee38b09e371` (TR-035). RT8-F1 no longer applies to the repaired wording at `067f4ca`; F2/F3 and RT-002 are not closed by WI-030.
+- `WI-031` is `COMPLETE` at `53285abb737291b34ccfc7a5f5e64f396a1c9540` (TR-036 PASS for bounded authoring/evidence scope). The result corrects Q2 semantics/candidate accounting and records the named analytic bounds without changing `q2.py`, candidates, caps, JSON, or selection rules. Five claims remain `PENDING_RED_TEAM`; unmerged and unpushed.
+- `WI-032` is `READY`: independent Red Team review of fixed target `53285abb`, including the new semantics/proofs/upper-bound trace and targeted RT8-F2/F3 recheck. It may write only RT-009 and an append-only RT-008 cross-reference.
+- External SR-004 / D-009 KEEP C0 and Q3 BASE, set Q4 SCAN49 as the single configuration to integrate/validate, and reject immediate COMBINED/CLEAR150/C1/C2/search spend. This is not final selection or qualification.
+- Fixed `9de8b67` still uses BASE in `scripts/run_c0_practice.py`; no later fixed local branch contains a SCAN49-aware practice entry. WI-034 is `READY` for minimal entry binding on the Executor worktree. Historical `7f4dfba` Q3 BASE 14/14 and Q4 BASE 16/16 remain supporting evidence but are not sessions of the new named version/configuration.
 
 - No active collaboration issue authorizes history rewriting, branch deletion, object pruning, or remote publication.
 
 ## Blockers
 
-- RT7-F1: do not cite 36-track save % until WI-027 binds `f00b1718…`. BASE default. WI-026 Q2 RT still open. C1 暂不需要. No formal enter.
+- The practice entry does not yet run Q4 SCAN49; no named SCAN49 rehearsal exists. New test starts are forbidden after `2026-09-13 17:30` Beijing time. Q2 chapter separately awaits WI-032 and final Technical Review. OPEN-1/3 remain unresolved; OPEN-2 unstarted; RT-002 open. No formal enter. `main` and feature results not pushed.

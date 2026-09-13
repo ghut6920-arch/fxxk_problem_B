@@ -122,6 +122,36 @@ Scope: `configuration` (contest allocation). Cover variants, if later implemente
 
 Reopen: official-rule change; Phase 1 failure that changes C0 mathematics; request to implement C1; new-test cutoff making live Phase 5 impossible.
 
+### D-008 External Q2 finite-closeout strategy
+
+Date: 2026-09-13. Source: user-delivered external strategy opinion recorded in `audits/strategic/SR-003.md`.
+
+Decision: KEEP the analytic `C_in`, finite-candidate, conservative-quality-upper-bound Q2 route. MODIFY official-semantic wording, candidate-set accounting, and conclusion wording; add one bounded proof/review cycle for the named `A_1` and fixed-forward lower bounds. Freeze the chapter after evidence-consistent completion and independent review; do not use “find a better point” as a stopping condition.
+
+Evidence/scope: fixed repaired target `067f4ca057857840b24444f5ff50c9604db696d2`; RT8-F1 recheck `b13daeb6bd12ab0a3b9c6be4f359fee38b09e371`; `q2.py` blob `00320497e0936d570d4a164b729e43543714ff07`; official rules; SR-003. Statement fidelity and bounded proof/claim scope, not model-family replacement or final selection.
+
+Required independent check: witnesses `(6,0)/(1500,0)` for `r(A_1)≥747`, `(506,0)/(1500,0)` after forward `(500,0)` for `J_2(p_f)≥497`, and version applicability of `J_2(p*)≤88.939059...≤89`. Advisor-proposed deductions are not established until the fixed Red Team review is accepted.
+
+Rejected: OPEN-2; candidate/cap/parameter search; changing the six-point rule or `q2.py` silently; treating 1500 m as universal receive guarantee; treating `near` as measurement-point separation; treating `epsilon_d` as official uncertainty; actual-error, lateral-superiority, global-optimum, two-measure-clear, stable-10-second, formal-readiness, or RT-002 closure claims.
+
+Affected stages: WI-031 Executor text/evidence/claim registration; WI-032 independent Red Team; Technical Lead final chapter-freeze review. No C1/C2, simulator, formal result, merge, or push.
+
+Reopen: official-rule conflict; failed witness or bound-version check; a required code/selection-rule change; later change to Q2 chapter, implementation blob, caps, evidence, or claim scope.
+
+### D-009 External advisor freezes validation target to Q3 BASE / Q4 SCAN49
+
+Date: 2026-09-13. Source: user-delivered external Strategist judgement recorded in `audits/strategic/SR-004.md`.
+
+Decision: KEEP C0; KEEP Q3 BASE (9 scan / 225 clear); MODIFY Q4 to make SCAN49 (49 scan / 225 clear) the single configuration allowed to receive bounded entry integration and preparation validation this round; REJECT immediate COMBINED adoption and further CLEAR150/C1/C2/search spend. This is configuration/resource freeze only, not final model selection, formal qualification, formal promotion, or permission to enter, merge, write formal results, or push.
+
+Evidence/scope: fixed cover result `9de8b67d32382e5c3767823e468894e436a7a3eb`; RT7-F1/F2 recheck `3a573c323e733ce2e181f1dce64803cddf14ce23`; RT-006 math; SR-002; D-004 through D-007. Q3 CLEAR150 holdout median is 9.07% and below its screen; Q4 SCAN49 median versus BASE is 22.00%. COMBINED's paired incremental result versus SCAN49 is mixed and its lower request upper bound remains research value. Twelve synthetic worlds / 36 same-model no-HTTP tracks are not independent or live evidence.
+
+Downstream: WI-034 must first bind the actual practice entry because `9de8b67` still runs BASE for both questions. After fixed technical and Red Team review, freeze the exact source/config/launch command; only then may a separate non-formal preparation WI be considered before the 17:30 new-test-start cutoff. Historical BASE practices are supporting regression evidence, not automatic named-version sessions. If time cannot complete the upgrade preparation, D-007 requires reverting the validation target to repaired BASE without calling BASE formally qualified.
+
+Rejected: treating SCAN49 as already live-verified; choosing COMBINED from the larger median-vs-BASE number; subtracting unpaired medians; calling CLEAR150 mathematically false; rerunning the 36 tracks; opening C1/C2 or formal slots; closing RT-002.
+
+Reopen: reviewed legal SCAN49 coverage counterexample/core-premise conflict; verified live clear-request bottleneck plus auditable COMBINED improvement and time for a separate named pack; persistent named-variant failure after authorized repair budget; official/user resource change; core-math/model-family/formal-selection/qualification change. Single-session noise or COMBINED's median alone is insufficient.
+
 ## Decision Template
 
 ### D-TODO

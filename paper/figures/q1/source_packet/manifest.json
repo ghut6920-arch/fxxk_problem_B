@@ -1,0 +1,38 @@
+{
+  "verification.json": {
+    "sha256": "84d0f2a15040ff074418096300fc50625dd8a6839c87736ea37a9cbc3f7e1b00",
+    "source": "Prepared for final figure design V1.0"
+  },
+  "问题一图表方案_最终执行版.md": {
+    "sha256": "6030ba66ee03a9a818f65b04c991238079c0540b945d3696b97615514265a53e",
+    "source": "Prepared for final figure design V1.0"
+  },
+  "data/Q1_Fig1_Hexagon_Observations.csv": {
+    "sha256": "7da8bbc9892e76be9a9db26873989022546bb19861ba549aec9eb29adfe4954d",
+    "source": "Prepared for final figure design V1.0"
+  },
+  "data/Q1_Fig1_Hexagon_Source.json": {
+    "sha256": "d9cc41a57b3e8ad97e3c89cd0b7fe305f374f092914e3077c73bfb0050c2df5e",
+    "source": "C:\\Users\\15006\\.codex\\visualizations\\2026\\09\\12\\01a0971f-f903-7e51-9e11-5f135af36a96\\q1_figure_design\\figure1_construction.json"
+  },
+  "data/Q1_Fig1_Hexagon_Vertices.csv": {
+    "sha256": "015a318fe326f852305e7860eac51904b3ee6dc6e229acd712fcfa600094b08e",
+    "source": "Prepared for final figure design V1.0"
+  },
+  "data/Q1_Fig2_Normalized_Analytic.json": {
+    "sha256": "1b9550fb4428492a00bf70894e4f9e8ded4901c5723e8e64489b49056fbc13d9",
+    "source": "Prepared for final figure design V1.0"
+  },
+  "sources/construct_figure1_original.py": {
+    "sha256": "7b79bebb4f36b3fc8fc83184d1d822e724e9e2c4b3f24b5425a293cf030fff85",
+    "source": "C:\\Users\\15006\\.codex\\visualizations\\2026\\09\\12\\01a0971f-f903-7e51-9e11-5f135af36a96\\q1_figure_design\\construct_figure1.py"
+  },
+  "sources/此前专项图表设计方案.md": {
+    "sha256": "7ea0cd7e1245d3eb668b5eafca1069f193106f85a1a321586258f6f8a29f50bf",
+    "source": "C:\\Users\\15006\\.codex\\visualizations\\2026\\09\\12\\01a0971f-f903-7e51-9e11-5f135af36a96\\q1_figure_design\\问题一图表设计方案.md"
+  },
+  "sources/队友_图表与证据交接_原件.md": {
+    "sha256": "565386e4d6a45f0a22b85f60cc2e47971830b73b5d1e9c04658683b83543cfef",
+    "source": "E:\\xwechat_files\\wxid_8bx1288e3sox22_04fd\\msg\\file\\2026-09\\问题一_图表与证据交接.md"
+  }
+}

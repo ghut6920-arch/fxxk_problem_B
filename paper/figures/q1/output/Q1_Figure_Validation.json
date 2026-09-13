@@ -1,0 +1,135 @@
+{
+  "status": "PASS",
+  "scope": "Fixed-input geometric and export checks; not a general-program correctness claim",
+  "python": "3.12.3 | packaged by conda-forge | (main, Apr 15 2024, 18:20:11) [MSC v.1938 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "matplotlib": "3.8.4",
+  "numpy": "1.26.4",
+  "inputs": {
+    "Q1_Fig1_Hexagon_Source.json": "d9cc41a57b3e8ad97e3c89cd0b7fe305f374f092914e3077c73bfb0050c2df5e",
+    "Q1_Fig2_Normalized_Analytic.json": "1b9550fb4428492a00bf70894e4f9e8ded4901c5723e8e64489b49056fbc13d9"
+  },
+  "checks": {
+    "figure1": {
+      "six_vertices": true,
+      "counterclockwise": true,
+      "minimum_halfplane_residual": -1.7763568394002505e-15,
+      "containment_tolerance": 1e-09,
+      "farthest_pair_one_based": [
+        1,
+        4
+      ],
+      "diameter_m": 27.683969195886103,
+      "display_diameter_m": 27.68,
+      "bearing_errors_degrees": [
+        -0.004948822922017371,
+        0.003954780416535186,
+        -0.003837737444769118
+      ],
+      "all_bearing_errors_within_delta": true
+    },
+    "figure2": {
+      "AB_equals_one": true,
+      "panel_a_vertices_on_reference_circle": true,
+      "panel_b_C_outside_reference_circle": true,
+      "panel_b_and_c_same_triangle": true,
+      "panel_c_three_support_points": true,
+      "panel_c_centers_distinct": true,
+      "minimum_radius_exceeds_half": true,
+      "AB": 1.0,
+      "OC_panel_b": 0.8660254037844386,
+      "reference_radius": 0.5,
+      "minimum_radius": 0.5773502691896258,
+      "support_distances_from_J": [
+        0.5773502691896257,
+        0.5773502691896257,
+        0.5773502691896257
+      ]
+    },
+    "exports": {
+      "required_formats_present": true,
+      "png": {
+        "Q1_Fig1_Intersection_Diameter.png": {
+          "pixels": [
+            4015,
+            1937
+          ],
+          "dpi": [
+            599.9988,
+            599.9988
+          ],
+          "target_pixels": [
+            4015,
+            1937
+          ]
+        },
+        "Q1_Fig2_Diameter_Coverage.png": {
+          "pixels": [
+            4015,
+            1889
+          ],
+          "dpi": [
+            599.9988,
+            599.9988
+          ],
+          "target_pixels": [
+            4015,
+            1889
+          ]
+        }
+      }
+    }
+  },
+  "target_sizes_mm": {
+    "Q1_Fig1_Intersection_Diameter": [
+      170,
+      82
+    ],
+    "Q1_Fig2_Diameter_Coverage": [
+      170,
+      80
+    ]
+  },
+  "outputs": {
+    "Q1_Fig1_Intersection_Diameter.pdf": {
+      "sha256": "02f2152d2adbdd5e4f2ff8279113bde6429f51b021627ceb7b1defc536dd9ecb",
+      "bytes": 33969
+    },
+    "Q1_Fig1_Intersection_Diameter.svg": {
+      "sha256": "eb887971c169d4aaaad735edd4ea7991807db957b2a311ba7a6d6bef58a65cc2",
+      "bytes": 21554
+    },
+    "Q1_Fig1_Intersection_Diameter.png": {
+      "sha256": "8eb09ecb8eea85d534cbce744e172438b5a933a4ce085afe1c5b9e6377b7f99e",
+      "bytes": 380137,
+      "pixels": [
+        4015,
+        1937
+      ],
+      "dpi": [
+        599.9988,
+        599.9988
+      ]
+    },
+    "Q1_Fig2_Diameter_Coverage.pdf": {
+      "sha256": "466db25dc0dd6a140028945c6a7881c17387a1bfdd85f2d9b2cb3f49718aedbc",
+      "bytes": 31858
+    },
+    "Q1_Fig2_Diameter_Coverage.svg": {
+      "sha256": "e44d52c3f4167c77c8014a6f0e43df4a9523cf55f988dd61d5c38da9b72fae36",
+      "bytes": 17430
+    },
+    "Q1_Fig2_Diameter_Coverage.png": {
+      "sha256": "3814da76af5e3dc58fa033364d93d6f6a4ac8462f6d9651b5bae630e2d7f800e",
+      "bytes": 313309,
+      "pixels": [
+        4015,
+        1889
+      ],
+      "dpi": [
+        599.9988,
+        599.9988
+      ]
+    }
+  }
+}
