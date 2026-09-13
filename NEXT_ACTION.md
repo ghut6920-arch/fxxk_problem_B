@@ -1,12 +1,12 @@
 # Primary Integration Goal
 
-Two **parallel** WIs: WI-023 (150/49 on `B题-executor`) and WI-024 (Q2 wrap-up on `B题-q2`). Do not mix paths.
+Execute WI-025: Red Team of cover-variant commit `5390c53a3a81d6c1b27f9b043f271382cdf065ed`. WI-024 Q2 continues separately on `B题-q2`.
 
 ## Acceptance Criteria
 
-- WI-023: cover-variant arms; 90 min cap; no live enter.
-- WI-024: Q2 report + draft + isolated timings; no `tests/p1a_run`; no cap raise.
+- Only `audits/redteam/RT-007.md`. No `src/` edits. No selection. No live enter.
+- BASE stays default until a later named freeze.
 
-Status: IN_PROGRESS — WI-023 running; WI-024 issued on a **new** worktree.
+Status: IN_PROGRESS — WI-023 COMPLETE (screens); WI-025 issued; WI-024 parallel.
 
-Owner: WI-023 Executor on `B题-executor`; **new** Q2 Executor on `B题-q2`; Technical Lead after each result.
+Owner: Red Team (WI-025); Q2 Executor (WI-024); Technical Lead after each.

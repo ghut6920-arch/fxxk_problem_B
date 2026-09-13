@@ -49,11 +49,12 @@ None. `MODEL_SPEC.md` is intentionally absent.
 - `WI-020` is `COMPLETE` at `7f4dfba66a1467da865e411c2aa03bbec2203843` (TR-023). Live: Q3 **K/N=14/14** (operator correction; not 16); Q4 **16/16** (5 omni + 11 dir). Unmerged, unpushed.
 - `WI-021` is `COMPLETE` at `5a707f5e3ba331b39fa399b2ee3b6eb3260932d2` (TR-024). RT-006 **KEEP** 150/49 **math**. Unpushed.
 - `WI-022` is `COMPLETE` at `7cbeda3723e43d40623e0d0eaff5b634fb2ae36a` (TR-025). Q3 miss hypothesis withdrawn after N correction. Unpushed.
-- `WI-023` is in progress on `B题-executor` (`feat/WI-023-cover-variants`, dirty).
-- `WI-024` is `READY` / issued: Q2 wrap-up on `B题-q2`. Not started.
+- `WI-023` is `COMPLETE` at `5390c53a3a81d6c1b27f9b043f271382cdf065ed` (TR-028). Unmerged, unpushed.
+- `WI-024` Q2 wrap-up in progress on `B题-q2`.
+- `WI-025` is `READY` / issued: RT of `5390c53`.
 
 - No active collaboration issue authorizes history rewriting, branch deletion, object pruning, or remote publication.
 
 ## Blockers
 
-- WI-023 continues on `B题-executor` (dirty WIP). WI-024 Q2 wrap-up uses **separate** worktree `B题-q2`. Do not mix. C1/formal still closed.
+- WI-023 COMPLETE at `5390c53` (TR-028): CLEAR150 screen fail; SCAN49/COMBINED screen pass; BASE default. Not on `main`. WI-025 Red Team issued. WI-024 Q2 parallel on `B题-q2`. C1 暂不需要 this round.

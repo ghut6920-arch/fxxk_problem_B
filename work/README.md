@@ -1,6 +1,6 @@
 # Work Items
 
-Use sequential identifiers `WI-NNN`. Multiple Work Items may exist under one Primary Integration Goal, but overlapping ownership of a core module requires coordination. The next identifier is `WI-025`. `WI-024` is Q2 wrap-up on worktree `B题-q2`. Do not run Q2 on `B题-executor` while WI-023 is dirty.
+Use sequential identifiers `WI-NNN`. Multiple Work Items may exist under one Primary Integration Goal, but overlapping ownership of a core module requires coordination. The next identifier is `WI-026`. `WI-025` is Red Team of WI-023 `5390c53`. Q2 remains WI-024 on `B题-q2`.
 
 Long-lived worktrees: Technical Lead `B题` (`main`), Executor `B题-executor`, Red Team `B题-redteam`. There is no in-repo Strategist worktree.
 
