@@ -1,13 +1,12 @@
 # Primary Integration Goal
 
-Execute WI-023: implement BASE/CLEAR150/SCAN49/COMBINED on tree `7cbeda` and offline-compare within 90 minutes. Keep BASE. No live `/enter`.
+Two **parallel** WIs: WI-023 (150/49 on `B题-executor`) and WI-024 (Q2 wrap-up on `B题-q2`). Do not mix paths.
 
 ## Acceptance Criteria
 
-- 20×30 clears; `P_4'` keeps exterior points; 20 channels; no C1; no cap raise.
-- Tests check sequences and counts. Compare table or honest NOT_RUN if the 90 min cap hits.
-- No push, no formal, no 130-grid.
+- WI-023: cover-variant arms; 90 min cap; no live enter.
+- WI-024: Q2 report + draft + isolated timings; no `tests/p1a_run`; no cap raise.
 
-Status: IN_PROGRESS — WI-023 issued.
+Status: IN_PROGRESS — WI-023 running; WI-024 issued on a **new** worktree.
 
-Owner: Executor; Technical Lead after the result; Red Team of that result next.
+Owner: WI-023 Executor on `B题-executor`; **new** Q2 Executor on `B题-q2`; Technical Lead after each result.
