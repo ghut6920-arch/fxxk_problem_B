@@ -10,7 +10,7 @@
 | Branch | `feat/WI-034-c0-named-config-entry` |
 | Comparison Base Commit | `9de8b67d32382e5c3767823e468894e436a7a3eb` |
 | Execution Start Commit | `1f284b67cb09c22597e2134f3e589a7785887ce8` |
-| Result commit | `<result-commit>` — filled by the Technical Lead; a commit cannot contain its own hash |
+| Result commit | `b205b024d6a828bc7352de877d6ef8ea8cda8ada` — the WI-034 result, reviewed as FIX by TR-038 and corrected by WI-036 (§11). A commit cannot contain its own hash, so this value is recorded downstream, not inside b205b02 |
 | Interpreter | CPython 3.12.3 (Anaconda), stdlib only |
 | Fixed inputs | `audits/strategic/SR-004.md`, `DECISIONS.md` D-009, RT-006, RT-007 recheck `3a573c323e733ce2e181f1dce64803cddf14ce23`, TR-034; variant evidence `9de8b67d…`; repaired BASE `7f4dfba66a1467da865e411c2aa03bbec2203843`; `modeling/EXPERIMENT_DESIGN.md` §10 |
 
@@ -94,7 +94,11 @@ first reads the plan, the second reads what was actually sent.
 ## 6. Commands, environment, results
 
 Environment: `MINGW64_NT-10.0-26200`, Git Bash (`E:/git/Git/bin/bash.exe`), CPython 3.12.3
-(Anaconda x64). All runs serial, no live simulator, no `/enter`, no formal mode.
+(Anaconda x64). All runs serial. The three successful mock entries below **did** send
+`/enter`, but only to the **local bundled mock server** launched in-process; no
+**live/official service** was contacted and no **live/official `/enter`** was sent, and no
+formal mode was used. (The injected pre-enter configuration-invariant refusal, §11.6, sent
+no `/enter` at all and created no mock server.)
 
 | Command | Result |
 |---|---|
@@ -156,8 +160,9 @@ no coverage-math change, no time-cap or screen change, no channel-order change.
 ## 9. Qualification gaps (stated, not hidden)
 
 * This is **mock integration only**: it is **not** a live SCAN49 rehearsal, **not**
-  independent review, and **not** formal qualification. No live service was contacted and
-  no `/enter` was sent.
+  independent review, and **not** formal qualification. No **live/official** service was
+  contacted and no **live/official `/enter`** was sent; the successful mock entries issued
+  `/enter` to the **local bundled mock server** only.
 * The mock world is a synthetic 10-source world, not the simulator; the 28 exterior scan
   points are exercised as *requests* (their acceptance and cost), but the mock does not
   model the real target-region geometry, so this says nothing new about coverage margins.
@@ -171,8 +176,9 @@ no coverage-math change, no time-cap or screen change, no channel-order change.
 
 ## 10. Git status
 
-Local commit only. **NOT PUSHED.** No rehearsal, integration, `/enter`, simulator, formal
-run, `tests/p1a_run`, or 36-track comparison was performed.
+Local commit only. **NOT PUSHED.** No rehearsal, no integration, no **live/official**
+`/enter` (see §6: the mock entries entered only the local bundled mock server), no
+simulator session, no formal run, no `tests/p1a_run`, and no 36-track comparison.
 
 ## 11. WI-036 — exact action-evidence verification and fail-closed reporting
 
@@ -185,7 +191,7 @@ run, `tests/p1a_run`, or 36-track comparison was performed.
 | Branch | `feat/WI-036-c0-entry-verification` |
 | Comparison Base | `b205b024d6a828bc7352de877d6ef8ea8cda8ada` (WI-034 result) |
 | Execution Start | `388dc3efc285846c195db8f368c370ac2227539b` |
-| Result commit | `<result-commit>` — filled by the Technical Lead |
+| Result commit | `0f4fcb303b76b183a439cb5240606d1e445a13f7` (WI-036 result; TR-040 reviewed this commit and required the WI-037 corrections recorded here) |
 | Technical finding | TR-038 at fixed object `8a1ccae06a59c435c1104ca7034aea3ba8b872b6`, disposition **FIX** |
 | Changed paths | `scripts/run_c0_practice.py`, `tests/p1b/test_practice_configuration.py`, this file |
 
@@ -297,7 +303,10 @@ another lattice (`CLEAR150`). Positive controls cover Q3 BASE, Q4 SCAN49 and Q4 
 ### 11.7 Remaining gaps
 
 * Mock evidence only: **not** a live SCAN49 rehearsal, **not** independent review, **not**
-  formal qualification. No live service was contacted and no `/enter` was sent.
+  formal qualification. No **live/official** service was contacted and no **live/official
+  `/enter`** was sent; the three successful mock entries in §11.5 issued `/enter` to the
+  **local bundled mock server** only, while the injected pre-enter refusal in §11.6 sent no
+  `/enter` at all.
 * The exact proof covers the emitted **measure** sequence and the **clear prefix**
   structure against the resolved plan. It does not independently re-derive the plan
   geometry (that is RT-006/TR-034 scope) and says nothing new about coverage margins.
@@ -312,3 +321,89 @@ another lattice (`CLEAR150`). Positive controls cover Q3 BASE, Q4 SCAN49 and Q4 
 
 Local commit only. **NOT PUSHED.** No live `/enter`, simulator session, formal mode,
 `tests/p1a_run`, 36-track comparison, RT-006 computation or Q2 task was run.
+
+## 12. WI-037 — TR-040 MINOR corrections (test assertion and enter wording)
+
+### 12.1 Identification
+
+| Field | Value |
+|---|---|
+| Date | 2026-09-13 |
+| Author | Executor (`deepseek-flash`, same-model work under the D-004 waiver) |
+| Branch | `feat/WI-037-c0-entry-evidence-correction` |
+| Comparison Base | `0f4fcb303b76b183a439cb5240606d1e445a13f7` (WI-036 result) |
+| Execution Start | `1d9c8ea8331a7b20265867be213c0dbc6dcac5fa` |
+| Result commit | recorded downstream by the Technical Lead; a commit cannot contain its own hash |
+| Technical finding | TR-040 at fixed object `0b8468fdf7b90df64ff030640b56fe0e1b0d9eda`, disposition **FIX** (two MINORs; core WI-036 repair accepted provisionally) |
+| Changed paths | `tests/p1b/test_practice_configuration.py`, this file (no other path) |
+
+**Conclusion: `C0_NAMED_ENTRY_READY`.**
+
+### 12.2 TR-040 finding 1 — direct main() assertion for the post-scan exit path (fixed)
+
+`tests/p1b/test_practice_configuration.py` gains
+`test_main_reports_post_scan_mismatch_status_1_with_full_scan_and_no_clears`, which drives
+the real CLI entry point (`main()`, ordinary non-JSON rendering) with the same injected
+exact-scan mismatch and asserts the three required facts: the returned status is **1**, the
+ordinary output contains **`STOPPED_SCAN_SEQUENCE_MISMATCH`**, and the run emitted the full
+scan (`measures=180`) with **`clear requests=0`**. The existing `run()`-level assertions in
+`test_post_scan_mismatch_stops_before_any_clear_and_exits_1` are preserved unchanged, and
+**no implementation change was made to satisfy the test**.
+
+### 12.3 TR-040 finding 2 — mock vs live `/enter` wording (fixed)
+
+Every generic claim that the mock work sent no `/enter` is corrected. The three successful
+mock entries **did** issue `/enter`, and only to the **local bundled mock server** launched
+in-process; no **live/official** service was contacted and no **live/official `/enter`** was
+sent. The injected pre-enter configuration-invariant refusal sent **no `/enter` at all** and
+created no mock server — that path keeps its unqualified no-enter statement.
+
+| Location | Superseded wording (quoted for the record only — **must not be read as a live claim**) | Current wording |
+|---|---|---|
+| §6 environment line | ~~no `/enter`~~ | mock entries sent `/enter` to the **local bundled mock server**; no live/official contact |
+| §9 qualification gaps | ~~No live service was contacted and no `/enter` was sent~~ | no **live/official** service contacted, no **live/official `/enter`** sent; mock entries issued `/enter` to the **local bundled mock server** only |
+| §10 Git status | ~~no `/enter`~~ | no **live/official** `/enter`, cross-referencing §6 |
+| §11.7 remaining gaps | ~~No live service was contacted and no `/enter` was sent~~ | same qualifier, naming §11.5 (mock `/enter`) and §11.6 (refusal, no `/enter` at all) |
+| §11.3 (unchanged, correct) | — | "no `/enter` is sent" refers to the pre-enter refusal path and is retained |
+| §11.6 table (unchanged, correct) | — | the injected invariant row already records `enter is None` and no mock server |
+| §11.8 (unchanged, correct) | — | already said "No live `/enter`" |
+
+Only the pre-enter refusal path may state "no `/enter`" without a live/official
+qualifier; every statement about the successful mock work now names the local bundled mock
+server and denies live/official contact.
+
+All §7 mock results, request counts, exact-action digests, failure outcomes and
+qualification limitations are preserved unchanged.
+
+### 12.4 Placeholders (fixed)
+
+The WI-036 section's result-commit placeholder now carries the reviewed identity
+`0f4fcb303b76b183a439cb5240606d1e445a13f7`. As a factual completion in the same file, the
+WI-034 section's placeholder now carries `b205b024d6a828bc7352de877d6ef8ea8cda8ada`, the
+WI-034 result that TR-038 reviewed and WI-036 corrected; both values are verifiable from the
+fixed inputs above. No WI-037 hash is invented or embedded.
+
+### 12.5 Checks and results
+
+| Check | Result |
+|---|---|
+| `PYTHONPATH=src python -m unittest tests/p1b.test_practice_configuration -q` | **OK — 43 tests** (42 + the new one) |
+| Evidence search for generic no-`/enter` wording, every hit inspected | 7 retained statements are refusal-path or already live-qualified; 4 generic claims corrected (§12.3) |
+| WI-036 placeholder removed / identity present | verified by search: no unresolved result-commit placeholder token remains anywhere in this file (WI-036 identity `0f4fcb303b76b183a439cb5240606d1e445a13f7` present; WI-034 identity `b205b024d6a828bc7352de877d6ef8ea8cda8ada` present) |
+| `git diff --check` over both changed paths | clean |
+| Third path changed? | none — only the two authorized paths |
+
+### 12.6 Remaining gaps
+
+Unchanged from §11.7: mock integration is **not** a live SCAN49 rehearsal, **not**
+independent review and **not** formal qualification; the exact proof does not re-derive the
+plan geometry and adds nothing about coverage margins; real-window behaviour remains
+unexercised; same-model work under D-004/SR-002 is not independent verification. No
+rehearsal, freeze, integration or push is authorized by this WI.
+
+### 12.7 Git status
+
+Local commit only. **NOT PUSHED.** This WI changed no implementation: it corrected one test
+file and this evidence file. No live/official `/enter` or simulator session was used, no
+formal mode, and no `tests/p1a_run`, 36-track comparison, RT-006 computation, rehearsal,
+integration or Q2 task was run.

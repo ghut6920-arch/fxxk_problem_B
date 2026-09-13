@@ -494,6 +494,25 @@ class TestFailClosedPaths(unittest.TestCase):
                          "no clear action may be attempted after a scan mismatch")
         self.assertEqual(report["emitted"]["measure_requests"], 180)
 
+    def test_main_reports_post_scan_mismatch_status_1_with_full_scan_and_no_clears(self):
+        """TR-040 finding 1: assert the command-exit path directly through main().
+
+        The sibling test above exercises ``run()``; this one drives the real CLI entry
+        point with the same injected exact-scan mismatch and checks the ordinary
+        (non-JSON) rendering, so the operator-visible status and the emitted action
+        counts are asserted where they are actually produced.
+        """
+        shifted = [(-1400.0 + 1.0, -1400.0, c) for c in range(1, 21)]
+        with mock.patch.object(entry, "expected_measure_sequence", return_value=shifted):
+            status, text = self._render(self.ARGS)          # ordinary mode, no --json
+        self.assertEqual(status, 1)
+        self.assertIn("STOPPED_SCAN_SEQUENCE_MISMATCH", text)
+        # the full 9 x 20 scan was emitted (180 measures) ...
+        self.assertIn("measures=180", text)
+        # ... and not one clear action was attempted
+        self.assertIn("clear requests=0", text)
+        self.assertNotIn("clear requests=1", text)
+
     def test_post_run_mismatch_cannot_retain_completed_and_exits_1(self):
         fake = {"matches": False, "mismatches": ["injected clear mismatch"], "proof": True,
                 "scan": {"matches": True}, "clear": {"matches": False}}
