@@ -16,7 +16,9 @@
 
 ## 2. Conclusion
 
-**`C0_NAMED_ENTRY_READY`**
+**`C0_NAMED_ENTRY_READY`** *(WI-034 statement; its evidence-strength claim was corrected
+and the configuration re-verified exactly in WI-036 §11 — read §11 for the current
+verification state and conclusion.)*
 
 The real practice entry now resolves the approved named configuration — Q3 -> `BASE`,
 Q4 -> `SCAN49` — with one explicit fail-closed Q4 BASE fallback, and the logged
@@ -133,10 +135,12 @@ The mock world is the bundled offline world: 10 sources at radius 240–600 m,
 | Independent decomposition agrees with ledger | True | True | True |
 | Runtime `variants.py` / `scan.py` identity | `bac29edc…` / `4a494b96…` | same | same |
 
-Interpretation: in every configuration the wire log reproduced the plan exactly for the
-scan stage (measures, distinct points, switches) and the ledger agreed with the
-independent cost decomposition, which is the evidence the WI asks for — the resolved
-configuration is bound to the actions, not merely declared.
+Interpretation (**corrected in WI-036 §11**): the counts above were produced by the
+WI-034 entry, and the ledger agreed with the independent cost decomposition. The
+WI-034 wording claimed the wire log "reproduced the plan exactly", but the WI-034
+verifier only compared aggregates (measures, distinct points, switches), which a wrong
+lattice can also satisfy — TR-038 defect 1, reproduced in §11.2. Treat the table above
+as **count evidence**; the exact sequence proof is §11.4.
 
 ## 8. Preserved behaviour (unchanged by this WI)
 
@@ -169,3 +173,142 @@ no coverage-math change, no time-cap or screen change, no channel-order change.
 
 Local commit only. **NOT PUSHED.** No rehearsal, integration, `/enter`, simulator, formal
 run, `tests/p1a_run`, or 36-track comparison was performed.
+
+## 11. WI-036 — exact action-evidence verification and fail-closed reporting
+
+### 11.1 Identification
+
+| Field | Value |
+|---|---|
+| Date | 2026-09-13 |
+| Author | Executor (`deepseek-flash`, same-model work under the D-004 waiver) |
+| Branch | `feat/WI-036-c0-entry-verification` |
+| Comparison Base | `b205b024d6a828bc7352de877d6ef8ea8cda8ada` (WI-034 result) |
+| Execution Start | `388dc3efc285846c195db8f368c370ac2227539b` |
+| Result commit | `<result-commit>` — filled by the Technical Lead |
+| Technical finding | TR-038 at fixed object `8a1ccae06a59c435c1104ca7034aea3ba8b872b6`, disposition **FIX** |
+| Changed paths | `scripts/run_c0_practice.py`, `tests/p1b/test_practice_configuration.py`, this file |
+
+**Conclusion: `C0_NAMED_ENTRY_READY`.**
+
+### 11.2 The b205b02 defect, preserved (TR-038 defects 1 and 3, reproduced from the fixed object)
+
+Both failures were re-run against the **WI-034 result commit itself**
+(`git show b205b024:scripts/run_c0_practice.py`, executed in-process), so the original
+defect is recorded rather than assumed:
+
+* **Defect 1 — the verifier accepted a wrong lattice.** With every planned Q4 x
+  coordinate shifted by one metre the counts are unchanged
+  (`measures=980, distinct=49, switches=979`) and the WI-034
+  `verify_emitted_configuration` returned **`matches = True`**, although the first
+  submitted point was `(-2099.0, -2100.0)` instead of the planned `(-2100.0, -2100.0)`.
+  A label plus matching cardinalities was therefore not evidence.
+* **Defect 3 — the pre-enter refusal was not a clean path.** On an injected
+  configuration-invariant failure, the WI-034 `run()` returned before its `try/finally`
+  with only nine report keys (`['base_url', 'configuration', 'mode', 'notes', 'outcome',
+  'problem', 'resolved_tag', 'robot_id', 'started_at']`) and **no `session` key**, so the
+  ordinary renderer raised `KeyError('session')`. The mock server created just before
+  resolution was also leaked.
+
+The WI-034 mock counts in §7 are retained unchanged as count evidence; only their
+interpretation was corrected (see §7).
+
+### 11.3 What the repair changed
+
+* **Exact ordered sequence as the proof.** The entry now reconstructs the full ordered
+  business-action sequence from the request records — one record per logical action, so
+  HTTP retries stay metadata on that record — and compares it element-by-element with
+  the sequence derived from the resolved plan (`scan_points` through the fixed channel
+  order). Aggregates are kept for readability and are explicitly marked `proof: False`.
+* **Compact identities and a bounded diagnostic.** Each comparison records a SHA-256 of
+  the expected and observed sequences plus the first mismatch index with the expected and
+  observed tuples and a small local window.
+* **Scan verified before any clear.** A mismatch stops the run with the named outcome
+  `STOPPED_SCAN_SEQUENCE_MISMATCH` and **zero clear requests**.
+* **Clear actions proven as prefixes.** Emitted clear actions must equal the runner's own
+  record and, per discovered channel, be a **prefix** of the resolved plan's clear plan
+  for that channel's fixed first positive (early success is valid; a walk shorter than
+  225 is not an error).
+* **Fail-closed outcomes.** A post-run mismatch withdraws `COMPLETED` and yields
+  `STOPPED_ACTION_SEQUENCE_MISMATCH`; the CLI returns exit status 1 for every outcome
+  other than `COMPLETED`.
+* **Clean pre-enter refusal.** Plan resolution and the named invariants are now checked
+  **before** any mock server, client or session is constructed; the report is complete on
+  every path, so plain and JSON output both render and exit 1 without `KeyError`, and no
+  `/enter` is sent. Both renderers were also made defensive (defaulted field access).
+
+No source, protocol, coverage, budget, channel-order, clear-policy, deadline, retry or
+completion rule was changed; `C0Runner(plan=None)` and the BASE default are untouched.
+
+### 11.4 Required commands and results (serial, no live simulator)
+
+| Command | Result |
+|---|---|
+| `PYTHONPATH=src python -m unittest tests.p1b.test_practice_configuration -q` | **OK — 42 tests** (was 24) |
+| `PYTHONPATH=src python -m unittest tests.candidate.test_variants -q` | **OK — 32 tests** |
+| `PYTHONPATH=src python -m unittest tests.c0_baseline.test_variants_flow -q` | **OK — 16 tests** |
+| `PYTHONPATH=src python -m unittest discover -s tests/p1b -q` | **OK — 102 tests** (84 + 18 new) |
+| `PYTHONPATH=src python -m unittest discover -s tests/c0_baseline -q` | OK — 75 tests (1 deliberate `expectedFailure`, WI-022) |
+| `PYTHONPATH=src python -m unittest discover -s tests/candidate -q` | OK — 246 tests |
+| three mock entries (below) | all COMPLETED / `COMPLETE`, exit status 0 |
+
+Substantive repairs: **one** pass (the WI-034 reserved budget). Zero failures after the
+first test execution; one test-side correction (a channel needed three clear attempts
+before two clear actions existed to swap — the test scenario was fixed, no assertion was
+weakened).
+
+### 11.5 Exact sequence proof, three mock entries
+
+Each entry admits exactly one accepted business action per `(point, channel)`, one record
+per action, and its observed digest equals the plan digest:
+
+| Field | Q3 named | Q4 named | Q4 fallback |
+|---|---|---|---|
+| Resolved tag | `BASE` | `SCAN49` | `BASE` |
+| Expected sequence length | 180 | 980 | 1620 |
+| **Exact scan match** | **True** | **True** | **True** |
+| Expected = observed digest SHA-256 (first 16) | `b5285bb3ab680a58` | `6707a1750045f8a6` | `5bea84facc4a1b21` |
+| Clear log equals runner record | True | True | True |
+| Discovered channels / plan length | 10 / 225 | 10 / 225 | 10 / 225 |
+| **All clear walks legal prefixes** | **True** | **True** | **True** |
+| Executed clears per channel (early success) | 89, 83, 134, 132, 77, 90, 102, 104, 92, 110 | 89, 88, 82, 78, 77, 90, 87, 97, 72, 80 | 76, 93, 105, 83, 72, 90, 95, 88, 92, 80 |
+| Exact action proof / exit status | True / 0 | True / 0 | True / 0 |
+| Emitted measures / clears / successes | 180 / 1013 / 10 | 980 / 840 / 10 | 1620 / 874 / 10 |
+| Unknown accept / adaptive actions | 0 / 0 | 0 / 0 | 0 / 0 |
+| Ledger vs independent decomposition | agrees (9.6e-07 s) | agrees (8.2e-07 s) | agrees (8.0e-07 s) |
+
+The executed clear counts (77–134 of 225) are the intended early-success behaviour: a
+full 225-point walk is **not** required and is not claimed.
+
+### 11.6 Failure-path results (each exercised through the real entry)
+
+| Injected fault | Outcome | Exit | Key observation |
+|---|---|---|---|
+| Post-scan sequence mismatch | `STOPPED_SCAN_SEQUENCE_MISMATCH` | 1 | 180 measures emitted, **0 clear requests**, first mismatch index 0 |
+| Pre-enter invariant mismatch | `STOPPED_CONFIGURATION_INVARIANT` | 1 (plain **and** JSON) | no `/enter` (`enter is None`, 0 requests), no mock server created, `session` key present, both renderers safe |
+| Post-run exact-verification failure | `STOPPED_ACTION_SEQUENCE_MISMATCH` | 1 | the run's own certificate said `COMPLETE`, and the entry **withdrew** it (`COMPLETED` not retained) |
+
+Adversarial sequence counterexamples covered by tests (all rejected although aggregates
+match): the 1-metre-shifted 49-point set; a reordered 49-point sequence; reordered
+channels; missing, extra and duplicate-substituted actions; a clear walk with a shifted
+coordinate; two swapped clear actions on one channel; and clear actions taken from
+another lattice (`CLEAR150`). Positive controls cover Q3 BASE, Q4 SCAN49 and Q4 BASE.
+
+### 11.7 Remaining gaps
+
+* Mock evidence only: **not** a live SCAN49 rehearsal, **not** independent review, **not**
+  formal qualification. No live service was contacted and no `/enter` was sent.
+* The exact proof covers the emitted **measure** sequence and the **clear prefix**
+  structure against the resolved plan. It does not independently re-derive the plan
+  geometry (that is RT-006/TR-034 scope) and says nothing new about coverage margins.
+* Real-window behaviour (latency, retry timing under load, `remaining_real_duration_s`
+  consumption) remains unexercised offline; a retried action's metadata is preserved on
+  its single record but no live retry occurred.
+* Same-model work under D-004/SR-002: not independent verification. The Technical Lead
+  reviews this fixed commit first; only if it passes does a separate Red Team WI inspect
+  the repaired exact-action evidence and the failure-closed paths.
+
+### 11.8 Git status
+
+Local commit only. **NOT PUSHED.** No live `/enter`, simulator session, formal mode,
+`tests/p1a_run`, 36-track comparison, RT-006 computation or Q2 task was run.
