@@ -1,12 +1,12 @@
 # Primary Integration Goal
 
-Execute WI-027: bind `worlds.json` SHA-256 `f00b1718…` into the WI-023 report and fix the SCAN49 exterior unit test. WI-026 Q2 Red Team remains on `B题-redteam-q2`.
+Two **separate** Executor repairs: WI-027 (worlds hash, `B题-executor`) and WI-028 (Q2 wording, `B题-q2`). Do not mix worktrees.
 
 ## Acceptance Criteria
 
-- Recorded hash equals `git show 5390c53:evidence/experiments/EXP-005/worlds.json` digest.
-- A 25-point lattice cannot pass as SCAN49. No `src/` geometry edits. No 36-track rerun. No push.
+- WI-027: recorded hash `f00b1718…`; SCAN49 exterior test.
+- WI-028: F1 sentences repaired; no \(J_2\) ranking claim; no CLAIMS; no cap raise.
 
-Status: IN_PROGRESS — WI-025 COMPLETE; WI-027 issued.
+Status: IN_PROGRESS — RT-007 and RT-008 retrieved; wording/hash repairs issued.
 
-Owner: Executor on `feat/WI-027-worlds-hash-bind`; Q2 RT separate; Technical Lead after hash bind.
+Owner: two Executors; Technical Lead after each; F1 recheck is Red Team later, not Strategist.

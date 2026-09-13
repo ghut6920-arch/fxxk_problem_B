@@ -1,6 +1,6 @@
 # Work Items
 
-Use sequential identifiers `WI-NNN`. Multiple Work Items may exist under one Primary Integration Goal, but overlapping ownership of a core module requires coordination. The next identifier is `WI-028`. `WI-027` rebinds EXP-005 worlds hash (RT7-F1) and SCAN49 exterior test (RT7-F2).
+Use sequential identifiers `WI-NNN`. Multiple Work Items may exist under one Primary Integration Goal, but overlapping ownership of a core module requires coordination. The next identifier is `WI-029`. `WI-028` is Q2 wording repair (RT8-F1) on `B题-q2`.
 
 Long-lived worktrees: Technical Lead `B题` (`main`), Executor `B题-executor`, Red Team `B题-redteam`. There is no in-repo Strategist worktree.
 
