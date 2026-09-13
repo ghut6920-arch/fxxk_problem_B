@@ -1,0 +1,18 @@
+{
+  "scope": "Packet data consistency only; no final image rendered or reviewed; not repository tests",
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "checks": {
+    "figure1_six_vertices": true,
+    "figure1_farthest_pair": true,
+    "figure1_distance_agrees": true,
+    "figure1_residual_within_recorded_tolerance": true,
+    "figure2_a_vertices_on_reference_circle": true,
+    "figure2_b_vertex_outside": true,
+    "figure2_c_three_support_points": true,
+    "figure2_same_diameter": true,
+    "figure2_centers_distinct": true
+  },
+  "figure1_minimum_residual": -1.7763568394002505e-15,
+  "figure1_distance_m": 27.683969195886107
+}
