@@ -138,6 +138,20 @@ Affected stages: WI-031 Executor text/evidence/claim registration; WI-032 indepe
 
 Reopen: official-rule conflict; failed witness or bound-version check; a required code/selection-rule change; later change to Q2 chapter, implementation blob, caps, evidence, or claim scope.
 
+### D-009 External advisor freezes validation target to Q3 BASE / Q4 SCAN49
+
+Date: 2026-09-13. Source: user-delivered external Strategist judgement recorded in `audits/strategic/SR-004.md`.
+
+Decision: KEEP C0; KEEP Q3 BASE (9 scan / 225 clear); MODIFY Q4 to make SCAN49 (49 scan / 225 clear) the single configuration allowed to receive bounded entry integration and preparation validation this round; REJECT immediate COMBINED adoption and further CLEAR150/C1/C2/search spend. This is configuration/resource freeze only, not final model selection, formal qualification, formal promotion, or permission to enter, merge, write formal results, or push.
+
+Evidence/scope: fixed cover result `9de8b67d32382e5c3767823e468894e436a7a3eb`; RT7-F1/F2 recheck `3a573c323e733ce2e181f1dce64803cddf14ce23`; RT-006 math; SR-002; D-004 through D-007. Q3 CLEAR150 holdout median is 9.07% and below its screen; Q4 SCAN49 median versus BASE is 22.00%. COMBINED's paired incremental result versus SCAN49 is mixed and its lower request upper bound remains research value. Twelve synthetic worlds / 36 same-model no-HTTP tracks are not independent or live evidence.
+
+Downstream: WI-034 must first bind the actual practice entry because `9de8b67` still runs BASE for both questions. After fixed technical and Red Team review, freeze the exact source/config/launch command; only then may a separate non-formal preparation WI be considered before the 17:30 new-test-start cutoff. Historical BASE practices are supporting regression evidence, not automatic named-version sessions. If time cannot complete the upgrade preparation, D-007 requires reverting the validation target to repaired BASE without calling BASE formally qualified.
+
+Rejected: treating SCAN49 as already live-verified; choosing COMBINED from the larger median-vs-BASE number; subtracting unpaired medians; calling CLEAR150 mathematically false; rerunning the 36 tracks; opening C1/C2 or formal slots; closing RT-002.
+
+Reopen: reviewed legal SCAN49 coverage counterexample/core-premise conflict; verified live clear-request bottleneck plus auditable COMBINED improvement and time for a separate named pack; persistent named-variant failure after authorized repair budget; official/user resource change; core-math/model-family/formal-selection/qualification change. Single-session noise or COMBINED's median alone is insufficient.
+
 ## Decision Template
 
 ### D-TODO

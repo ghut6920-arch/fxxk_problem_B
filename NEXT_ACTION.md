@@ -1,17 +1,18 @@
 # Primary Integration Goal
 
-Close and freeze Q2 as an evidence-consistent **finite-construction chapter** under SR-003 / D-008. Do not use finding a better point as the completion condition.
+Freeze and validate one named C0 contest configuration under SR-004 / D-009: Q3 BASE (9 scan / 225 clear), Q4 SCAN49 (49 scan / 225 clear). Preserve Q2 WI-032 as a separate, non-overlapping review gate; do not mix its worktree or files with configuration work.
 
 ## Acceptance Criteria
 
-- WI-031 result `53285abb737291b34ccfc7a5f5e64f396a1c9540` has corrected receive-radius, `near`, `epsilon_d`, and six-pool-versus-comparison-list wording without changing `q2.py`, candidates, caps, or upper-bound definition.
-- Its fixed analytic record checks only the named integer witnesses for `r(A_1)≥747`, `J_2(p_f)≥497`, and the versioned applicability of `J_2(p*)≤89`; TR-036 passes the bounded authoring/evidence scope.
-- `paper/CLAIMS.md` records the five supported author-side items as `PENDING_RED_TEAM` and does not imply formal approval.
-- Issued WI-032 independently checks the new semantics, proofs, upper-bound trace, claim boundaries, and targeted RT8-F2/F3 repair status at exact target `53285abb`.
-- Final Technical Review freezes the chapter with OPEN-1/3 still open, OPEN-2 unstarted, RT-002 open, and implementation described as paper/offline reference rather than stable 10 s online module.
+- Record SR-004 / D-009 without rewriting RT-006/007 or inflating the 12-world/36-track same-model screens.
+- WI-034 minimally binds the real practice entry to Q3 BASE and Q4 SCAN49, with an explicit BASE fallback and no `src/candidate/` or protocol change.
+- Fixed tests and mock evidence prove the resolved plan controls scan points, clear plan, budget, emitted actions and log fields: Q3 180/179 and Q4 SCAN49 980/979, both with 225 clear centres.
+- Technical Review checks a fixed result; a later Red Team WI independently checks the new entry and key evidence rather than expanding RT-007.
+- Only after those gates, freeze the full commit/config/launch command and decide whether remaining time before 17:30 permits the unchanged named-version rehearsal/stress preparation package.
+- Q2 WI-032 may proceed independently on `B题-redteam-q2`; Q2 freeze still requires its fixed result and final Technical Review.
 
-Status: READY — WI-032 independent Red Team is the active Q2 gate; freeze and final consistency work wait for its fixed result.
+Status: READY — WI-034 Executor entry binding is the active configuration action. Q2 WI-032 is a parallel non-overlapping review gate. No new practice test is yet authorized.
 
-Owner: independent Red Team on `B题-redteam-q2`; then Technical Lead final review.
+Owner: Executor on `B题-executor` for WI-034; Technical Lead review; then a separately issued Red Team gate. Q2 remains with independent Red Team on `B题-redteam-q2`.
 
-No C1/C2, simulator, formal `/enter`, final selection, merge, or push.
+No COMBINED/CLEAR150 adoption, C1/C2, new coverage search, 36-track rerun, live `/enter`, formal work, final selection, merge, or push.

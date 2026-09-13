@@ -2,7 +2,7 @@
 
 ## Competition Stage
 
-Q2 finite-construction closeout is authorized by SR-003 / D-008: retain `C_in`, the finite six-point route and conservative quality upper bound; correct statement fidelity and add only the named analytic lower-bound checks. WI-031 completed at `53285abb737291b34ccfc7a5f5e64f396a1c9540` and passed bounded authoring review in TR-036; its five claims remain `PENDING_RED_TEAM`. WI-032 is now issued for independent review of that fixed result. C1/C2, OPEN-2, formal work, model selection, merge and push remain closed.
+SR-004 / D-009 freeze the one contest configuration to validate as C0 with Q3 BASE (9 scan / 225 clear) and Q4 SCAN49 (49 scan / 225 clear). This is prospective: fixed result `9de8b67` has the variant implementation but its real practice entry still runs BASE for both questions, so WI-034 is issued for minimal entry binding before any new rehearsal. Q2 WI-032 remains an independent, non-overlapping review gate. C1/C2, COMBINED adoption, extra search, formal work, model selection, merge and push remain closed.
 
 ## Verified Facts
 
@@ -60,9 +60,11 @@ None. `MODEL_SPEC.md` is intentionally absent.
 - `WI-030` is `COMPLETE` at `b13daeb6bd12ab0a3b9c6be4f359fee38b09e371` (TR-035). RT8-F1 no longer applies to the repaired wording at `067f4ca`; F2/F3 and RT-002 are not closed by WI-030.
 - `WI-031` is `COMPLETE` at `53285abb737291b34ccfc7a5f5e64f396a1c9540` (TR-036 PASS for bounded authoring/evidence scope). The result corrects Q2 semantics/candidate accounting and records the named analytic bounds without changing `q2.py`, candidates, caps, JSON, or selection rules. Five claims remain `PENDING_RED_TEAM`; unmerged and unpushed.
 - `WI-032` is `READY`: independent Red Team review of fixed target `53285abb`, including the new semantics/proofs/upper-bound trace and targeted RT8-F2/F3 recheck. It may write only RT-009 and an append-only RT-008 cross-reference.
+- External SR-004 / D-009 KEEP C0 and Q3 BASE, set Q4 SCAN49 as the single configuration to integrate/validate, and reject immediate COMBINED/CLEAR150/C1/C2/search spend. This is not final selection or qualification.
+- Fixed `9de8b67` still uses BASE in `scripts/run_c0_practice.py`; no later fixed local branch contains a SCAN49-aware practice entry. WI-034 is `READY` for minimal entry binding on the Executor worktree. Historical `7f4dfba` Q3 BASE 14/14 and Q4 BASE 16/16 remain supporting evidence but are not sessions of the new named version/configuration.
 
 - No active collaboration issue authorizes history rewriting, branch deletion, object pruning, or remote publication.
 
 ## Blockers
 
-- Q2 chapter is not frozen until WI-032 independent Red Team and final Technical Review of the fixed WI-031 result. OPEN-1/3 remain unresolved; OPEN-2 unstarted; RT-002 open. Cover-variant screens remain research only; BASE default. C1 暂不需要. No formal enter. `main` and feature results not pushed.
+- The practice entry does not yet run Q4 SCAN49; no named SCAN49 rehearsal exists. New test starts are forbidden after `2026-09-13 17:30` Beijing time. Q2 chapter separately awaits WI-032 and final Technical Review. OPEN-1/3 remain unresolved; OPEN-2 unstarted; RT-002 open. No formal enter. `main` and feature results not pushed.
