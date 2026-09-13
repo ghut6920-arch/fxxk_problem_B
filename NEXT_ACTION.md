@@ -1,12 +1,13 @@
 # Primary Integration Goal
 
-Red Team continues WI-021 (150/49 **math** only). Do **not** implement 150/49. Do not treat B as Q3-complete. A later diagnosis WI for the Q3 14/16 miss is required before Phase 3/5.
+Execute WI-022: diagnose Q3 practice `K/N=14/16` COMPLETE. Do not implement 150/49.
 
 ## Acceptance Criteria
 
-- Only `audits/redteam/RT-006.md`. KEEP/MODIFY/REJECT of the spec claims.
-- No `src/` edits, no live sim, no C1, no RT-002 closure.
+- Mechanism from frozen `q3_practice.json`; test that would catch the miss if it is control-flow.
+- `scan.py` blob unchanged unless a documented implementation patch.
+- No 150/49, C1, live sim, or push.
 
-Status: IN_PROGRESS — Phase 1 COMPLETE; Phase 2 math challenge issued.
+Status: IN_PROGRESS — WI-022 issued; WI-021 COMPLETE (KEEP math only).
 
-Owner: Red Team; Technical Lead after RT-006.
+Owner: Executor; Technical Lead after the result.

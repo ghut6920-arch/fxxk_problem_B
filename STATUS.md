@@ -47,10 +47,11 @@ None. `MODEL_SPEC.md` is intentionally absent.
 - `WI-018` is `COMPLETE` at `d675831695d705ea8c4ffcb74fe8c83277847daf` (TR-020 PASS). Local snake restored; 225-set unchanged. Unmerged, unpushed.
 - `WI-019` is `COMPLETE` at `08bf26a2ae0e3873ad742ff1c977b860b16973e8` (TR-021). RT-005: old path-cost MAJOR; repair no MAJOR/CRITICAL residual in scope. Unpushed.
 - `WI-020` is `COMPLETE` at `7f4dfba66a1467da865e411c2aa03bbec2203843` (TR-023). Offline mocks OK. Live: Q3 **K/N=14/16** (UI: 16 omni — two misses despite `COMPLETE`); Q4 **16/16** (UI: 5 omni + 11 dir). Unmerged, unpushed.
-- `WI-021` is `READY` / issued: Phase 2 RT of EXP-005 150/49 math. No implementation yet.
+- `WI-021` is `COMPLETE` at `5a707f5e3ba331b39fa399b2ee3b6eb3260932d2` (TR-024). RT-006 **KEEP** 150/49 **math**. Unpushed.
+- `WI-022` is `READY` / issued: Q3 14/16 miss diagnosis. Not started in this session.
 
 - No active collaboration issue authorizes history rewriting, branch deletion, object pruning, or remote publication.
 
 ## Blockers
 
-- Q3 live miss (14/16) blocks treating B as a complete competition baseline. WI-021 math RT may proceed; **do not implement 150/49**. Next Executor work is Q3-miss diagnosis, not cover-variant code. C1/formal still closed.
+- WI-022 waits for Executor. RT-006 KEEP does not authorize 150/49 `src/`. C1/formal still closed.
