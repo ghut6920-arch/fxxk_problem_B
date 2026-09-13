@@ -20,6 +20,50 @@ def steps(points):
             for k in range(1, len(points))]
 
 
+def inner_5x5():
+    """The 25-point ``|i|, |j| <= 2`` lattice -- **not** the prescribed ``P_4'``."""
+    return [(700.0 * i, 700.0 * j) for i in range(-2, 3) for j in range(-2, 3)]
+
+
+def exterior_points():
+    """The 28 points of ``P_4'`` lying outside the radius-1800 target region.
+
+    That is the 24-point outer ring (``|i| == 3`` or ``|j| == 3``) plus the four
+    diagonal points ``(+/-1400, +/-1400)``, whose norm ``1400*sqrt(2) = 1979.9`` also
+    exceeds 1800 m.  These are the "28 exterior points" of the WI-023 report.
+    """
+    lattice = [(700.0 * i, 700.0 * j) for i in range(-3, 4) for j in range(-3, 4)]
+    return [p for p in lattice if math.hypot(*p) > 1800.0]
+
+
+def outer_ring_points():
+    """The 24-point outer ring of ``P_4'`` (``|i| == 3`` or ``|j| == 3``)."""
+    return [(700.0 * i, 700.0 * j) for i in range(-3, 4) for j in range(-3, 4)
+            if abs(i) == 3 or abs(j) == 3]
+
+
+def _keyed(points):
+    return {(round(p[0], 9), round(p[1], 9)) for p in points}
+
+
+def assert_is_scan49_lattice(case, points):
+    """Discriminating validator for the prescribed Q4 lattice ``P_4'``.
+
+    Accepts only the complete 49-point ``{700(i, j) : i, j = -3..3}`` set: it rejects
+    the 25-point inner lattice, rejects any lattice whose cardinality differs, and
+    requires every one of the 28 exterior points to be present.  Used both positively
+    (the real generator passes) and negatively (a substitute must raise).
+    """
+    as_set = _keyed(points)
+    case.assertEqual(len(as_set), 49, "the lattice must have 49 distinct points")
+    case.assertEqual(as_set, _keyed([(700.0 * i, 700.0 * j)
+                                     for i in range(-3, 4) for j in range(-3, 4)]))
+    case.assertNotEqual(as_set, _keyed(inner_5x5()), "the 5x5 lattice must not pass as SCAN49")
+    for point in exterior_points():
+        case.assertIn((round(point[0], 9), round(point[1], 9)), as_set,
+                      f"exterior point {point} is missing from the lattice")
+
+
 class TestTagTable(unittest.TestCase):
     def test_four_tags_and_question_matrix(self):
         self.assertEqual(variants.TAGS, ("BASE", "CLEAR150", "SCAN49", "COMBINED"))
@@ -174,7 +218,15 @@ class TestScan49Geometry(unittest.TestCase):
         self.assertEqual(set(self.points), expected)
 
     def test_exterior_points_beyond_the_target_region_are_present(self):
-        """The prescribed lattice keeps the exterior ring: filtering would drop 28 points."""
+        """The prescribed lattice keeps every point outside the target region.
+
+        Two different counts must not be conflated: the **outer ring** of the 7x7 grid
+        has 24 points, while **28** points lie outside the radius-1800 region (the ring
+        plus the four diagonal ``(+/-1400, +/-1400)`` points at norm 1979.9 m).
+        """
+        assert_is_scan49_lattice(self, self.points)
+        self.assertEqual(len(outer_ring_points()), 24)
+        self.assertEqual(len(exterior_points()), 28)
         exterior = [p for p in self.points if math.hypot(*p) > 1800.0]
         self.assertEqual(len(exterior), 28)
         self.assertAlmostEqual(max(math.hypot(*p) for p in self.points), 2100.0 * math.sqrt(2.0), places=9)
@@ -182,31 +234,40 @@ class TestScan49Geometry(unittest.TestCase):
             self.assertIn(corner, self.points, corner)
         inside = [p for p in self.points if math.hypot(*p) <= 1800.0]
         self.assertEqual(len(inside), 21)
+        # the 5x5 substitute also lacks 24 of the 28 exterior points
+        self.assertEqual(len(exterior_points()), 28)
+        missing = [p for p in exterior_points() if p not in set(inner_5x5())]
+        self.assertEqual(len(missing), 24)
 
-    def test_the_exterior_ring_is_not_needed_for_in_disk_coverage(self):
-        """Measured: dropping it leaves no discovery hole inside the target region.
+    def test_inner_5x5_lattice_cannot_pass_as_scan49(self):
+        """Anti-masquerade guard (WI-027 / RT7-F2).
 
-        The 5x5 inner lattice still covers the radius-1800 disk with a > 400 m margin,
-        so keeping the exterior points is conformance to the prescribed ``P_4'``, not a
-        coverage requirement.  This is recorded so nobody "optimises" by filtering: the
-        grid is prescribed, and the filter test above is the guard.
+        The earlier version of this test computed the covering radius of the 5x5 inner
+        lattice and concluded it still covers the target disk.  That is true as a
+        coverage statement, but it read as an endorsement of a 25-point substitute for
+        the prescribed ``P_4'``.  It is replaced by a *discriminating* validator: the
+        real 49-point lattice is accepted, the 5x5 lattice is rejected.
         """
-        def worst_cover(points, step=25.0):
-            worst = 0.0
-            n = int(1800.0 / step)
-            for ix in range(-n, n + 1):
-                x = ix * step
-                for iy in range(-n, n + 1):
-                    y = iy * step
-                    if x * x + y * y > 1800.0 * 1800.0:
-                        continue
-                    d = min(math.hypot(x - p[0], y - p[1]) for p in points)
-                    worst = max(worst, d)
-            return worst
+        assert_is_scan49_lattice(self, variants.scan49_points())
+        with self.assertRaises(AssertionError):
+            assert_is_scan49_lattice(self, sorted(inner_5x5()))
 
-        inner = [(700.0 * i, 700.0 * j) for i in range(-2, 3) for j in range(-2, 3)]
-        self.assertLess(worst_cover(inner), 1000.0)
-        self.assertLess(worst_cover(self.points), 1000.0)
+    def test_every_one_of_the_28_exterior_points_is_required(self):
+        """Dropping any single exterior point must be detected (WI-027 requirement)."""
+        full = variants.scan49_points()
+        self.assertEqual(len(exterior_points()), 28)
+        for point in exterior_points():
+            reduced = [p for p in full if p != point]
+            with self.assertRaises(AssertionError, msg=f"missing {point} was not detected"):
+                assert_is_scan49_lattice(self, reduced)
+
+    def test_a_5x5_lattice_would_change_the_recorded_scan_counts(self):
+        """The plan's own counts reject a substituted 25-point lattice."""
+        plan = variants.plan_for("SCAN49")
+        self.assertEqual(plan.scan_point_count("Q4"), 49)
+        self.assertEqual(plan.measure_count("Q4"), 980)
+        self.assertEqual(25 * 20, 500)
+        self.assertNotEqual(25 * 20, plan.measure_count("Q4"))
 
     def test_scan_counts_are_980_measures_and_979_switches(self):
         plan = variants.plan_for("SCAN49")

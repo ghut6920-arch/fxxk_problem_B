@@ -1,5 +1,7 @@
 {
-  "worlds_sha256": "c4911cea0841983a39a0c57a991acaa77b5ae228dc47aa4b07cfd4fefb8c5d99",
+  "worlds_sha256": "f00b1718f64de2dae3bff38187805f6e75c2697cf4cad4d80362f588b0e573f6",
+  "worlds_sha256_note": "WI-027: SHA-256 of the committed blob 5390c53:evidence/experiments/EXP-005/worlds.json (26082 bytes, LF). The previously recorded c4911cea0841983a39a0c57a991acaa77b5ae228dc47aa4b07cfd4fefb8c5d99 is withdrawn: it was the CRLF-expanded working-tree copy (27723 bytes), which parses to identical JSON.",
+  "worlds_sha256_withdrawn": "c4911cea0841983a39a0c57a991acaa77b5ae228dc47aa4b07cfd4fefb8c5d99",
   "rows": [
     {
       "world": "Q3-dev-1",
